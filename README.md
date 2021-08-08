@@ -19,7 +19,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/davimedio01/unesp-bcc">
-    <img src="/logo.png" alt="Logo" >
+    <img src="/logo.pn" alt="Logo" >
   </a>
 
   <!--
