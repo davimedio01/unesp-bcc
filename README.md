@@ -7,9 +7,9 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- [![Contributors][contributors-shield]][contributors-url] -->
+<!-- [![Issues][issues-shield]][issues-url] -->
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -26,7 +26,7 @@
   <h3 align="center">project_title</h3>
   -->
 
-  <p align="center">A repository for solved exercises of Competitive Programming</p>
+  <p align="center">A repository for store exercises, works and other materials from the school subjects during my Bachelor of Computer Science course at UNESP Bauru</p>
 </p>
 
 
