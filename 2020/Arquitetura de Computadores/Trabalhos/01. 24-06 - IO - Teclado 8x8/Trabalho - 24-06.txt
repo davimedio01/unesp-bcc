@@ -1,0 +1,83 @@
+O trabalho dessa semana é:
+
+Suponha um latch de saída ligado no endereço FF00 e o outro de entrada ligado no endereço FF01, por memória isolada.
+Em cada latch existem 8 conexões que formam um teclado matricial 8 x 8, com 64 teclas
+
+O aluno deverá:
+1. Fazer o desenho desse circuito (pode ser à mão)
+2. Fazer um algoritmo em português que faça a varredura (leitura) do teclado e retorne o número da linha e o número da coluna que foram pressionados. É tudo em uma única rotina. Suponha que será pressionada uma única tecla.
+
+Na prática, quando o usuário pressiona mais de uma tecla o algoritmo deveria tomar uma decisão, como por exemplo, ignorar tudo. Mas neste trabalho vamos considerar que o usuário só vai pressionar uma por vez.
+
+3. O aluno também deverá explicar como poderia fazer para atribuir um valor fixo a tecla pressionada. Se ele quiser ele pode colocar isso no algoritmo ou então explicar na forma de texto.
+4. Tudo isso pode ser feito à mão em uma folha de papel comum, porém façam os desenhos e a letra de forma legível e Clara. Depois me envie um único arquivo com tudo junto dentro de um só arquivo tipo jpg um PDF. Esse arquivo deverá se chamar “Teclado X Y” onde X é o primeiro nome do aluno e Y é o último. No e-mail de entrega coloquem no subject a frase “Entrega - trabalho do teclado”.
+5. Vocês deverão me enviar esse trabalho no máximo até domingo dia 28/06, a qualquer horário.
+
+
+INICIOALGORITMO
+
+//Iniciando o Latch OUT em nível baixo (com isso, Latch IN estará em nível alto)
+PORT[FF00] = 00h;
+
+//Recuperando o valor do Latch de Entrada
+VALOR_IN = PORT[FF01];
+
+//Caso não seja pressionado nenhuma tecla, o VALOR_IN será de "255"
+//Ou seja, quando a tecla for pressionada, o seu valor será diferente disto.
+SE (VALOR_IN != 255)
+
+	//Definindo os contadores de linha e coluna
+	LINHA = 0;
+	COLUNA = 0;	
+
+	//Auxiliares para comparação
+	AUX_COMPARA = 01h;
+
+	//Resultado das Comparações	
+	RESUL_COLUNA, RESUL_LINHA;
+	
+	//COLUNA
+	//Realizando a comparação para obter a coluna
+	RESUL_COLUNA = VALOR_IN OR AUX_COMPARA;
+	
+	//Repetição para obter a coluna
+	ENQUANTO (RESUL_COLUNA != 255)
+		COLUNA = COLUNA + 1;
+		AUX_COMPARA = AUX_COMPARA SHL 1;
+		RESUL_COLUNA = VALOR_IN OR AUX_COMPARA;
+	FIMENQUANTO
+
+	//Após obter a coluna, necessário manipulação para obter a linha
+	//Recolocar o valor 01h na AUX_COMPARA	
+	AUX_COMPARA = 01h;
+
+	//Como as teclas são ativadas internamente por "chaves" (que se interligam no circuito quando pressionada),
+	//basta analisar qual a mudança ocorrida no Latch IN com "inserções" de alto nível no Latch OUT
+	
+	//LINHA
+	//Inserindo em sucessivas posições do Latch OUT
+	PORT[FF00] = AUX_COMPARA;
+	RESUL_LINHA = PORT[FF01];
+
+	ENQUANTO (RESUL_LINHA != 255)
+		LINHA = LINHA + 1;
+		AUX_COMPARA = AUX_COMPARA SHL 1;
+		PORT[FF00] = AUX_COMPARA;
+		RESUL_LINHA = PORT[FF01];
+	FIMENQUANTO
+
+//Com isso, LINHA e COLUNA marcaram a respectiva tecla pressionada
+FIMSE
+
+FIMALGORITMO
+
+Linha 2x3
+1011 -> IN  (0100)
+0010 -> OUT
+
+AUX = 01h;
+OUT = AUX;
+
+1010
+0001
+

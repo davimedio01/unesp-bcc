@@ -1,0 +1,5 @@
+A "Rotação Dupla à Esquerda", durante a inserção de valores numa árvore AVL, ocorrerá quando a altura da subárvore direita (Hd) for menor do que a altura da subárvore esquerda (He) de um determinado nó (u).
+
+Ou seja: quando Hd (u) < He (u), sendo "u" um filho à direita de um nó p (pai de "u"). Desta forma, ao inserir um elemento à esquerda de "u" (ficando a altura da subárvore de "u" menor que 0 e a altura da subárvore de "p" maior que 1), deve-se realizar a Rotação Dupla à Esquerda.
+
+*Exemplo anexado.

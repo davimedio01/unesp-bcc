@@ -1,0 +1,87 @@
+Leia atentamente as questões. Crie e poste um PDF com as resposta (poste como <seu nome-RA-P2.pdf>. IMPORTANTE: A prova é individual, desta forma, não consulte outros alunos, não copie questões, pois caso isso seja detectado, toda prova será zerada.
+
+"Ética é o conjunto de valores e princípios que usamos para responder a três grandes questões da vida: (1) quero?; (2) devo?; (3) posso? Nem tudo que eu quero eu posso; nem tudo que eu posso eu devo; e nem tudo que eu devo eu quero. Você tem paz de espírito quando aquilo que você quer é ao mesmo tempo o que você pode e o que você deve.". Mario Sérgio Cortella.
+
+RA: _________________
+NOME: ______________________________________________
+
+1. Considere o código fonte a seguir.  Considere que não é preciso codificar consistência dos dados, isto é, é garantido que as entradas a e b serão numéricas. Por que testes exaustivos de software são impraticáveis? 
+
+#include <iostream>
+
+using namespace std;
+
+int soma (int a, int b){
+
+return (a + b);
+
+}
+
+int main() {
+
+int a, b;
+
+cin >> a >> b; // Ler a e b
+
+cout << soma(a,b) << endl; // Imprimir a+b obs: endl = \n
+
+return 0;
+
+de código C, C++ ou Java. (2,0)
+
+
+2.  Dado o código-fonte abaixo. Monte o: a) gráfico de fluxo; b) calcule a complexidade ciclomática. (2,0)
+
+#include <iostream>
+
+#include <cmath>
+
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+
+    int t;
+
+    long long int n, soma;
+
+    cin >> t;
+
+    for (int k=1; k<=t; k++) {
+
+        cin >> n;
+
+        soma  = 0;
+
+        for (int i=1; i<n; i++) {
+
+           if ((n % i) == 0) { 
+
+              soma = soma + i;
+
+           }
+
+        }
+
+        if (soma == n) {
+
+           cout << n << " eh perfeito" << endl;
+
+        } else {
+
+           cout << n << " nao eh perfeito" << endl;
+
+        }
+
+    }
+
+    return 0;
+
+}
+
+3. Podemos afirmar que teste de software é uma atividade de V&V? Justifique sua resposta (2,0)
+
+4. Nas atividades de SCM (Gestão de configuração/modificação de software), explique as diferenças entre controle de alterações, controle de versão e auditoria de configuração (2,0)
+
+5. Explique as diferenças entre a Engenharia Reversa e o Design Recover? (2,0)

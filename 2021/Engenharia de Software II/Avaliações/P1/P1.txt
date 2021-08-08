@@ -1,0 +1,22 @@
+Leia atentamente as questões. Responda diretamente no Moodle (não envie arquivo PDF). IMPORTANTE: A prova é individual, desta forma, não consulte outros alunos, não copie questões, pois caso isso seja detectado, toda prova será zerada.
+
+"Ética é o conjunto de valores e princípios que usamos para responder a três grandes questões da vida: (1) quero?; (2) devo?; (3) posso? Nem tudo que eu quero eu posso; nem tudo que eu posso eu devo; e nem tudo que eu devo eu quero. Você tem paz de espírito quando aquilo que você quer é ao mesmo tempo o que você pode e o que você deve.". Mario Sérgio Cortella.
+
+RA: _________________
+NOME: ______________________________________________
+1) Software orientado a objeto e software tradicional são abordagens antagônicas no projeto de software? Justifique sua resposta. (1,5)
+
+
+2) No projeto de UI (User Interface) recomenda-se que sempre consideremos as três "regras de ouro". Você poderia apresentar duas situações de sistema baseado em computador onde há claramente trade-offs envolvidos, isto é, o projetista precisa tomar decisões que favoreçam um aspecto em detrimento de outro? Explique. (1,5)
+
+
+3) Explique por que, atualmente, no desenvolvimento de sistemas de software o projeto arquitetural é tão importante e necessário. Exemplifique. (1,5)
+
+
+4) Como podemos caracterizar as aplicações web e as aplicações mobile? Quais os pontos em comum e os pontos que as diferem? (1,5)
+
+
+5) Explique quais as principais dificuldades para o projeto de software em utilizar o projeto baseado em padrões. (1,5)
+
+
+6) Explique o que difere o projeto arquitetural do projeto de componentes. (1.0)

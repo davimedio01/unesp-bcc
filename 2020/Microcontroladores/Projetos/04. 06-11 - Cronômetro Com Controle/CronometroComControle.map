@@ -1,0 +1,138 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Sun Nov 08 11:19:39 2020
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000256
+.config_2007_CRONOMETROCOMCONTROLE.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00012e      
+                            0x002007    0x002007      
+            301 out of 4230 program addresses used, program memory utilization is 7%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+         ATUALIZA_DISPLAY   0x000031    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         CONFIG_COUNT_AUX   0x00011d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+            CONFIG_INTCON   0x0000f9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         CONFIG_OPTIONREG   0x0000f4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_PORTA   0x000108    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_PORTB   0x00010e    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+              CONFIG_TMR0   0x000116    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_TRISA   0x0000fe    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_TRISB   0x000103    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          CONGELA_DISPLAY   0x000036    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                  DELAY12   0x000011    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER0   0x0000a6    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER1   0x0000ac    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER2   0x0000b2    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER3   0x0000b8    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER4   0x0000be    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER5   0x0000c4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER6   0x0000ca    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER7   0x0000d0    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER8   0x0000d6    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER9   0x0000dc    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DISPLAY_DEZENA   0x00003a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          DISPLAY_UNIDADE   0x000070    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+     FIM_ATUALIZA_DISPLAY   0x000035    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+               FIM_CONFIG   0x000122    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+      FIM_CONGELA_DISPLAY   0x000039    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+              FIM_DELAY12   0x00001e    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+       FIM_DISPLAY_NUMBER   0x0000e2    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+      FIM_LOOP_SEPARA_DIG   0x00002c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           FIM_SEPARA_DIG   0x000030    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                   FIM_T0   0x000010    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         FIM_VERIFICA_RA1   0x0000e7    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         FIM_VERIFICA_RA2   0x0000eb    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+FIM_VERIFICA_RESETAR_COUNT   0x0000f3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                   INICIO   0x000123    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                     LOOP   0x00012b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          LOOP_SEPARA_DIG   0x000024    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+            RESETAR_COUNT   0x0000f1    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+               SEPARA_DIG   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER0   0x0000a9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER1   0x0000af    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER2   0x0000b5    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER3   0x0000bb    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER4   0x0000c1    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER5   0x0000c7    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER6   0x0000cd    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER7   0x0000d3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER8   0x0000d9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER9   0x0000df    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             VERIFICA_RA1   0x0000e3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             VERIFICA_RA2   0x0000e8    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+   VERIFICA_RESETAR_COUNT   0x0000ec    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   FIM_T0   0x000010    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                  DELAY12   0x000011    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+              FIM_DELAY12   0x00001e    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+               SEPARA_DIG   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          LOOP_SEPARA_DIG   0x000024    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+      FIM_LOOP_SEPARA_DIG   0x00002c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           FIM_SEPARA_DIG   0x000030    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         ATUALIZA_DISPLAY   0x000031    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+     FIM_ATUALIZA_DISPLAY   0x000035    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          CONGELA_DISPLAY   0x000036    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+      FIM_CONGELA_DISPLAY   0x000039    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DISPLAY_DEZENA   0x00003a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          DISPLAY_UNIDADE   0x000070    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER0   0x0000a6    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER0   0x0000a9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER1   0x0000ac    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER1   0x0000af    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER2   0x0000b2    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER2   0x0000b5    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER3   0x0000b8    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER3   0x0000bb    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER4   0x0000be    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER4   0x0000c1    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER5   0x0000c4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER5   0x0000c7    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER6   0x0000ca    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER6   0x0000cd    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER7   0x0000d0    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER7   0x0000d3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER8   0x0000d6    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER8   0x0000d9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+           DEZENA_NUMBER9   0x0000dc    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+          UNIDADE_NUMBER9   0x0000df    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+       FIM_DISPLAY_NUMBER   0x0000e2    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             VERIFICA_RA1   0x0000e3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         FIM_VERIFICA_RA1   0x0000e7    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             VERIFICA_RA2   0x0000e8    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         FIM_VERIFICA_RA2   0x0000eb    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+   VERIFICA_RESETAR_COUNT   0x0000ec    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+            RESETAR_COUNT   0x0000f1    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+FIM_VERIFICA_RESETAR_COUNT   0x0000f3    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         CONFIG_OPTIONREG   0x0000f4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+            CONFIG_INTCON   0x0000f9    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_TRISA   0x0000fe    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_TRISB   0x000103    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_PORTA   0x000108    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+             CONFIG_PORTB   0x00010e    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+              CONFIG_TMR0   0x000116    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+         CONFIG_COUNT_AUX   0x00011d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+               FIM_CONFIG   0x000122    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                   INICIO   0x000123    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+                     LOOP   0x00012b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\04. 06-11 - Cronômetro Com Controle\CronometroComControle.asm
+
+

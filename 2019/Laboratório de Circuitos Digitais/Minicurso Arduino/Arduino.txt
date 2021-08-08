@@ -1,0 +1,8 @@
+pinMode() configura pino de entrada ou saída: pinMode(pino, modo)
+    -- pino: numero
+    -- modo: INPUT / OUTPUT
+  
+delay(time): time in ms
+digitalRead(pino): retorna HIGH ou LOW
+digitalWrite(pino, valor): seta HIGH ou LOW no pino
+analogWrite(pino, valor): portas pwm, valor de 0 a 255

@@ -1,0 +1,81 @@
+CREATE TABLE CLIENTE(ID INTEGER NOT NULL PRIMARY KEY,NOME VARCHAR NOT NULL,RG CHAR NOT NULL,TELEFONE CHAR,ENDERECO VARCHAR NOT NULL)
+CREATE TABLE FORNECEDOR(ID INTEGER NOT NULL PRIMARY KEY,NOME VARCHAR NOT NULL,CNPJ CHAR NOT NULL,TELEFONE CHAR,ENDERECO VARCHAR NOT NULL)
+CREATE TABLE INSTRUMENTO(ID INTEGER NOT NULL PRIMARY KEY,NOME VARCHAR NOT NULL,MARCA VARCHAR NOT NULL,TIPO VARCHAR NOT NULL,PRECO_UNIDADE FLOAT NOT NULL)
+CREATE TABLE VENDA(ID INTEGER NOT NULL PRIMARY KEY,ID_CLIENTE INTEGER NOT NULL,ID_INSTRUMENTO INTEGER NOT NULL,QUANTIDADE INTEGER NOT NULL,PRECO_TOTAL FLOAT NOT NULL)
+CREATE USER SA PASSWORD "" ADMIN
+CREATE ALIAS DAYNAME FOR "org.hsql.Library.dayname"
+CREATE ALIAS SPACE FOR "org.hsql.Library.space"
+CREATE ALIAS SUBSTRING FOR "org.hsql.Library.substring"
+CREATE ALIAS SQRT FOR "java.lang.Math.sqrt"
+CREATE ALIAS ABS FOR "java.lang.Math.abs"
+CREATE ALIAS POWER FOR "java.lang.Math.pow"
+CREATE ALIAS CHAR FOR "org.hsql.Library.character"
+CREATE ALIAS CONCAT FOR "org.hsql.Library.concat"
+CREATE ALIAS PI FOR "org.hsql.Library.pi"
+CREATE ALIAS SECOND FOR "org.hsql.Library.second"
+CREATE ALIAS TRUNCATE FOR "org.hsql.Library.truncate"
+CREATE ALIAS MONTH FOR "org.hsql.Library.month"
+CREATE ALIAS LOWER FOR "org.hsql.Library.lcase"
+CREATE ALIAS ATAN2 FOR "java.lang.Math.atan2"
+CREATE ALIAS REPEAT FOR "org.hsql.Library.repeat"
+CREATE ALIAS DAYOFMONTH FOR "org.hsql.Library.dayofmonth"
+CREATE ALIAS TAN FOR "java.lang.Math.tan"
+CREATE ALIAS RADIANS FOR "java.lang.Math.toRadians"
+CREATE ALIAS FLOOR FOR "java.lang.Math.floor"
+CREATE ALIAS NOW FOR "org.hsql.Library.now"
+CREATE ALIAS ACOS FOR "java.lang.Math.acos"
+CREATE ALIAS DAYOFWEEK FOR "org.hsql.Library.dayofweek"
+CREATE ALIAS CEILING FOR "java.lang.Math.ceil"
+CREATE ALIAS DAYOFYEAR FOR "org.hsql.Library.dayofyear"
+CREATE ALIAS LCASE FOR "org.hsql.Library.lcase"
+CREATE ALIAS WEEK FOR "org.hsql.Library.week"
+CREATE ALIAS SOUNDEX FOR "org.hsql.Library.soundex"
+CREATE ALIAS ASIN FOR "java.lang.Math.asin"
+CREATE ALIAS LOCATE FOR "org.hsql.Library.locate"
+CREATE ALIAS EXP FOR "java.lang.Math.exp"
+CREATE ALIAS MONTHNAME FOR "org.hsql.Library.monthname"
+CREATE ALIAS YEAR FOR "org.hsql.Library.year"
+CREATE ALIAS LEFT FOR "org.hsql.Library.left"
+CREATE ALIAS ROUNDMAGIC FOR "org.hsql.Library.roundMagic"
+CREATE ALIAS BITOR FOR "org.hsql.Library.bitor"
+CREATE ALIAS LTRIM FOR "org.hsql.Library.ltrim"
+CREATE ALIAS COT FOR "org.hsql.Library.cot"
+CREATE ALIAS COS FOR "java.lang.Math.cos"
+CREATE ALIAS MOD FOR "org.hsql.Library.mod"
+CREATE ALIAS SIGN FOR "org.hsql.Library.sign"
+CREATE ALIAS DEGREES FOR "java.lang.Math.toDegrees"
+CREATE ALIAS LOG FOR "java.lang.Math.log"
+CREATE ALIAS SIN FOR "java.lang.Math.sin"
+CREATE ALIAS CURTIME FOR "org.hsql.Library.curtime"
+CREATE ALIAS DIFFERENCE FOR "org.hsql.Library.difference"
+CREATE ALIAS INSERT FOR "org.hsql.Library.insert"
+CREATE ALIAS DATABASE FOR "org.hsql.Library.database"
+CREATE ALIAS MINUTE FOR "org.hsql.Library.minute"
+CREATE ALIAS HOUR FOR "org.hsql.Library.hour"
+CREATE ALIAS IDENTITY FOR "org.hsql.Library.identity"
+CREATE ALIAS QUARTER FOR "org.hsql.Library.quarter"
+CREATE ALIAS CURDATE FOR "org.hsql.Library.curdate"
+CREATE ALIAS BITAND FOR "org.hsql.Library.bitand"
+CREATE ALIAS USER FOR "org.hsql.Library.user"
+CREATE ALIAS UCASE FOR "org.hsql.Library.ucase"
+CREATE ALIAS RTRIM FOR "org.hsql.Library.rtrim"
+CREATE ALIAS LOG10 FOR "org.hsql.Library.log10"
+CREATE ALIAS RIGHT FOR "org.hsql.Library.right"
+CREATE ALIAS ATAN FOR "java.lang.Math.atan"
+CREATE ALIAS UPPER FOR "org.hsql.Library.ucase"
+CREATE ALIAS ASCII FOR "org.hsql.Library.ascii"
+CREATE ALIAS RAND FOR "java.lang.Math.random"
+CREATE ALIAS LENGTH FOR "org.hsql.Library.length"
+CREATE ALIAS ROUND FOR "org.hsql.Library.round"
+CREATE ALIAS REPLACE FOR "org.hsql.Library.replace"
+INSERT INTO CLIENTE VALUES(1,'Davi Augusto Neves Leite','376310625','11958682744','Av. Na\u00e7\u00f5es Unidas, 53-53, N\u00facleo Resid. Pres. Geisel - Bauru - SP')
+INSERT INTO CLIENTE VALUES(2,'Luish Morelli','111111111','14000000000','Rua Lindo da Silva, 01, Bairro Gen\u00e9rico - Bauru - SP')
+INSERT INTO CLIENTE VALUES(3,'Giovani Corno','696969696','14111111111','Rua Corno da Silva, 01, Bairro Gen\u00e9rico - Bauru - SP')
+INSERT INTO CLIENTE VALUES(4,'Luiz Semente','999999999','2022222222','Rua Corninho da Penha, 90, Bairro Gen\u00e9rico - Bauru - SP')
+INSERT INTO INSTRUMENTO VALUES(1,'Guitarra - 2 HB e 1 Single','Tagima','Corda',1299.99)
+INSERT INTO INSTRUMENTO VALUES(2,'Contrabaixo - 5 Cordas - 2 HB - Precision','Fender','Corda',6999.99)
+INSERT INTO VENDA VALUES(1,1,2,1,6999.99)
+INSERT INTO VENDA VALUES(2,2,1,3,3899.97)
+/*C1*/CONNECT USER sa PASSWORD ""
+INSERT INTO VENDA VALUES(3,4,1,5,6499.95)
+DISCONNECT

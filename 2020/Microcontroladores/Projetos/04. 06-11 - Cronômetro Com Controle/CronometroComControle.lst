@@ -1,0 +1,1006 @@
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;*************************************************************
+                      00002 ; Cronômetro Com Controle                                                                        *
+                      00003 ;                                                                                                       
+                                             *
+                      00004 ; Autor: Davi Augusto Neves Leite                                                *                      
+                             
+                      00005 ; RA: 191027383                                                                              *          
+                                                     
+                      00006 ; Data: 08/11/2020                                                                               *      
+                                                             
+                      00007 ;*************************************************************
+                      00008 
+                      00009 #include <p16f628a.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F628A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00385         LIST
+                      00010 ;-------------------------------------------------------------
+                      00011 ; Configuração dos Bits
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3F61           00012 __CONFIG _BODEN_ON & _CP_OFF & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _MCLRE_ON & _XT_OSC
+                      00013 ;-------------------------------------------------------------
+                      00014 ;Configuração do endereços para serem os contadores de dígitos do display
+                      00015                 CBLOCK 0x20
+  00000020            00016                            COUNT_DISPLAY        ;Endereço 0x20 para ser contador total do display
+  00000021            00017                            DIG_DEZENA           ;Endereço 0x21 para ser dígito da dezena
+  00000022            00018                            DIG_UNIDADE          ;Endereço 0x22 para ser dígito da unidade
+  00000023            00019                            AUX                          ;Endereço 0x23 para ser uma auxiliar na separaçã
+                            o de dígitos do contador total
+  00000024            00020                            AUX2                         ;Endereço 0x24 para ser uma auxiliar2 na separaç
+                            ão de dígitos od contador total
+                      00021                 ENDC
+                      00022 ;-------------------------------------------------------------
+                      00023 ;Configuração do endereço 0x25 para ser uma auxiliar do Timer
+Warning[207]: Found label after column 1. (NUMBER_OF_TIMER)
+  00000025            00024                         NUMBER_OF_TIMER         EQU     0x25
+                      00025 ;-------------------------------------------------------------
+                      00026 ;-------------------------------------------------------------
+0000                  00027                         ORG 0x0000
+0000   2923           00028                         GOTO INICIO        ;Vai para o bloco INICIO (main)
+                      00029 ;-------------------------------------------------------------
+                      00030 ;-------------------------------------------------------------
+                      00031 ;Bloco da Rotina de Interrupção do TMR0
+0004                  00032                         ORG 0x0004
+                      00033                         
+                      00034                         ;Nesta primeira etapa, reseta a flag do TMR0 e compara o valor do TMR0 com uma a
+                            uxiliar que conta quantas vezes o PIC acionou a interrupção
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0004   1283 1303      00035                         BANKSEL INTCON
+0006   110B           00036                         BCF INTCON, T0IF
+                      00037                         
+0007   1283 1303      00038                         BANKSEL TMR0
+0009   3083           00039                         MOVLW D'131'
+000A   0081           00040                         MOVWF TMR0
+000B   0BA5           00041                         DECFSZ NUMBER_OF_TIMER, 1       ;Subtrai o valor de F (TMR0) da auxiliar que con
+                            ta quantas vezes o PIC acionou a interrupção (esperar até 1s)
+000C   2810           00042                         GOTO FIM_T0                                     ;Retorna para o início
+                      00043                         
+000D   0AA0           00044                         INCF COUNT_DISPLAY, 1           ;Aumenta o contador total do display em 1 -> COU
+                            NT_DISPLAY = COUNT_DISPLAY + 1  
+                      00045         
+                      00046                         ;Reinicia a variável auxiliar que conta quantas vezes o PIC acionou a interrupçã
+                            o
+000E   307D           00047                         MOVLW D'125'
+000F   00A5           00048                         MOVWF NUMBER_OF_TIMER
+                      00049 
+0010   0009           00050 FIM_T0: RETFIE
+                      00051 ;-------------------------------------------------------------
+                      00052 ;-------------------------------------------------------------
+                      00053 ;Rotina para utilizar como Delay de 12ms
+0011                  00054 DELAY12:
+0011   0000           00055                         NOP
+0012   0000           00056                         NOP
+0013   0000           00057                         NOP
+0014   0000           00058                         NOP
+0015   0000           00059                         NOP
+0016   0000           00060                         NOP
+0017   0000           00061                         NOP
+0018   0000           00062                         NOP
+0019   0000           00063                         NOP
+001A   0000           00064                         NOP
+001B   0000           00065                         NOP
+001C   0000           00066                         NOP
+001D   281E           00067                         GOTO FIM_DELAY12
+                      00068 
+001E   0008           00069 FIM_DELAY12: RETURN
+                      00070 ;-------------------------------------------------------------
+                      00071 ;-------------------------------------------------------------
+                      00072 ;Rotina que separa os dígitos da dezena e unidade do contador total do display
+001F                  00073 SEPARA_DIG:
+                      00074                         ;Realização de um loop de 10 voltas
+001F   300A           00075                         MOVLW D'10'                             ;Move o valor 10 para o registrador W
+0020   00A3           00076                         MOVWF AUX                               ;Move o valor de W para AUX
+0021   0820           00077                         MOVF COUNT_DISPLAY, 0   ;Move o valor do contador total do display para o regist
+                            rador W
+0022   00A4           00078                         MOVWF AUX2                              ;Move o valor de W para a AUX2
+0023   01A1           00079                         CLRF DIG_DEZENA                 ;Limpa o contador de dígitos da dezena
+0024                  00080 LOOP_SEPARA_DIG:
+0024   300A           00081                         MOVLW D'10'                             ;Move o valor 10 para o registrador W
+0025   02A4           00082                         SUBWF AUX2, 1                   ;Subtrai 10 de AUX2 e armazena o resultado em AU
+                            X2                              
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00083                         
+0026   1C03           00084                         BTFSS STATUS, C                 ;Verifica se a operação de subtração resultou em
+                             negativo
+0027   282C           00085                         GOTO FIM_LOOP_SEPARA_DIG;Caso tenha sido, vai para o fim do looping
+                      00086                         ;Dígito da Dezena
+0028   0AA1           00087                         INCF DIG_DEZENA, 1              ;Caso não tenha sido, aumenta a dezena em uma un
+                            idade
+                      00088                         
+0029   0BA3           00089                         DECFSZ AUX, 1                   ;Decrementa AUX em uma unidade e verifica se é z
+                            ero
+002A   2824           00090                         GOTO LOOP_SEPARA_DIG    ;Caso não seja 0, volta para o looping
+002B   282C           00091                         GOTO FIM_LOOP_SEPARA_DIG;Fim do looping
+                      00092                         
+002C                  00093 FIM_LOOP_SEPARA_DIG:
+002C   0824           00094                         MOVF AUX2, 0                    ;Move o valor de AUX2 para W
+002D   3E0A           00095                         ADDLW D'10'                     ;Adiciona 10 para o valor em W
+                      00096                         ;Dígito da Unidade
+002E   00A2           00097                         MOVWF DIG_UNIDADE
+002F   2830           00098                         GOTO FIM_SEPARA_DIG
+                      00099                         
+0030   0008           00100 FIM_SEPARA_DIG: RETURN
+                      00101 ;-------------------------------------------------------------
+                      00102 ;-------------------------------------------------------------
+                      00103 ;Rotina para atualizar os dígitos da dezena e unidade do display com base no contador total
+0031                  00104 ATUALIZA_DISPLAY:
+0031   201F           00105                         CALL SEPARA_DIG                 ;Chama a sub-rotina de separar os dígitos da dez
+                            ena e unidade do contador total
+0032   203A           00106                         CALL DISPLAY_DEZENA             ;Chama a sub-rotina de atualizar o dígito da dez
+                            ena do display
+0033   2070           00107                         CALL DISPLAY_UNIDADE    ;Chama a sub-rotina de atualizar o dígito da unidade do 
+                            display
+0034   2835           00108                         GOTO FIM_ATUALIZA_DISPLAY
+                      00109                         
+0035   0008           00110 FIM_ATUALIZA_DISPLAY: RETURN
+                      00111 ;-------------------------------------------------------------
+                      00112 ;-------------------------------------------------------------
+                      00113 ;Rotina para congelar os dígitos da dezena e unidade do display com base no contador total
+0036                  00114 CONGELA_DISPLAY:
+0036   203A           00115                         CALL DISPLAY_DEZENA             ;Chama a sub-rotina de atualizar o dígito da dez
+                            ena do display
+0037   2070           00116                         CALL DISPLAY_UNIDADE    ;Chama a sub-rotina de atualizar o dígito da unidade do 
+                            display
+0038   2839           00117                         GOTO FIM_CONGELA_DISPLAY
+0039   0008           00118 FIM_CONGELA_DISPLAY: RETURN
+                      00119 ;-------------------------------------------------------------
+                      00120 ;-------------------------------------------------------------
+                      00121 ;Rotina para mudar o contador e mostrar o respectivo número na dezena do display
+003A                  00122 DISPLAY_DEZENA: 
+003A   2011           00123                         CALL DELAY12                    ;Chama a sub-rotina de delay de 12ms
+                      00124                         ;-------------------------------------------------------------
+                      00125                         ;Deixa selecionado o banco do PORTB para alteração dos números no display (RBx)
+003B   1283 1303      00126                         BANKSEL PORTB
+                      00127                         ;-------------------------------------------------
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00128                         ; Abaixo, realiza-se uma subtração e verifica se o resultado obtido foi 0 (a par
+                            tir da flag Z)
+                      00129                         ;-------------------------------------------------
+                      00130                         ; Número 0
+003D   0821           00131                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+003E   3C00           00132                         SUBLW D'0'                        ;Decresce em 0 unidade(s)
+003F   1903           00133                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0040   28A6           00134                         GOTO DEZENA_NUMBER0   ;Caso tenha sido, coloca o número 0 no display
+0041   0000           00135                         NOP
+                      00136                         ;-------------------------------------------------
+                      00137                         ; Número 1
+0042   0821           00138                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0043   3C01           00139                         SUBLW D'1'                        ;Decresce em 1 unidade(s)
+0044   1903           00140                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0045   28AC           00141                         GOTO DEZENA_NUMBER1   ;Caso tenha sido, coloca o número 1 no display
+0046   0000           00142                         NOP
+                      00143                         ;-------------------------------------------------
+                      00144                         ; Número 2
+0047   0821           00145                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0048   3C02           00146                         SUBLW D'2'                        ;Decresce em 2 unidade(s)
+0049   1903           00147                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+004A   28B2           00148                         GOTO DEZENA_NUMBER2   ;Caso tenha sido, coloca o número 2 no display
+004B   0000           00149                         NOP
+                      00150                         ;-------------------------------------------------
+                      00151                         ; Número 3
+004C   0821           00152                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+004D   3C03           00153                         SUBLW D'3'                        ;Decresce em 3 unidade(s)
+004E   1903           00154                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+004F   28B8           00155                         GOTO DEZENA_NUMBER3   ;Caso tenha sido, coloca o número 3 no display
+0050   0000           00156                         NOP
+                      00157                         ;-------------------------------------------------
+                      00158                         ; Número 4
+0051   0821           00159                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0052   3C04           00160                         SUBLW D'4'                        ;Decresce em 4 unidade(s)
+0053   1903           00161                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0054   28BE           00162                         GOTO DEZENA_NUMBER4   ;Caso tenha sido, coloca o número 4 no display
+0055   0000           00163                         NOP
+                      00164                         ;-------------------------------------------------
+                      00165                         ; Número 5
+0056   0821           00166                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0057   3C05           00167                         SUBLW D'5'                        ;Decresce em 5 unidade(s)
+0058   1903           00168                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0059   28C4           00169                         GOTO DEZENA_NUMBER5   ;Caso tenha sido, coloca o número 5 no display
+005A   0000           00170                         NOP
+                      00171                         ;-------------------------------------------------
+                      00172                         ; Número 6
+005B   0821           00173                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+005C   3C06           00174                         SUBLW D'6'                        ;Decresce em 6 unidade(s)
+005D   1903           00175                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+005E   28CA           00176                         GOTO DEZENA_NUMBER6   ;Caso tenha sido, coloca o número 6 no display
+005F   0000           00177                         NOP
+                      00178                         ;-------------------------------------------------
+                      00179                         ; Número 7
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0060   0821           00180                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0061   3C07           00181                         SUBLW D'7'                        ;Decresce em 7 unidade(s)
+0062   1903           00182                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0063   28D0           00183                         GOTO DEZENA_NUMBER7   ;Caso tenha sido, coloca o número 7 no display
+0064   0000           00184                         NOP
+                      00185                         ;-------------------------------------------------
+                      00186                         ; Número 8
+0065   0821           00187                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+0066   3C08           00188                         SUBLW D'8'                        ;Decresce em 8 unidade(s)
+0067   1903           00189                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0068   28D6           00190                         GOTO DEZENA_NUMBER8   ;Caso tenha sido, coloca o número 8 no display
+0069   0000           00191                         NOP
+                      00192                         ;-------------------------------------------------
+                      00193                         ; Número 9
+006A   0821           00194                         MOVF DIG_DEZENA, W    ;Move o valor do contador de dezenas pro registrador W
+006B   3C09           00195                         SUBLW D'9'                        ;Decresce em 9 unidade(s)
+006C   1903           00196                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+006D   28DC           00197                         GOTO DEZENA_NUMBER9   ;Caso tenha sido, coloca o número 9 no display
+006E   0000           00198                         NOP
+                      00199                         
+006F   28E2           00200                         GOTO FIM_DISPLAY_NUMBER
+                      00201 ;-------------------------------------------------------------
+                      00202 ;Rotina para mudar o contador e mostrar o respectivo número na unidade do display
+0070                  00203 DISPLAY_UNIDADE:        
+0070   2011           00204                         CALL DELAY12                    ;Chama a sub-rotina de delay de 12ms
+                      00205                         ;-------------------------------------------------------------
+                      00206                         ;Deixa selecionado o banco do PORTB para alteração dos números no display (RBx)
+0071   1283 1303      00207                         BANKSEL PORTB
+                      00208                         ;-------------------------------------------------
+                      00209                         ; Abaixo, realiza-se uma subtração e verifica se o resultado obtido foi 0 (a par
+                            tir da flag Z)
+                      00210                         ;-------------------------------------------------
+                      00211                         ; Número 0
+0073   0822           00212                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0074   3C00           00213                         SUBLW D'0'                        ;Decresce em 0 unidade(s)
+0075   1903           00214                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0076   28A9           00215                         GOTO UNIDADE_NUMBER0  ;Caso tenha sido, coloca o número 0 no display
+0077   0000           00216                         NOP
+                      00217                         ;-------------------------------------------------
+                      00218                         ; Número 1
+0078   0822           00219                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0079   3C01           00220                         SUBLW D'1'                        ;Decresce em 1 unidade(s)
+007A   1903           00221                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+007B   28AF           00222                         GOTO UNIDADE_NUMBER1  ;Caso tenha sido, coloca o número 1 no display
+007C   0000           00223                         NOP
+                      00224                         ;-------------------------------------------------
+                      00225                         ; Número 2
+007D   0822           00226                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+007E   3C02           00227                         SUBLW D'2'                        ;Decresce em 2 unidade(s)
+007F   1903           00228                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0080   28B5           00229                         GOTO UNIDADE_NUMBER2  ;Caso tenha sido, coloca o número 2 no display
+0081   0000           00230                         NOP
+                      00231                         ;-------------------------------------------------
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00232                         ; Número 3
+0082   0822           00233                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0083   3C03           00234                         SUBLW D'3'                        ;Decresce em 3 unidade(s)
+0084   1903           00235                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0085   28BB           00236                         GOTO UNIDADE_NUMBER3  ;Caso tenha sido, coloca o número 3 no display
+0086   0000           00237                         NOP
+                      00238                         ;-------------------------------------------------
+                      00239                         ; Número 4
+0087   0822           00240                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0088   3C04           00241                         SUBLW D'4'                        ;Decresce em 4 unidade(s)
+0089   1903           00242                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+008A   28C1           00243                         GOTO UNIDADE_NUMBER4  ;Caso tenha sido, coloca o número 4 no display
+008B   0000           00244                         NOP
+                      00245                         ;-------------------------------------------------
+                      00246                         ; Número 5
+008C   0822           00247                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+008D   3C05           00248                         SUBLW D'5'                        ;Decresce em 5 unidade(s)
+008E   1903           00249                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+008F   28C7           00250                         GOTO UNIDADE_NUMBER5  ;Caso tenha sido, coloca o número 5 no display
+0090   0000           00251                         NOP
+                      00252                         ;-------------------------------------------------
+                      00253                         ; Número 6
+0091   0822           00254                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0092   3C06           00255                         SUBLW D'6'                        ;Decresce em 6 unidade(s)
+0093   1903           00256                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0094   28CD           00257                         GOTO UNIDADE_NUMBER6  ;Caso tenha sido, coloca o número 6 no display
+0095   0000           00258                         NOP
+                      00259                         ;-------------------------------------------------
+                      00260                         ; Número 7
+0096   0822           00261                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+0097   3C07           00262                         SUBLW D'7'                        ;Decresce em 7 unidade(s)
+0098   1903           00263                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0099   28D3           00264                         GOTO UNIDADE_NUMBER7  ;Caso tenha sido, coloca o número 7 no display
+009A   0000           00265                         NOP
+                      00266                         ;-------------------------------------------------
+                      00267                         ; Número 8
+009B   0822           00268                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+009C   3C08           00269                         SUBLW D'8'                        ;Decresce em 8 unidade(s)
+009D   1903           00270                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+009E   28D9           00271                         GOTO UNIDADE_NUMBER8  ;Caso tenha sido, coloca o número 8 no display
+009F   0000           00272                         NOP
+                      00273                         ;-------------------------------------------------
+                      00274                         ; Número 9
+00A0   0822           00275                         MOVF DIG_UNIDADE, W   ;Move o valor do contador de unidades pro registrador W
+00A1   3C09           00276                         SUBLW D'9'                        ;Decresce em 9 unidade(s)
+00A2   1903           00277                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+00A3   28DF           00278                         GOTO UNIDADE_NUMBER9  ;Caso tenha sido, coloca o número 9 no display
+00A4   0000           00279                         NOP
+                      00280                         
+00A5   28E2           00281                         GOTO FIM_DISPLAY_NUMBER
+                      00282 ;-------------------------------------------------------------
+                      00283 ;-------------------------------------------------------------
+                      00284 ; Abaixo, ficam as funções para ativar cada número do display de 7 segmentos (config. RBx)
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00285 ;-------------------------------------------------------------
+                      00286 ; Número 0 -> Dezena
+00A6                  00287 DEZENA_NUMBER0:
+00A6   30EE           00288                          MOVLW B'11101110'
+00A7   0086           00289                          MOVWF PORTB
+00A8   28E2           00290                          GOTO FIM_DISPLAY_NUMBER
+                      00291 ;-------------------------------------------------------------
+                      00292 ; Número 0 -> Unidade
+00A9                  00293 UNIDADE_NUMBER0:
+00A9   30FE           00294                          MOVLW B'11111110'
+00AA   0086           00295                          MOVWF PORTB
+00AB   28E2           00296                          GOTO FIM_DISPLAY_NUMBER
+                      00297 ;-------------------------------------------------------------
+                      00298 ;-------------------------------------------------------------
+                      00299 ; Número 1 -> Dezena
+00AC                  00300 DEZENA_NUMBER1:
+00AC   3028           00301                          MOVLW B'00101000'
+00AD   0086           00302                          MOVWF PORTB
+00AE   28E2           00303                          GOTO FIM_DISPLAY_NUMBER
+                      00304 ;-------------------------------------------------------------
+                      00305 ; Número 1 -> Unidade
+00AF                  00306 UNIDADE_NUMBER1:
+00AF   3038           00307                          MOVLW B'00111000'
+00B0   0086           00308                          MOVWF PORTB
+00B1   28E2           00309                          GOTO FIM_DISPLAY_NUMBER
+                      00310 ;-------------------------------------------------------------
+                      00311 ;-------------------------------------------------------------
+                      00312 ; Número 2 -> Dezena
+00B2                  00313 DEZENA_NUMBER2:
+00B2   30CD           00314                          MOVLW B'11001101'
+00B3   0086           00315                          MOVWF PORTB
+00B4   28E2           00316                          GOTO FIM_DISPLAY_NUMBER
+                      00317 ;-------------------------------------------------------------
+                      00318 ; Número 2 -> Unidade
+00B5                  00319 UNIDADE_NUMBER2:
+00B5   30DD           00320                          MOVLW B'11011101'
+00B6   0086           00321                          MOVWF PORTB
+00B7   28E2           00322                          GOTO FIM_DISPLAY_NUMBER
+                      00323 ;-------------------------------------------------------------
+                      00324 ;-------------------------------------------------------------
+                      00325 ; Número 3 -> Dezena
+00B8                  00326 DEZENA_NUMBER3:
+00B8   306D           00327                          MOVLW B'01101101'
+00B9   0086           00328                          MOVWF PORTB
+00BA   28E2           00329                          GOTO FIM_DISPLAY_NUMBER
+                      00330 ;-------------------------------------------------------------
+                      00331 ; Número 3 -> Unidade
+00BB                  00332 UNIDADE_NUMBER3:
+00BB   307D           00333                          MOVLW B'01111101'
+00BC   0086           00334                          MOVWF PORTB
+00BD   28E2           00335                          GOTO FIM_DISPLAY_NUMBER
+                      00336 ;-------------------------------------------------------------
+                      00337 ;-------------------------------------------------------------
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00338 ; Número 4 -> Dezena
+00BE                  00339 DEZENA_NUMBER4:
+00BE   302B           00340                          MOVLW B'00101011'
+00BF   0086           00341                          MOVWF PORTB
+00C0   28E2           00342                          GOTO FIM_DISPLAY_NUMBER
+                      00343 ;-------------------------------------------------------------
+                      00344 ; Número 4 -> Unidade
+00C1                  00345 UNIDADE_NUMBER4:
+00C1   303B           00346                          MOVLW B'00111011'
+00C2   0086           00347                          MOVWF PORTB
+00C3   28E2           00348                          GOTO FIM_DISPLAY_NUMBER
+                      00349 ;-------------------------------------------------------------
+                      00350 ;-------------------------------------------------------------
+                      00351 ; Número 5 -> Dezena
+00C4                  00352 DEZENA_NUMBER5:
+00C4   3067           00353                          MOVLW B'01100111'
+00C5   0086           00354                          MOVWF PORTB
+00C6   28E2           00355                          GOTO FIM_DISPLAY_NUMBER
+                      00356 ;-------------------------------------------------------------
+                      00357 ; Número 5 -> Unidade
+00C7                  00358 UNIDADE_NUMBER5:
+00C7   3077           00359                          MOVLW B'01110111'
+00C8   0086           00360                          MOVWF PORTB
+00C9   28E2           00361                          GOTO FIM_DISPLAY_NUMBER
+                      00362 ;-------------------------------------------------------------
+                      00363 ;-------------------------------------------------------------
+                      00364 ; Número 6 -> Dezena
+00CA                  00365 DEZENA_NUMBER6:
+00CA   30E3           00366                          MOVLW B'11100011'
+00CB   0086           00367                          MOVWF PORTB
+00CC   28E2           00368                          GOTO FIM_DISPLAY_NUMBER
+                      00369 ;-------------------------------------------------------------
+                      00370 ; Número 6 -> Unidade
+00CD                  00371 UNIDADE_NUMBER6:
+00CD   30F3           00372                          MOVLW B'11110011'
+00CE   0086           00373                          MOVWF PORTB
+00CF   28E2           00374                          GOTO FIM_DISPLAY_NUMBER
+                      00375 ;-------------------------------------------------------------
+                      00376 ;-------------------------------------------------------------
+                      00377 ; Número 7 -> Dezena
+00D0                  00378 DEZENA_NUMBER7:
+00D0   302C           00379                          MOVLW B'00101100'
+00D1   0086           00380                          MOVWF PORTB
+00D2   28E2           00381                          GOTO FIM_DISPLAY_NUMBER
+                      00382 ;-------------------------------------------------------------
+                      00383 ; Número 7 -> Unidade
+00D3                  00384 UNIDADE_NUMBER7:
+00D3   303C           00385                          MOVLW B'00111100'
+00D4   0086           00386                          MOVWF PORTB
+00D5   28E2           00387                          GOTO FIM_DISPLAY_NUMBER
+                      00388 ;-------------------------------------------------------------
+                      00389 ;-------------------------------------------------------------
+                      00390 ; Número 8 -> Dezena
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00D6                  00391 DEZENA_NUMBER8:
+00D6   30EF           00392                          MOVLW B'11101111'
+00D7   0086           00393                          MOVWF PORTB
+00D8   28E2           00394                          GOTO FIM_DISPLAY_NUMBER
+                      00395 ;-------------------------------------------------------------
+                      00396 ; Número 8 -> Unidade
+00D9                  00397 UNIDADE_NUMBER8:
+00D9   30FF           00398                          MOVLW B'11111111'
+00DA   0086           00399                          MOVWF PORTB
+00DB   28E2           00400                          GOTO FIM_DISPLAY_NUMBER
+                      00401 ;-------------------------------------------------------------
+                      00402 ;-------------------------------------------------------------
+                      00403 ; Número 9 -> Dezena
+00DC                  00404 DEZENA_NUMBER9:
+00DC   302F           00405                          MOVLW B'00101111'
+00DD   0086           00406                          MOVWF PORTB
+00DE   28E2           00407                          GOTO FIM_DISPLAY_NUMBER
+                      00408 ;-------------------------------------------------------------
+                      00409 ; Número 9 -> Unidade
+00DF                  00410 UNIDADE_NUMBER9:
+00DF   303F           00411                          MOVLW B'00111111'
+00E0   0086           00412                          MOVWF PORTB
+00E1   28E2           00413                          GOTO FIM_DISPLAY_NUMBER
+                      00414                          
+00E2   0008           00415 FIM_DISPLAY_NUMBER:     RETURN  
+                      00416 ;-------------------------------------------------------------
+                      00417 ;-------------------------------------------------------------
+                      00418 ;Rotina para verificar se o RA1 está pressionado (a fim de se realizar as devidas operações de congelar 
+                            ou não o display)
+00E3                  00419 VERIFICA_RA1:
+                      00420                         ;Aqui está a condição (if) que diz se o botão RA1 foi pressionado ou não, e cham
+                            a as funções de controle do do display
+00E3   1885           00421                         BTFSC PORTA, 1
+00E4   2831           00422                         GOTO ATUALIZA_DISPLAY   ;Caso NÃO esteja pressionado, chama a função para atuali
+                            zar o display
+00E5   2836           00423                         GOTO CONGELA_DISPLAY    ;Caso esteja pressionado, não atualiza o display
+00E6   28E7           00424                         GOTO FIM_VERIFICA_RA1
+00E7   0008           00425 FIM_VERIFICA_RA1: RETURN                        ;Marca o fim da verificação
+                      00426 ;-------------------------------------------------------------
+                      00427 ;-------------------------------------------------------------
+                      00428 ;Rotina para verificar se o RA2 está pressionado (a fim de se realizar as devidas operações de resetar o
+                             contador)
+00E8                  00429 VERIFICA_RA2:
+                      00430                         ;Aqui está a condição (if) que diz se o botão RA1 foi pressionado ou não, e cham
+                            a as funções de controle do do display
+00E8   1905           00431                         BTFSC PORTA, 2
+00E9   28EB           00432                         GOTO FIM_VERIFICA_RA2   ;Caso NÃO esteja pressionado, não reseta o contador
+00EA   28F1           00433                         GOTO RESETAR_COUNT              ;Caso esteja pressionado, reseta o contador
+                      00434 
+00EB   0008           00435 FIM_VERIFICA_RA2: RETURN                        ;Marca o fim da verificação
+                      00436 ;-------------------------------------------------------------
+                      00437 ;-------------------------------------------------------------
+                      00438 ;Verifica se é necessário setar o contador do display para 0
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00EC                  00439 VERIFICA_RESETAR_COUNT:
+00EC   0820           00440                         MOVF COUNT_DISPLAY, W                   ;Move o valor do contador do display par
+                            a W
+00ED   3C64           00441                         SUBLW D'100'                                    ;Realiza a subtração de 10 para 
+                            verificar o carry
+00EE   1903           00442                         BTFSC STATUS, Z                                 ;Setar para 0 se a flag Z estive
+                            r com 0
+00EF   28F1           00443                         GOTO RESETAR_COUNT                              ;Chama a sub-rotina para setar o
+                             contador do display para 0
+00F0   28F3           00444                         GOTO FIM_VERIFICA_RESETAR_COUNT ;Retorna em caso de nenhuma alteração
+                      00445 ;-------------------------------------------------------------
+                      00446 ;Seta o contador do display para 0 (após verificação)
+00F1                  00447 RESETAR_COUNT:
+00F1   01A0           00448                         CLRF COUNT_DISPLAY                              ;Setando o contador total do dis
+                            play para 0
+00F2   28F3           00449                         GOTO FIM_VERIFICA_RESETAR_COUNT
+                      00450 
+00F3   0008           00451 FIM_VERIFICA_RESETAR_COUNT: RETURN
+                      00452 ;-------------------------------------------------------------
+                      00453 ;-------------------------------------------------------------
+                      00454 ; Configuração do registrador OPTION_REG
+00F4                  00455 CONFIG_OPTIONREG:
+00F4   1683 1303      00456                          BANKSEL OPTION_REG
+00F6   3085           00457                          MOVLW B'10000101'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00F7   0081           00458                          MOVWF OPTION_REG
+00F8   2922           00459                          GOTO FIM_CONFIG
+                      00460 ;-------------------------------------------------------------
+                      00461 ;-------------------------------------------------------------
+                      00462 ; Configuração do registrador INTCON
+00F9                  00463 CONFIG_INTCON:
+00F9   1283 1303      00464                          BANKSEL INTCON
+00FB   30A0           00465                          MOVLW B'10100000'
+00FC   008B           00466                          MOVWF INTCON
+00FD   2922           00467                          GOTO FIM_CONFIG
+                      00468 ;-------------------------------------------------------------
+                      00469 ;-------------------------------------------------------------
+                      00470 ; Configuração do registrador TRISA (PORTA)
+00FE                  00471 CONFIG_TRISA:
+00FE   1683 1303      00472                          BANKSEL TRISA
+0100   3006           00473                          MOVLW B'00000110' ;Colocando o RA1 e RA2 como input
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0101   0085           00474                          MOVWF TRISA
+0102   2922           00475                          GOTO FIM_CONFIG
+                      00476 ;-------------------------------------------------------------
+                      00477 ; Configuração do registrador TRISB (PORTB)
+0103                  00478 CONFIG_TRISB:
+0103   1683 1303      00479                          BANKSEL TRISB
+0105   3000           00480                          MOVLW B'00000000' ;Definindo todos RBx como output (display)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0106   0086           00481                          MOVWF TRISB
+0107   2922           00482                          GOTO FIM_CONFIG
+                      00483 ;-------------------------------------------------------------
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00484 ;-------------------------------------------------------------
+                      00485 ; Configuração inicial da PORTA
+0108                  00486 CONFIG_PORTA:
+0108   1283 1303      00487                          BANKSEL PORTA
+010A   0185           00488                          CLRF PORTA
+010B   3007           00489                          MOVLW D'7'
+010C   009F           00490                          MOVWF CMCON
+010D   2922           00491                          GOTO FIM_CONFIG         
+                      00492 ;-------------------------------------------------------------
+                      00493 ; Configuração inicial da PORTB
+010E                  00494 CONFIG_PORTB:
+010E   1283 1303      00495                          BANKSEL PORTB
+0110   30EE           00496                          MOVLW B'11101110'
+0111   0086           00497                          MOVWF PORTB
+                      00498                          
+0112   2011           00499                          CALL DELAY12                   ;Chama a sub-rotina de delay de 12ms
+                      00500                          
+0113   30FE           00501                          MOVLW B'11111110'
+0114   0086           00502                          MOVWF PORTB
+                      00503                          
+0115   2922           00504                          GOTO FIM_CONFIG
+                      00505 ;-------------------------------------------------------------
+                      00506 ;-------------------------------------------------------------
+                      00507 ; Configuração do registrador TMR0 (Timer0)
+0116                  00508 CONFIG_TMR0:
+0116   1283 1303      00509                          BANKSEL TMR0
+0118   3083           00510                          MOVLW D'131'
+0119   0081           00511                          MOVWF TMR0
+                      00512                          
+011A   307D           00513                          MOVLW D'125'
+011B   00A5           00514                          MOVWF NUMBER_OF_TIMER
+                      00515                          
+011C   2922           00516                          GOTO FIM_CONFIG        
+                      00517 ;-------------------------------------------------------------
+                      00518 ;-------------------------------------------------------------
+                      00519 ; Configuração dos contadores e auxiliares -> Zerar (CLRF)
+011D                  00520 CONFIG_COUNT_AUX:
+011D   01A0           00521                          CLRF COUNT_DISPLAY
+011E   01A1           00522                          CLRF DIG_DEZENA
+011F   01A2           00523                          CLRF DIG_UNIDADE
+0120   01A3           00524                          CLRF AUX
+                      00525                          
+0121   2922           00526                          GOTO FIM_CONFIG
+0122   0008           00527 FIM_CONFIG:     RETURN
+                      00528 ;-------------------------------------------------------------
+                      00529 ;-------------------------------------------------------------
+0123                  00530 INICIO:
+0123   20F4           00531                 CALL CONFIG_OPTIONREG  ;Chama a sub-rotina de programar o OPTION_REG
+0124   20F9           00532                 CALL CONFIG_INTCON         ;Chama a sub-rotina de programar o INTCON
+                      00533                 
+0125   20FE           00534                 CALL CONFIG_TRISA          ;Chama a sub-rotina de programar o TRISA
+0126   2103           00535                 CALL CONFIG_TRISB          ;Chama a sub-rotina de programar o TRISB
+0127   2108           00536                 CALL CONFIG_PORTA          ;Chama a sub-rotina de programar o PORTA
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0128   210E           00537                 CALL CONFIG_PORTB          ;Chama a sub-rotina de programar o PORTB
+                      00538                 
+0129   2116           00539                 CALL CONFIG_TMR0           ;Chama a sub-rotina de programar o TMR0
+012A   211D           00540                 CALL CONFIG_COUNT_AUX  ;Chama a sub-rotina de programar os contadores e auxiliares (inic
+                            ialmente, com valor 0)
+                      00541 ;-------------------------------------------------------------
+                      00542 ;Rotina de LOOP que faz todas as verificações necessárias do programa
+012B                  00543 LOOP:
+012B   20E3           00544                 CALL VERIFICA_RA1                       ;Chama a sub-rotina para verificar se RA1 está p
+                            ressionado
+012C   20E8           00545                 CALL VERIFICA_RA2                       ;Chama a sub-rotina para verificar se RA2 está p
+                            ressionado
+012D   20EC           00546                 CALL VERIFICA_RESETAR_COUNT ;Chama a sub-rotina de verificar se é necessário resetar o c
+                            ontador para 0
+012E   292B           00547                 GOTO LOOP       
+Warning[205]: Found directive in column 1. (END)
+                      00548 END
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADDEN                             00000003
+ADEN                              00000003
+ATUALIZA_DISPLAY                  00000031
+AUX                               00000023
+AUX2                              00000024
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+CONFIG_COUNT_AUX                  0000011D
+CONFIG_INTCON                     000000F9
+CONFIG_OPTIONREG                  000000F4
+CONFIG_PORTA                      00000108
+CONFIG_PORTB                      0000010E
+CONFIG_TMR0                       00000116
+CONFIG_TRISA                      000000FE
+CONFIG_TRISB                      00000103
+CONGELA_DISPLAY                   00000036
+COUNT_DISPLAY                     00000020
+CREN                              00000004
+CSRC                              00000007
+DATA_CP_OFF                       00003FFF
+DATA_CP_ON                        00003EFF
+DC                                00000001
+DELAY12                           00000011
+DEZENA_NUMBER0                    000000A6
+DEZENA_NUMBER1                    000000AC
+DEZENA_NUMBER2                    000000B2
+DEZENA_NUMBER3                    000000B8
+DEZENA_NUMBER4                    000000BE
+DEZENA_NUMBER5                    000000C4
+DEZENA_NUMBER6                    000000CA
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+DEZENA_NUMBER7                    000000D0
+DEZENA_NUMBER8                    000000D6
+DEZENA_NUMBER9                    000000DC
+DIG_DEZENA                        00000021
+DIG_UNIDADE                       00000022
+DISPLAY_DEZENA                    0000003A
+DISPLAY_UNIDADE                   00000070
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+F                                 00000001
+FERR                              00000002
+FIM_ATUALIZA_DISPLAY              00000035
+FIM_CONFIG                        00000122
+FIM_CONGELA_DISPLAY               00000039
+FIM_DELAY12                       0000001E
+FIM_DISPLAY_NUMBER                000000E2
+FIM_LOOP_SEPARA_DIG               0000002C
+FIM_SEPARA_DIG                    00000030
+FIM_T0                            00000010
+FIM_VERIFICA_RA1                  000000E7
+FIM_VERIFICA_RA2                  000000EB
+FIM_VERIFICA_RESETAR_COUNT        000000F3
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INICIO                            00000123
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LOOP                              0000012B
+LOOP_SEPARA_DIG                   00000024
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NUMBER_OF_TIMER                   00000025
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RESETAR_COUNT                     000000F1
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SEPARA_DIG                        0000001F
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UNIDADE_NUMBER0                   000000A9
+UNIDADE_NUMBER1                   000000AF
+UNIDADE_NUMBER2                   000000B5
+UNIDADE_NUMBER3                   000000BB
+UNIDADE_NUMBER4                   000000C1
+UNIDADE_NUMBER5                   000000C7
+UNIDADE_NUMBER6                   000000CD
+UNIDADE_NUMBER7                   000000D3
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+UNIDADE_NUMBER8                   000000D9
+UNIDADE_NUMBER9                   000000DF
+VERIFICA_RA1                      000000E3
+VERIFICA_RA2                      000000E8
+VERIFICA_RESETAR_COUNT            000000EC
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEVID1                           00002006
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_FOSC_ECIO                        00003FEF
+_FOSC_EXTRCCLK                    00003FFF
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FEE
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+_FOSC_LP                          00003FEC
+_FOSC_XT                          00003FED
+_HS_OSC                           00003FEE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INTOSC_OSC_CLKOUT                00003FFD
+_INTOSC_OSC_NOCLKOUT              00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+MPASM  5.50         CRONOMETROCOMCONTROLE.ASM   11-8-2020  11:19:38         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC_CLKOUT                    00003FFF
+_RC_OSC_NOCLKOUT                  00003FFE
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F873                          00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXX- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   300
+Program Memory Words Free:  3796
+
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
+
+

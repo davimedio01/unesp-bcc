@@ -1,0 +1,23 @@
+O trabalho será ligar um processador z80 há uma memória de programas de 8k e duas memórias de dados de 16 k cada uma. No endereço 0000 deverá ser colocado um latch de saída e no endereço 0001 outro de entrada, sendo que os dois serão usados para ligar um teclado matricial 8 por 8. O aluno deverá ligar também um pequeno módulo de display LCD. Assim, ele irá montar o projeto de um computador inteiro com CPU memória de programas memória de dados teclado e display.
+O teclado deverá ativar uma interrupção.
+
+Este é um projeto básico, mas ele é funcional, ou seja, é o hardware mínimo para montagem de um computador com o Z80.
+Note que vocês já desenvolveram o a parte do teclado e a conexão de CPU e memórias. Portanto o trabalho já está em andamento sem que vocês tenham percebido. Agora nós vamos finalizar as coisas.
+Nesse caso a CPU ativará o I/O por memória isolada e deverá ter um decodificador 3 por 8 para acessar os dispositivos.
+
+Além do desenho o aluno deverá fazer uma documentação completa explicando o seu funcionamento e exemplificando os algoritmos de acesso ao teclado e ao display.
+---------------------------------------------------------------------------------------------
+Conforme conversamos hoje na aula:
+1)        O trabalho será baseado no processador z80
+2)        Uma memória de programas de 8k
+3)        Duas memórias de dados de 16 k cada uma.
+4)        No endereço 0000 deverá ser colocado um latch de saída e no endereço 0001 outro de entrada, sendo que os dois serão usados para ligar um teclado matricial 8x8. O teclado deverá também ser conectado a uma entrada de interrupção do processador
+5)        O aluno deverá ligar também um pequeno módulo de display LCD, escolhendo os endereços
+6)        Deverão ser ligados os pinos da CPU necessários pra o projeto mínimo. Os pinos do Z80 que não forem utilizados deverão ser simplesmente colocados (nome/número) no desenho do processador
+7)        Colocar um decodificador 3x8 para acesso aos dispositivos de I/O por memória Isolada.
+8)        Todos os chips usados deverão ter os nomes/números dos pinos descritos
+9)        Deverá ser feita uma documentação descrevendo o sistema de hardware e as rotinas de software associadas.
+10)        O texto deverá ser feito no Word e o desenho de hardware deverá ser feito à mão (depois digitalizado). Tudo deverá ser juntado e enviado em um único arquivo PDF.
+11)        O Prazo de entrega é até o domingo, dia 19/07.
+
+

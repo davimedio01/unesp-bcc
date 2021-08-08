@@ -1,0 +1,80 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Mon Nov 02 10:06:03 2020
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000152
+.config_2007_COMUNICAçãOSERIAL.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0000a8      
+                            0x002007    0x002007      
+            170 out of 4230 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+            CONFIG_INTCON   0x000068    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+              CONFIG_PIE1   0x00007c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+              CONFIG_PIR1   0x000081    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_PORTB   0x000090    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_RCSTA   0x000072    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_SPBRG   0x000077    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+     CONFIG_TRISB_DISPLAY   0x00008b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+      CONFIG_TRISB_SERIAL   0x000086    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_TXSTA   0x00006d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             COUNT_CHANGE   0x000001    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER0   0x00003f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER1   0x000043    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER2   0x000047    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER3   0x00004b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER4   0x00004f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER5   0x000053    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER6   0x000057    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER7   0x00005b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER8   0x00005f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER9   0x000063    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+       FIM_DISPLAY_NUMBER   0x000067    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+                   INICIO   0x000096    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             RECEIVE_DATA   0x00009f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+                SEND_DATA   0x000036    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+             COUNT_CHANGE   0x000001    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+                SEND_DATA   0x000036    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER0   0x00003f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER1   0x000043    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER2   0x000047    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER3   0x00004b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER4   0x00004f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER5   0x000053    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER6   0x000057    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER7   0x00005b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER8   0x00005f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+          DISPLAY_NUMBER9   0x000063    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+       FIM_DISPLAY_NUMBER   0x000067    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+            CONFIG_INTCON   0x000068    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_TXSTA   0x00006d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_RCSTA   0x000072    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_SPBRG   0x000077    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+              CONFIG_PIE1   0x00007c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+              CONFIG_PIR1   0x000081    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+      CONFIG_TRISB_SERIAL   0x000086    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+     CONFIG_TRISB_DISPLAY   0x00008b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             CONFIG_PORTB   0x000090    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+                   INICIO   0x000096    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+             RECEIVE_DATA   0x00009f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\03. 30-10 - Comunicação Serial\ComunicaçãoSerial.asm
+
+

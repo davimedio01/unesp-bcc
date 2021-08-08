@@ -1,0 +1,20 @@
+Atividade 2 (para entregar)
+
+Crie uma árvore B de ordem 5 com 3 níveis.
+
+Apresente a remoção de chave para cada caso:
+
+1- Remoção de chave de nó folha
+1.1 - nó folha fica com número de chaves permitido
+1.2 - nó folha fica com número de chaves abaixo do permitido, mas consegue "emprestar" do nó irmão
+1.3 - nó folha fica com número de chaves abaixo do permitido e não consegue "emprestar" do nó irmão
+
+2- Remoção de chave de nó intermediário
+(considerando também situação que seja necessário tratar o nó folha - caso 1)
+
+Pode fazer manuscrito ou editado, enviar arquivo ou foto (apenas da remoção, não é necessário enviar a inserção).
+
+Data para entrega: até 21/10
+Email: trabalhos.ed.unesp@gmail.com
+
+Colocar nome e RA no assunto da mensagem

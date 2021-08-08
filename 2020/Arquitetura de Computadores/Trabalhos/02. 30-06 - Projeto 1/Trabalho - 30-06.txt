@@ -1,0 +1,17 @@
+O trabalho desta semana, conforme já havia falado, é bem semelhante aos diversos trabalhos que já fizemos em aula ponto.
+O trabalho é só ligar uma CPU, modelo Z80, a uma memória de programas (MP EEPROM) de 8K, e duas memórias de dados (MD - RAM) com 16K bytes cada uma. Os modelos das memórias estão no anexo.
+
+Os pinos da CPU que não forem usados poderão ser ignorados no trabalho.
+A diferença é que agora vocês vão colocar o número dos pinos utilizados nos barramentos de dados e endereço e também o número dos de leitura e escrita.
+O desenho segue o mesmo modelo que fazemos em sala de aula é só colocar os números conforme o havia explicado na última aula pelo Google Meet.
+
+Além da CPU e das três memórias, ligue também um decodificador 3x8, modelo 74138, nas linhas A0, A1, A2 do barramento de endereços.
+
+Não vamos ligar nada nas saídas do decodificador, porém o mesmo poderia ser futuramente usado para ligar dispositivos de I/O.
+
+Estou mandando em anexo um PDF com a pinagem do processador z80, das memórias reais e do decodificador que serão utilizadas.
+
+O aluno deverá fazer o desenho colocar o seu nome em cima e me enviar no formato jpg ou PDF. Me mande um único arquivo chamado “Projeto1 x y”, onde X é o primeiro nome do aluno Y é o último. No e-mail de entrega coloque no subject “Entrega Projeto 1”.
+O trabalho foi panejado para ser feito em no máximo 4 horas, sendo que o prazo de entrega é até sábado, dia 04/07, a qualquer hora.
+
+

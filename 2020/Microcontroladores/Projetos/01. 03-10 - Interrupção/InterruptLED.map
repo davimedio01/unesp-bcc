@@ -1,0 +1,42 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Fri Oct 23 20:06:17 2020
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x00004c
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x000029      
+            39 out of 4230 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              CONTROL_LED   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                   INICIO   0x000027    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                     LOOP   0x000006    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                 PROG_INT   0x00000f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                 PROG_LED   0x000018    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     LOOP   0x000006    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                 PROG_INT   0x00000f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                 PROG_LED   0x000018    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+              CONTROL_LED   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+                   INICIO   0x000027    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\01. 03-10 - Interrupção\InterruptLED.asm
+
+

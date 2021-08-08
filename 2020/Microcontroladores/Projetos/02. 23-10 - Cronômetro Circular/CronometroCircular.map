@@ -1,0 +1,98 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Thu Oct 29 20:39:12 2020
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000164
+.config_2007_CRONOMETROCIRCULAR.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000b5      
+                            0x002007    0x002007      
+            180 out of 4230 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+            CONFIG_INTCON   0x00008a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+         CONFIG_OPTIONREG   0x000085    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_PORTA   0x000099    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_PORTB   0x00009f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              CONFIG_TMR0   0x0000a4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_TRISA   0x00008f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_TRISB   0x000094    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             COUNT_CHANGE   0x000012    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              COUNT_CRESC   0x000069    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+            COUNT_DECRESC   0x00006b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER0   0x000047    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER1   0x00004a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER2   0x00004d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER3   0x000050    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER4   0x000053    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER5   0x000056    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER6   0x000059    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER7   0x00005c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER8   0x00005f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER9   0x000062    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+       FIM_DISPLAY_NUMBER   0x000065    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+                   FIM_T0   0x000011    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+       FIM_VERIFICA_COUNT   0x000084    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+         FIM_VERIFICA_RA1   0x00006c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+                   INICIO   0x0000ad    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+                     LOOP   0x0000b4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              SETAR_CRESC   0x00007c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+            SETAR_DECRESC   0x000080    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+           VERIFICA_COUNT   0x00006d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             VERIFICA_RA1   0x000066    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+     VERIFICA_SETAR_CRESC   0x000072    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+   VERIFICA_SETAR_DECRESC   0x000077    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   FIM_T0   0x000011    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             COUNT_CHANGE   0x000012    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER0   0x000047    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER1   0x00004a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER2   0x00004d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER3   0x000050    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER4   0x000053    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER5   0x000056    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER6   0x000059    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER7   0x00005c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER8   0x00005f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+          DISPLAY_NUMBER9   0x000062    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+       FIM_DISPLAY_NUMBER   0x000065    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             VERIFICA_RA1   0x000066    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              COUNT_CRESC   0x000069    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+            COUNT_DECRESC   0x00006b    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+         FIM_VERIFICA_RA1   0x00006c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+           VERIFICA_COUNT   0x00006d    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+     VERIFICA_SETAR_CRESC   0x000072    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+   VERIFICA_SETAR_DECRESC   0x000077    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              SETAR_CRESC   0x00007c    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+            SETAR_DECRESC   0x000080    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+       FIM_VERIFICA_COUNT   0x000084    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+         CONFIG_OPTIONREG   0x000085    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+            CONFIG_INTCON   0x00008a    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_TRISA   0x00008f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_TRISB   0x000094    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_PORTA   0x000099    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+             CONFIG_PORTB   0x00009f    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+              CONFIG_TMR0   0x0000a4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+                   INICIO   0x0000ad    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+                     LOOP   0x0000b4    program     static D:\Documentos\Faculdade\UNESP - BCC\2020\2° Semestre\Microcontroladores\Projetos\02. 23-10 - Cronômetro Circular\CronometroCircular.asm
+
+

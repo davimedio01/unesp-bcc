@@ -1,0 +1,25 @@
+Nome: Davi Augusto Neves Leite
+RA: 191027383
+
+1) 
+Os testes exaustivos estão relacionados a testar todos os caminhos lógicos possíveis de um código.
+Ou seja, levando em conta o código apresentado no exercício, o qual apresenta duas variáveis inteiras  com leitura primeiramente de "a" e, em seguida, de "b", existem milhões de possibilidades de soma  (mais precisamente, levando em conta o máximo do tipo inteiro que é 2147483647 e o mínimo do tipo inteiro é -2147483647, existem (2147483647 * 2) * (2147483647 * 2) possibilidades), o que levaria em torno de anos para ser realizada.
+Portanto, o teste exaustivo se torna impraticável até mesmo para um código simples (como o apresentado no exercício).
+
+2) 
+a) ver imagem anexada
+b) V(G) = E - N + 2 ou NP + 1 = 13 - 10 + 2 ou 4 + 1 = 5
+
+3) 
+Sim, é possível afirmar que o teste de software é uma atividade de V&V (Verificação e Validação).
+Isso pode ser justificado com a definição de cada conceito: o teste é uma atividade dinâmica, ou seja, é possível testar um software quando um protótipo ou uma versão executável está disponível; a atividade de Verificação, diante disso, refere-se ao conjunto de tarefas que garantem que o software implementa corretamente uma função específica; e a atividade de Validação refere-se ao conjunto de tarefas que asseguram que o software foi criado e pode ser rastreado segundo os requisitos do cliente.
+Em outras palavras, o teste de software está associado a utilizar as atividades de V&V para assegurar que o software (protótipo e/ou executável) está de acordo com os requisitos estabelecidos da aplicação.
+
+4) 
+Primeiramente, o controle de alterações consiste num processo para garantir que os métodos e procedimentos padronizados sejam utilizados para a manipulação eficiente e rápida de todas as mudanças do projeto, a fim de minimizar o impacto de incidentes relacionados a essas mudanças. Desta forma, é assegurado que as mudanças do software sejam feitas de modo controlado, permitindo que os pedidos de alteração possam ser considerados em conjunto com outros pedidos e que pedidos similares sejam agrupados, o que torna o desenvolvimento de software mais otimizado.
+Já o controle de versões está associado ao gerenciamento de diferentes versões de objetos de configuração gerados durante o processo de software. Para tanto, tendo em vista que um item em desenvolvimento evolui até que atinja um estado em que atenda aos propósitos para o qual foi criado, ou seja, implicando em diversas alterações (versão do item a cada estado), é necessário o armazenamento e identificação de todas as versões pelo controle de versões sendo, desta forma, utilizado o auxílio de procedimentos e ferramentas. Além disso, tornou-se conveniente o uso do esquema de identificação de versões dos itens na forma de árvore, para que fosse possível facilitar a identificação das versões dos itens e suas diversas mudanças (ramificações).
+Por fim, a auditoria de configuração compreende as atividades para garantir que as alterações na configuração de software foram efetuadas apropriadamente. Em outras palavras, está associada à identificação e controle das alterações de configuração do software, sendo fundamentais para manter o controle (ordem) e assegurar que a alteração tenha sido implementada apropriadamente.
+
+5) 
+A engenharia reversa está associada a destrinchar o funcionamento tecnológico de um determinado sistema, objeto ou dispositivo, por meio da análise de sua função, estrutura e operação. Ou seja, representa o ato de "desmontar" algo, analisando a sua estrutura e operação de modo a compreender o seu funcionamento de forma minuciosa, sendo importante na tomada de decisões sobre o que fazer com tal objeto (software, neste contexto), podendo trazer uma reestruturação, melhora ou adaptação.
+Já o Design Recovery (ou Recuperação de Projeto) está associado a um modelo de intervenção no caso de problemas gerados durante o desenvolvimento de um projeto. Neste caso, tendo em vista que os projetos são essenciais para que uma empresa desenvolva a sua estratégia de mercado, a recuperação de projeto possibilita que um projeto atinja os resultados previstos e reduza os impactos negativos dos problemas (estes que drenam esforços e recursos da empresa, pondo em risco à sua sobrevivência).

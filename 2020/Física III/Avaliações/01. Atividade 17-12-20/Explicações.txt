@@ -1,0 +1,83 @@
+1) Material principal: https://www.youtube.com/watch?v=IXjG9SkDE2A
+
+Os conceitos abordados são: campo elétrico não uniforme e fluxo elétrico (Lei de Gauss).
+A fórmula de fluxo elétrico para campo elétrico não uniforme é dada por: o = {({S)E*n*dS
+
+Campo elétrico: desempenha a função de transmissor das interações entre cargas elétricas, podendo ser de afastamento ou de aproximação, de acordo com o sinal da carga que o produziu. Entre uma carga fixa e outras de teste.
+Lei de Gauss: A lei de Gauss relaciona o campo elétrico em pontos de uma superfície fechada (real ou imaginária, chamada superfície gaussiana) à carga total envolvida pela superfície.
+A lei de Gauss relaciona o fluxo total <I> de um campo elétrico através de uma superfície fechada (superfície gaussiana) à carga total Qenv envolvida pela superfície.
+
+Fluxo elétrico: fluxo significa o produto de uma área pelo campo que existe no interior da área.
+Isso representa a direção e sentido das setas (entrando ou saindo da superfície gaussiana)
+
+Versor: simboliza um vetor unitário perpendiculares ao plano da área correspondente, apontando para fora do volume (do cubo em questão)
+
+Fluxo (Lei de Gauss) só envolve o campo elétrico e a área da superfície gaussiana...
+
+
+2) Material principal: https://www.youtube.com/watch?v=FICRDBtrtQk
+
+Os conceitos abordados são: Lei de Gauss para esfera condutora carregada e dielétrico.
+Para o item 1: falar sobre a aplicação da lei de Gauss para cada região gaussiana (semelhante ao exercício anterior)
+	Considerando uma densidade constante, a Lei de Gauss é dada por: E = densidade/e0 => densidade = Qregião/ÁreaRegião
+	Lei de Gauss dada por: E.dA = Qenvolvido/e0, sendo e0 a permissividade inicial
+
+Material condutor - Já sabemos que quando uma certa quantidade de carga elétrica é colocada num material condutor, ela se distribuirá de modo a manter o campo nulo no interior do material.
+		    Numa esfera a carga ficará uniformemente distribuída na sua superfície. Portanto, para um material condutor não há diferença entre uma esfera e uma casca esférica.
+		    Em ambos os casos, a carga elétrica se distribuirá uniformemente na superfície externa.
+
+S1 -> como a esfera é condutora, a lei de Gauss garante que somente as cargas da superfície da esfera importam para o campo elétrico.
+      ******A Qenvolvida será dada por uma proporção interna (considerar parte da esfera como uma nova casca)
+S2 -> a superfície gaussiana possui os prótons (carga +) da esfera e os elétrons (carga -) da superfície da casca neutra. Aplicar lei de Gauss e existência de campo
+S3 -> dentro da casca, como é condutora e está neutra (equilíbrio eletrostático), o campo será nulo.
+S4 -> primeiramente, se considerarmos o raio da gaussiana igual ao externo da casca, tem-se (aplicando Gauss) que a carga da casca será -Q (pelo campo ser nulo na superfície e dentro da casca)
+      Contudo, como a casca condutora está neutra, os elétrons da esfera interna serão migrados para o exterior da casca.
+
+Para o item 2: falar a respeito da relação do potencial com o campo elétrico, dada no livro do Halliday
+	Vf - Vi = - INTEGRAL_DE_i_ATÉ_f(E.ds); em que "s" é a distância de "i" até "f"
+
+Para o item 3: o dielétrico funciona como um isolante, ou seja, será "cortado" o campo elétrico existente naquela região e,
+consequentemente, dificultará a transferência de elétrons daquela região para o exterior da casca, impedindo a existência de uma carga
+no exterior da casca (e, consequentemente, sem campo elétrico já que ela estava inicialmente neutra). ***Terá que ter a permissividade "k" do dielétrico no campo.
+
+Para o item 4 (Dielétrico):
+
+Material dielétrico - Quando o material é não-condutor, a situação é bem diferente. A carga não se distribui como no caso do condutor; grosso modo, ela fica onde a colocamos. 
+		      Para esse tipo de material não é suficiente conhecermos a quantidade de carga, há que se saber a forma como ela está sendo distribuída. 
+		      Isto é, necessitamos conhecer a densidade de carga no interior do material. 
+		      Portanto, em termos de cálculo de campo elétrico e uso da lei de Gauss, uma esfera dielétrica pode ser bastante diferente de uma casca esférica. 
+
+Dessa forma, para o cálculo do campo elétrico considera-se que as cargas estão distribuídas uniformemente na esfera. *Existência de campo elétrico dentro e fora da esfera. *Não existência de campo elétrico na casca (neutra).
+Potencial: mesma explicação do condutor
+*Funciona como no exercício 3: capacitor
+
+3) Conceitos envolvidos: condutor, dielétrico (vistos no ex. anterior), capacitância e energia elétrica.
+   *Capacitância = Q/V
+   a) A capacitância é a medida de quanta carga o dispositivo é capaz de acumular para uma determinada diferença de potencial (Unidade = Faraday).
+      Explicação do porque que não necessita calcular o campo elétrico e potencial das regiões: interno ao condutor interno e externo ao condutor externo.
+ 	-> Porque o material é condutor, logo interno do condutor o campo será nulo e potencial constante.
+ 	-> Porque o externo não é importante neste caso, já que deseja a obtenção da capacitância do cabo (interno a ele).
+
+   b) Para calcular a energia potencial elétrica, basta: Epot = CV²/2 = QV/2
+
+   c) Só aplicar a fórmula na parte interna do cabo coaxial (interessa)
+      *Capacitor = sempre uma parte positiva e outra negativa (equilíbrio eletrostático)
+
+4) Conceitos envolvidos: placas paralelas com dielétrico.
+   O dielétrico introduzido dificulta o campo elétrico entre a região das placas, ou seja,
+   a carga induzida é menor que a carga livre. 
+
+   a) O campo elétrico de um dielétrico é entre placas é dada por: E = E0/k.
+   O campo elétrico das placas (E0) é reduzido com base na permissividade dos dielétricos.
+
+   b) A diferença de potencial é o somatorio dos dielétricos: Ex*distanciax
+
+   c) Falar da capacitância
+
+
+5) Conceitos envolvidos: condutor, dielétrico, campo elétrico, potêncial elétrico (vistos ant.) e vetor polarização.
+a, b, c, d: ja vistos anteriormente (explicar por cima)
+
+   e) A polarização de um meio dielétrico representa a densidade superficial (q/area) da
+   carga que foi induzida na interface do dielétrico.
+   Pode ser encontrado por: P = (k-1/k)(E0*e0)

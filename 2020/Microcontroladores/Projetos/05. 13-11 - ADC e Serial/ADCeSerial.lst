@@ -1,0 +1,700 @@
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;*************************************************************
+                      00002 ; Conversor Analógico-Digital (ADC)                                                      *
+                      00003 ;                                                                                                       
+                                             *
+                      00004 ; Autor: Davi Augusto Neves Leite                                                *                      
+                             
+                      00005 ; RA: 191027383                                                                              *          
+                                                     
+                      00006 ; Data: 15/11/2020                                                                               *      
+                                                             
+                      00007 ;*************************************************************
+                      00008 
+                      00009 #INCLUDE <P16F877A.INC>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F877A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00566         LIST
+                      00010 ;-------------------------------------------------------------
+                      00011 ; Configuração dos Bits
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3F72           00012 __CONFIG _FOSC_HS & _WDTE_OFF & _PWRTE_ON & _BOREN_ON & _LVP_OFF & _CPD_OFF & _WRT_OFF & _CP_OFF
+                      00013 ;-------------------------------------------------------------
+                      00014 ;-------------------------------------------------------------
+                      00015                 CBLOCK  0x20
+  00000020            00016                                 DELAY           ;Configuração do endereço 0x21 para ser uma auxiliar par
+                            a delay
+                      00017                 ENDC
+                      00018 ;-------------------------------------------------------------
+                      00019 ;-------------------------------------------------------------
+0000                  00020                 ORG 0x0000
+0000   2839           00021                 GOTO INICIO             ;Vai para o bloco INICIO
+                      00022 ;-------------------------------------------------------------          
+                      00023 ;-------------------------------------------------------------
+                      00024 ; Sub-rotina para um delay de 255ms (para ADC)
+0001                  00025 DELAY255:
+0001   30FF           00026                 MOVLW D'255'            ;Move o valor 255 para W
+0002   00A0           00027                 MOVWF DELAY                     ;Move o valor de W para a auxiliar DELAY
+0003   0BA0           00028                 DECFSZ DELAY, 1         ;Decrementa em 1 a auxiliar DELAY e verifica se é 0
+0004   2803           00029                 GOTO $-1                        ;Retorna para o LOOP caso não seja 0
+0005   0000           00030                 NOP
+0006   0008           00031                 RETURN
+                      00032 ;-------------------------------------------------------------
+                      00033 ;-------------------------------------------------------------
+                      00034 ; Sub-rotinas de Configurações Iniciais
+                      00035 ;-------------------------------------------------------------
+                      00036 ;-------------------------------------------------------------
+                      00037 ; Configuração do registrador INTCON
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00038 ;-------------------------------------------------------------
+0007                  00039 CONFIG_INTCON:
+0007   1283 1303      00040                          BANKSEL INTCON
+0009   30A0           00041                          MOVLW B'10100000'
+000A   008B           00042                          MOVWF INTCON
+000B   0008           00043                          RETURN
+                      00044 ;-------------------------------------------------------------
+                      00045 ; Configuração do registrador TXSTA para Comunicação Serial (Transmissão de Dados)
+                      00046 ;-------------------------------------------------------------
+000C                  00047 CONFIG_TXSTA:
+000C   1683 1303      00048                          BANKSEL TXSTA
+000E   3026           00049                          MOVLW B'00100110' ;Configuração do TXSTA para comunicação serial assíncrona de 
+                            8 bits
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000F   0098           00050                          MOVWF TXSTA
+0010   0008           00051                          RETURN
+                      00052 ;-------------------------------------------------------------
+                      00053 ; Configuração do registrador RCSTA para Comunicação Serial (Recepção de Dados)
+                      00054 ;-------------------------------------------------------------
+0011                  00055 CONFIG_RCSTA:
+0011   1283 1303      00056                          BANKSEL RCSTA
+0013   3090           00057                          MOVLW B'10010000' ;Configuração do RCSTA para comunicação serial assíncrona de 
+                            8 bits
+0014   0098           00058                          MOVWF RCSTA
+0015   0008           00059                          RETURN
+                      00060 ;-------------------------------------------------------------
+                      00061 ; Configuração do registrador SPBRSG para Comunicação Serial (Taxa de Transmissão)
+                      00062 ;-------------------------------------------------------------
+                      00063 ; Clock: 20MHz // BPS: 9600bps // BRGH = 1 -> SPBRGH = 129,2083
+                      00064 ;-------------------------------------------------------------
+0016                  00065 CONFIG_SPBRG:
+0016   1683 1303      00066                          BANKSEL SPBRG
+0018   3081           00067                          MOVLW D'129'           ;Configuração do SPBRS para taxa de alta velocidade (TXS
+                            TA)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0019   0099           00068                          MOVWF SPBRG
+001A   0008           00069                          RETURN
+                      00070 ;-------------------------------------------------------------
+                      00071 ; Configuração do registrador PIE1 para Comunicação Serial
+                      00072 ;-------------------------------------------------------------
+001B                  00073 CONFIG_PIE1:
+001B   1683 1303      00074                          BANKSEL PIE1
+001D   3030           00075                          MOVLW B'00110000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001E   008C           00076                          MOVWF PIE1
+001F   0008           00077                          RETURN
+                      00078 ;-------------------------------------------------------------
+                      00079 ; Configuração do registrador PIR1 para Comunicação Serial
+                      00080 ;-------------------------------------------------------------
+0020                  00081 CONFIG_PIR1:
+0020   1283 1303      00082                          BANKSEL PIR1
+0022   3000           00083                          MOVLW B'00000000'
+0023   008C           00084                          MOVWF PIR1
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0024   0008           00085                          RETURN
+                      00086 ;-------------------------------------------------------------
+                      00087 ; Configuração do registrador TRISB (PORTB) para Comunicação Serial
+                      00088 ;-------------------------------------------------------------
+0025                  00089 CONFIG_TRISB_SERIAL:
+0025   1683 1303      00090                          BANKSEL TRISB
+0027   3006           00091                          MOVLW B'00000110' ;Definindo RB1 e RB2 como Input para Comunicação Serial
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0028   0086           00092                          MOVWF TRISB
+0029   0008           00093                          RETURN
+                      00094 ;-------------------------------------------------------------
+                      00095 ; Configuração do registrador TRISA (PORTA) para ADC
+                      00096 ;-------------------------------------------------------------
+002A                  00097 CONFIG_TRISA_ADC:
+002A   1683 1303      00098                          BANKSEL TRISA
+002C   3002           00099                          MOVLW B'00000010' ;Definindo RA1 como Input (Potênciometro)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002D   0085           00100                          MOVWF TRISA
+002E   0008           00101                          RETURN
+                      00102 ;-------------------------------------------------------------
+                      00103 ; Configuração do registrador ADCON0 (ADC)
+                      00104 ;-------------------------------------------------------------
+                      00105 ;GO/DONE = 0 || CHS2:CHS0 = 001 (canal 1 -> RA1/AN1) || ADCS1:ADCS0 = 01 (FOSC/8)
+                      00106 ;-------------------------------------------------------------
+002F                  00107 CONFIG_ADCON0:
+002F   1283 1303      00108                          BANKSEL ADCON0
+0031   3049           00109                          MOVLW B'01001001'      ;Configuração para 8*Tosc e Canal 1 (AN1)
+0032   009F           00110                          MOVWF ADCON0
+0033   0008           00111                          RETURN
+                      00112 ;-------------------------------------------------------------
+                      00113 ; Configuração do registrador ADCON1 (ADC)
+                      00114 ;-------------------------------------------------------------
+                      00115 ; PCGG3:PCFG0 = 0000 (RA1 como AD) || ADFM = 1 (Ajuste a Direita)
+                      00116 ;-------------------------------------------------------------
+0034                  00117 CONFIG_ADCON1:
+0034   1683 1303      00118                          BANKSEL ADCON1
+0036   3080           00119                          MOVLW B'10000000'      ;Configuração para Ajuste a Direita (bit 7) e RA1 como A
+                            D
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0037   009F           00120                          MOVWF ADCON1
+0038   0008           00121                          RETURN
+                      00122 ;-------------------------------------------------------------
+                      00123 ;-------------------------------------------------------------
+0039                  00124 INICIO:
+0039   2007           00125                 CALL CONFIG_INTCON                      ;Chama a sub-rotina de programar o INTCON
+003A   2025           00126                 CALL CONFIG_TRISB_SERIAL        ;Chama a sub-rotina de programar o TRISB para Comunicaçã
+                            o Serial
+003B   200C           00127                 CALL CONFIG_TXSTA                       ;Chama a sub-rotina de programar o TXSTA para Co
+                            municação Serial (Transmissão)
+003C   2011           00128                 CALL CONFIG_RCSTA                       ;Chama a sub-rotina de programar o RCSTA para Co
+                            municação Serial (Recepção)
+003D   2016           00129                 CALL CONFIG_SPBRG                       ;Chama a sub-rotina de programar o SPBRG para Co
+                            municação Serial (Taxa de Transmissão)
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+003E   201B           00130                 CALL CONFIG_PIE1                        ;Chama a sub-rotina de programar o PIE1 para Com
+                            unicação Serial (Interrupção)
+003F   2020           00131                 CALL CONFIG_PIR1                        ;Chama a sub-rotina de programar o PIR1 para Com
+                            unicação Serial
+                      00132                 
+0040   202A           00133                 CALL CONFIG_TRISA_ADC           ;Chama a sub-rotina de programar o TRISA para ADC
+0041   202F           00134                 CALL CONFIG_ADCON0                      ;Chama a sub-rotina de programar o ADCON0 para A
+                            DC
+0042   2034           00135                 CALL CONFIG_ADCON1                      ;Chama a sub-rotina de programar o ADCON1 para A
+                            DC
+                      00136 
+0043                  00137 LOOP:
+0043   2001           00138                 CALL DELAY255           ;Chama a sub-rotina de delay de 255ms
+                      00139                 ;-------------------------------------------------------------
+                      00140                 ;-------------------------------------------------------------
+                      00141                 ; Recebimento de Dados pela Serial
+                      00142                 ;-------------------------------------------------------------
+                      00143                 ;-------------------------------------------------------------
+                      00144                 ;BANKSEL PIR1
+                      00145                 ;BTFSS PIR1, RCIF       ;Verifica se chegou algum byte pela serial
+                      00146                 ;GOTO $-1                       ;Caso NÃO tenha, volta o loop até chegar
+0044   0000           00147                 NOP
+                      00148                 
+                      00149                 ;Caso tenha chegado algum dado...
+                      00150                 ;BANKSEL RCREG
+                      00151                 ;MOVF RCREG, W          ;Move o byte do buffer de recepção e coloca registrador W       
+                                    
+                      00152                 ;-------------------------------------------------------------
+                      00153                 
+                      00154                 ;-------------------------------------------------------------
+                      00155                 ;-------------------------------------------------------------
+                      00156                 ; Conversão do Sinal Analógico para Digital
+                      00157                 ;-------------------------------------------------------------
+                      00158                 ;-------------------------------------------------------------
+0045   1283 1303      00159                 BANKSEL ADCON0          ;Seleciona o banco do registrador ASCON0
+0047   151F           00160                 BSF ADCON0, 2           ;Seta o GO/DONE para 1 para iniciar a conversão
+                      00161 
+0048   191F           00162                 BTFSC ADCON0, 2         ;Verifica se a conversão terminou (GO/DONE = 0)
+0049   2848           00163                 GOTO $-1                        ;Caso não tenha, volta pro loop
+004A   0000           00164                 NOP
+                      00165                 ;-------------------------------------------------------------
+                      00166                 
+                      00167                 ;-------------------------------------------------------------
+                      00168                 ; Leitura dos 2 bits de MSB
+                      00169                 ;-------------------------------------------------------------
+004B   1283 1303      00170                 BANKSEL ADRESH
+004D   081E           00171                 MOVF ADRESH, W          ;Move o valor para W
+                      00172                 
+                      00173                 ;-------------------------------------------------------------
+                      00174                 ; Envio de Dados pela Serial
+                      00175                 ;-------------------------------------------------------------
+004E   1683 1303      00176                 BANKSEL TXSTA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0050   1C98           00177                 BTFSS TXSTA, TRMT       ;Verifica se o buffer de transmissão está vazio
+0051   2850           00178                 GOTO $-1                        ;Caso NÃO esteja, verifica novamente (até conseguir envi
+                            ar)
+0052   0000           00179                 NOP
+                      00180                 
+0053   1283 1303      00181                 BANKSEL TXREG           ;Ativa o banco do registrador TXREG
+0055   0099           00182                 MOVWF TXREG             ;Caso esteja, envia o valor para o Buffer de Transmissão
+                      00183                 ;-------------------------------------------------------------
+                      00184                 
+                      00185                 ;-------------------------------------------------------------
+                      00186                 ; Leitura dos outros 8 bits (LSB)
+                      00187                 ;-------------------------------------------------------------
+0056   1683 1303      00188                 BANKSEL ADRESL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0058   081E           00189                 MOVF ADRESL, W          ;Move o valor para W
+                      00190                 
+                      00191                 ;-------------------------------------------------------------
+                      00192                 ; Envio de Dados pela Serial
+                      00193                 ;-------------------------------------------------------------
+0059   1683 1303      00194                 BANKSEL TXSTA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+005B   1C98           00195                 BTFSS TXSTA, TRMT       ;Verifica se o buffer de transmissão está vazio
+005C   285B           00196                 GOTO $-1                        ;Caso NÃO esteja, verifica novamente (até conseguir envi
+                            ar)
+005D   0000           00197                 NOP
+                      00198                 
+005E   1283 1303      00199                 BANKSEL TXREG           ;Ativa o banco do registrador TXREG
+0060   0099           00200                 MOVWF TXREG             ;Caso esteja, envia o valor para o Buffer de Transmissão
+                      00201                 
+0061   2001           00202                 CALL DELAY255           ;Chama a sub-rotina de delay de 255ms
+                      00203                 ;-------------------------------------------------------------
+0062   2843           00204                 GOTO LOOP                       ;Retorna para o começo do Loop
+Warning[205]: Found directive in column 1. (END)
+                      00205 END
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CIS                               00000003
+CKE                               00000006
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CONFIG_ADCON0                     0000002F
+CONFIG_ADCON1                     00000034
+CONFIG_INTCON                     00000007
+CONFIG_PIE1                       0000001B
+CONFIG_PIR1                       00000020
+CONFIG_RCSTA                      00000011
+CONFIG_SPBRG                      00000016
+CONFIG_TRISA_ADC                  0000002A
+CONFIG_TRISB_SERIAL               00000025
+CONFIG_TXSTA                      0000000C
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DELAY                             00000020
+DELAY255                          00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INICIO                            00000039
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LOOP                              00000043
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+WCOL                              00000007
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F873                          00000001
+__DEBUG                           1
+MPASM  5.50                    ADCESERIAL.ASM   11-29-2020  14:57:13         PAGE 13
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXX------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    99
+Program Memory Words Free:  3997
+
+
+Errors   :     0
+Warnings :     2 reported,     0 suppressed
+Messages :    10 reported,     0 suppressed
+
+

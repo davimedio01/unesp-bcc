@@ -1,0 +1,701 @@
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;*************************************************************
+                      00002 ; Comunicação Serial                                                                             *
+                      00003 ;                                                                                                       
+                                             *
+                      00004 ; Autor: Davi Augusto Neves Leite                                                *                      
+                             
+                      00005 ; RA: 191027383                                                                              *          
+                                                     
+                      00006 ; Data: 01/11/2020                                                                               *      
+                                                             
+                      00007 ;*************************************************************
+                      00008 
+                      00009 #include <p16f628a.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F628A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00385         LIST
+                      00010 ;-------------------------------------------------------------
+                      00011 ; Configuração dos Bits
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3F62           00012 __CONFIG _BODEN_ON & _CP_OFF & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _MCLRE_ON & _HS_OSC
+                      00013 ;-------------------------------------------------------------
+                      00014 ;-------------------------------------------------------------
+                      00015 ;Configuração do endereço 0x20 para ser o contador de dígitos do display
+Warning[207]: Found label after column 1. (COUNT_DISPLAY)
+  00000020            00016                 COUNT_DISPLAY           EQU             0x20
+                      00017 ;-------------------------------------------------------------
+                      00018 ;-------------------------------------------------------------
+0000                  00019                 ORG 0x0000
+0000   2896           00020                 GOTO INICIO ;Vai para o bloco INICIO
+                      00021 ;-------------------------------------------------------------
+                      00022 ;-------------------------------------------------------------
+                      00023 ;Rotina para mudar o contador e mostrar o respectivo número no display
+                      00024 ;-------------------------------------------------------------
+0001                  00025 COUNT_CHANGE:
+                      00026                         ;-------------------------------------------------------------
+                      00027                         ;Deixa selecionado o banco do PORTB para alteração dos números no display (RBx)
+                      00028                         ;-------------------------------------------------------------
+0001   1283 1303      00029                         BANKSEL PORTB
+                      00030                         
+                      00031                         ;-------------------------------------------------
+                      00032                         ; Abaixo, realiza-se uma subtração e verifica se o resultado obtido foi 0 (a par
+                            tir da flag Z)
+                      00033                         ;-------------------------------------------------
+                      00034                         ; Número 0
+                      00035                         ;-------------------------------------------------
+0003   0820           00036                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0004   3C00           00037                         SUBLW D'0'                        ;Decresce em 0 unidade(s)
+0005   1903           00038                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0006   283F           00039                         GOTO DISPLAY_NUMBER0  ;Caso tenha sido, coloca o número 0 no display
+0007   0000           00040                         NOP
+                      00041                         
+                      00042                         ;-------------------------------------------------
+                      00043                         ; Número 1
+                      00044                         ;-------------------------------------------------
+0008   0820           00045                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0009   3C01           00046                         SUBLW D'1'                        ;Decresce em 1 unidade(s)
+000A   1903           00047                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+000B   2843           00048                         GOTO DISPLAY_NUMBER1  ;Caso tenha sido, coloca o número 1 no display
+000C   0000           00049                         NOP
+                      00050                         
+                      00051                         ;-------------------------------------------------
+                      00052                         ; Número 2
+                      00053                         ;-------------------------------------------------
+000D   0820           00054                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+000E   3C02           00055                         SUBLW D'2'                        ;Decresce em 2 unidade(s)
+000F   1903           00056                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0010   2847           00057                         GOTO DISPLAY_NUMBER2  ;Caso tenha sido, coloca o número 2 no display
+0011   0000           00058                         NOP
+                      00059                         
+                      00060                         ;-------------------------------------------------
+                      00061                         ; Número 3
+                      00062                         ;-------------------------------------------------
+0012   0820           00063                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0013   3C03           00064                         SUBLW D'3'                        ;Decresce em 3 unidade(s)
+0014   1903           00065                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0015   284B           00066                         GOTO DISPLAY_NUMBER3  ;Caso tenha sido, coloca o número 3 no display
+0016   0000           00067                         NOP
+                      00068                         
+                      00069                         ;-------------------------------------------------
+                      00070                         ; Número 4
+                      00071                         ;-------------------------------------------------
+0017   0820           00072                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0018   3C04           00073                         SUBLW D'4'                        ;Decresce em 4 unidade(s)
+0019   1903           00074                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+001A   284F           00075                         GOTO DISPLAY_NUMBER4  ;Caso tenha sido, coloca o número 4 no display
+001B   0000           00076                         NOP
+                      00077                         
+                      00078                         ;-------------------------------------------------
+                      00079                         ; Número 5
+                      00080                         ;-------------------------------------------------
+001C   0820           00081                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+001D   3C05           00082                         SUBLW D'5'                        ;Decresce em 5 unidade(s)
+001E   1903           00083                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+001F   2853           00084                         GOTO DISPLAY_NUMBER5  ;Caso tenha sido, coloca o número 5 no display
+0020   0000           00085                         NOP
+                      00086                         
+                      00087                         ;-------------------------------------------------
+                      00088                         ; Número 6
+                      00089                         ;-------------------------------------------------
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0021   0820           00090                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0022   3C06           00091                         SUBLW D'6'                        ;Decresce em 6 unidade(s)
+0023   1903           00092                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0024   2857           00093                         GOTO DISPLAY_NUMBER6  ;Caso tenha sido, coloca o número 6 no display
+0025   0000           00094                         NOP
+                      00095                         
+                      00096                         ;-------------------------------------------------
+                      00097                         ; Número 7
+                      00098                         ;-------------------------------------------------
+0026   0820           00099                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0027   3C07           00100                         SUBLW D'7'                        ;Decresce em 7 unidade(s)
+0028   1903           00101                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0029   285B           00102                         GOTO DISPLAY_NUMBER7  ;Caso tenha sido, coloca o número 7 no display
+002A   0000           00103                         NOP
+                      00104                         
+                      00105                         ;-------------------------------------------------
+                      00106                         ; Número 8
+                      00107                         ;-------------------------------------------------
+002B   0820           00108                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+002C   3C08           00109                         SUBLW D'8'                        ;Decresce em 8 unidade(s)
+002D   1903           00110                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+002E   285F           00111                         GOTO DISPLAY_NUMBER8  ;Caso tenha sido, coloca o número 8 no display
+002F   0000           00112                         NOP
+                      00113                         
+                      00114                         ;-------------------------------------------------
+                      00115                         ; Número 9
+                      00116                         ;-------------------------------------------------
+0030   0820           00117                         MOVF COUNT_DISPLAY, W ;Move o valor do contador pro registrador W
+0031   3C09           00118                         SUBLW D'9'                        ;Decresce em 9 unidade(s)
+0032   1903           00119                         BTFSC STATUS, Z           ;Verifica se o resultado foi 0
+0033   2863           00120                         GOTO DISPLAY_NUMBER9  ;Caso tenha sido, coloca o número 9 no display
+0034   0000           00121                         NOP
+                      00122                         
+                      00123                         ;-------------------------------------------------
+                      00124                         ; Quando o número enviado não está entre 0 e 9, inclusivo
+                      00125                         ;-------------------------------------------------
+0035   30FF           00126                         MOVLW D'255'              ;Move o valor 255 para o registrador W
+0036                  00127 SEND_DATA:
+0036   1683 1303      00128                         BANKSEL TXSTA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0038   1C98           00129                         BTFSS TXSTA, TRMT         ;Verifica se o buffer de transmissão está vazio
+0039   2836           00130                         GOTO SEND_DATA            ;Caso NÃO esteja, verifica novamente (até conseguir en
+                            viar)
+003A   0000           00131                         NOP
+003B   1283 1303      00132                         BANKSEL TXREG             ;Ativa o banco do registrador TXREG
+003D   0099           00133                         MOVWF TXREG               ;Caso esteja, envia o valor para o Buffer de Transmiss
+                            ão
+                      00134                         
+003E   289F           00135                         GOTO RECEIVE_DATA         ;Retorna para a função de recebimento de dados
+                      00136 ;-------------------------------------------------------------
+                      00137 ;-------------------------------------------------------------
+                      00138 ; Abaixo, ficam as funções para ativar cada número do display de 7 segmentos (config. RBx)
+                      00139 ; Cada uma move um valor específico (MOVLW), em binário, para a PORTB
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00140 ;-------------------------------------------------------------
+                      00141 ; Número 0
+                      00142 ;-------------------------------------------------------------
+003F                  00143 DISPLAY_NUMBER0:
+003F   30FE           00144                          MOVLW B'11111110'
+0040   0086           00145                          MOVWF PORTB
+0041   0820           00146                          MOVF COUNT_DISPLAY, W
+0042   2836           00147                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00148 ;-------------------------------------------------------------
+                      00149 ; Número 1
+                      00150 ;-------------------------------------------------------------
+0043                  00151 DISPLAY_NUMBER1:
+0043   3038           00152                          MOVLW B'00111000'
+0044   0086           00153                          MOVWF PORTB
+0045   0820           00154                          MOVF COUNT_DISPLAY, W
+0046   2836           00155                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00156 ;-------------------------------------------------------------
+                      00157 ; Número 2
+                      00158 ;-------------------------------------------------------------
+0047                  00159 DISPLAY_NUMBER2:
+0047   30DD           00160                          MOVLW B'11011101'
+0048   0086           00161                          MOVWF PORTB
+0049   0820           00162                          MOVF COUNT_DISPLAY, W
+004A   2836           00163                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00164 ;-------------------------------------------------------------
+                      00165 ; Número 3
+                      00166 ;-------------------------------------------------------------
+004B                  00167 DISPLAY_NUMBER3:
+004B   307D           00168                          MOVLW B'01111101'
+004C   0086           00169                          MOVWF PORTB
+004D   0820           00170                          MOVF COUNT_DISPLAY, W
+004E   2836           00171                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00172 ;-------------------------------------------------------------
+                      00173 ; Número 4
+                      00174 ;-------------------------------------------------------------
+004F                  00175 DISPLAY_NUMBER4:
+004F   303B           00176                          MOVLW B'00111011'
+0050   0086           00177                          MOVWF PORTB
+0051   0820           00178                          MOVF COUNT_DISPLAY, W
+0052   2836           00179                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00180 ;-------------------------------------------------------------
+                      00181 ; Número 5
+                      00182 ;-------------------------------------------------------------
+0053                  00183 DISPLAY_NUMBER5:
+0053   3077           00184                          MOVLW B'01110111'
+0054   0086           00185                          MOVWF PORTB
+0055   0820           00186                          MOVF COUNT_DISPLAY, W
+0056   2836           00187                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00188 ;-------------------------------------------------------------
+                      00189 ; Número 6
+                      00190 ;-------------------------------------------------------------
+0057                  00191 DISPLAY_NUMBER6:
+0057   30F3           00192                          MOVLW B'11110011'
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0058   0086           00193                          MOVWF PORTB
+0059   0820           00194                          MOVF COUNT_DISPLAY, W
+005A   2836           00195                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00196 ;-------------------------------------------------------------
+                      00197 ; Número 7
+                      00198 ;-------------------------------------------------------------
+005B                  00199 DISPLAY_NUMBER7:
+005B   303C           00200                          MOVLW B'00111100'
+005C   0086           00201                          MOVWF PORTB
+005D   0820           00202                          MOVF COUNT_DISPLAY, W
+005E   2836           00203                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00204 ;-------------------------------------------------------------
+                      00205 ; Número 8
+                      00206 ;-------------------------------------------------------------
+005F                  00207 DISPLAY_NUMBER8:
+005F   30FF           00208                          MOVLW B'11111111'
+0060   0086           00209                          MOVWF PORTB
+0061   0820           00210                          MOVF COUNT_DISPLAY, W
+0062   2836           00211                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00212 ;-------------------------------------------------------------
+                      00213 ; Número 9
+                      00214 ;-------------------------------------------------------------
+0063                  00215 DISPLAY_NUMBER9:
+0063   303F           00216                          MOVLW B'00111111'
+0064   0086           00217                          MOVWF PORTB
+0065   0820           00218                          MOVF COUNT_DISPLAY, W
+0066   2836           00219                          GOTO SEND_DATA          ;Manda o valor para o programa
+                      00220                          
+0067   0008           00221 FIM_DISPLAY_NUMBER:     RETURN
+                      00222 ;-------------------------------------------------------------
+                      00223 ;-------------------------------------------------------------
+                      00224 ; Sub-rotinas de Configurações Iniciais
+                      00225 ;-------------------------------------------------------------
+                      00226 ;-------------------------------------------------------------
+                      00227 ; Configuração do registrador INTCON
+                      00228 ;-------------------------------------------------------------
+0068                  00229 CONFIG_INTCON:
+0068   1283 1303      00230                          BANKSEL INTCON
+006A   30A0           00231                          MOVLW B'10100000'
+006B   008B           00232                          MOVWF INTCON
+006C   0008           00233                          RETURN
+                      00234 ;-------------------------------------------------------------
+                      00235 ; Configuração do registrador TXSTA para Comunicação Serial (Transmissão de Dados)
+                      00236 ;-------------------------------------------------------------
+006D                  00237 CONFIG_TXSTA:
+006D   1683 1303      00238                          BANKSEL TXSTA
+006F   3026           00239                          MOVLW B'00100110' ;Configuração do TXSTA para comunicação serial assíncrona de 
+                            8 bits
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0070   0098           00240                          MOVWF TXSTA
+0071   0008           00241                          RETURN
+                      00242 ;-------------------------------------------------------------
+                      00243 ; Configuração do registrador RCSTA para Comunicação Serial (Recepção de Dados)
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00244 ;-------------------------------------------------------------
+0072                  00245 CONFIG_RCSTA:
+0072   1283 1303      00246                          BANKSEL RCSTA
+0074   3090           00247                          MOVLW B'10010000' ;Configuração do RCSTA para comunicação serial assíncrona de 
+                            8 bits
+0075   0098           00248                          MOVWF RCSTA
+0076   0008           00249                          RETURN
+                      00250 ;-------------------------------------------------------------
+                      00251 ; Configuração do registrador SPBRSG para Comunicação Serial (Taxa de Transmissão)
+                      00252 ;-------------------------------------------------------------
+                      00253 ; Clock: 20MHz // BPS: 9600bps // BRGH = 1 -> SPBRGH = 129,2083
+                      00254 ;-------------------------------------------------------------
+0077                  00255 CONFIG_SPBRG:
+0077   1683 1303      00256                          BANKSEL SPBRG
+0079   3081           00257                          MOVLW D'129'           ;Configuração do SPBRS para taxa de alta velocidade (TXS
+                            TA)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+007A   0099           00258                          MOVWF SPBRG
+007B   0008           00259                          RETURN
+                      00260 ;-------------------------------------------------------------
+                      00261 ; Configuração do registrador PIE1 para Comunicação Serial
+                      00262 ;-------------------------------------------------------------
+007C                  00263 CONFIG_PIE1:
+007C   1683 1303      00264                          BANKSEL PIE1
+007E   3030           00265                          MOVLW B'00110000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+007F   008C           00266                          MOVWF PIE1
+0080   0008           00267                          RETURN
+                      00268 ;-------------------------------------------------------------
+                      00269 ; Configuração do registrador PIR1 para Comunicação Serial
+                      00270 ;-------------------------------------------------------------
+0081                  00271 CONFIG_PIR1:
+0081   1283 1303      00272                          BANKSEL PIR1
+0083   3000           00273                          MOVLW B'00000000'
+0084   008C           00274                          MOVWF PIR1
+0085   0008           00275                          RETURN
+                      00276 ;-------------------------------------------------------------
+                      00277 ; Configuração do registrador TRISB (PORTB) para Comunicação Serial
+                      00278 ;-------------------------------------------------------------
+0086                  00279 CONFIG_TRISB_SERIAL:
+0086   1683 1303      00280                          BANKSEL TRISB
+0088   3006           00281                          MOVLW B'00000110' ;Definindo RB1 e RB2 como Input para Comunicação Serial
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0089   0086           00282                          MOVWF TRISB
+008A   0008           00283                          RETURN
+                      00284 ;-------------------------------------------------------------
+                      00285 ; Configuração do registrador TRISB (PORTB) para Display
+                      00286 ;-------------------------------------------------------------
+008B                  00287 CONFIG_TRISB_DISPLAY:
+008B   1683 1303      00288                          BANKSEL TRISB
+008D   3000           00289                          MOVLW B'00000000' ;Definindo todos RBx como output (display)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008E   0086           00290                          MOVWF TRISB
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+008F   0008           00291                          RETURN
+                      00292 ;-------------------------------------------------------------
+                      00293 ; Configuração inicial da PORTB (Display) e do Contador
+                      00294 ;-------------------------------------------------------------
+0090                  00295 CONFIG_PORTB:
+0090   1283 1303      00296                          BANKSEL PORTB
+0092   30FE           00297                          MOVLW B'11111110'
+0093   0086           00298                          MOVWF PORTB
+                      00299                          
+0094   01A0           00300                          CLRF COUNT_DISPLAY             ;Zera o contador do display
+0095   0008           00301                          RETURN
+                      00302 ;-------------------------------------------------------------
+                      00303 ;-------------------------------------------------------------
+0096                  00304 INICIO:
+0096   208B           00305                 CALL CONFIG_TRISB_DISPLAY       ;Chama a sub-rotina de programar o TRISB para Display (I
+                            nicial)
+0097   2090           00306                 CALL CONFIG_PORTB                       ;Chama a sub-rotina de programar o PORTB (Displa
+                            y)
+                      00307                 
+0098   2068           00308                 CALL CONFIG_INTCON                      ;Chama a sub-rotina de programar o INTCON
+0099   2086           00309                 CALL CONFIG_TRISB_SERIAL        ;Chama a sub-rotina de programar o TRISB para Comunicaçã
+                            o Serial
+009A   206D           00310                 CALL CONFIG_TXSTA                       ;Chama a sub-rotina de programar o TXSTA para Co
+                            municação Serial (Transmissão)
+009B   2072           00311                 CALL CONFIG_RCSTA                       ;Chama a sub-rotina de programar o RCSTA para Co
+                            municação Serial (Recepção)
+009C   2077           00312                 CALL CONFIG_SPBRG                       ;Chama a sub-rotina de programar o SPBRG para Co
+                            municação Serial (Taxa de Transmissão)
+009D   207C           00313                 CALL CONFIG_PIE1                        ;Chama a sub-rotina de programar o PIE1 para Com
+                            unicação Serial (Interrupção)
+009E   2081           00314                 CALL CONFIG_PIR1                        ;Chama a sub-rotina de programar o PIR1 para Com
+                            unicação Serial
+                      00315                 
+009F                  00316 RECEIVE_DATA:
+009F   1283 1303      00317                 BANKSEL PIR1
+00A1   1E8C           00318                 BTFSS PIR1, RCIF                        ;Verifica se chegou algum byte pela serial
+00A2   289F           00319                 GOTO RECEIVE_DATA                       ;Caso NÃO tenha, volta o loop até chegar
+00A3   0000           00320                 NOP
+                      00321                 
+                      00322                 ;Caso tenha chegado algum dado...
+00A4   1283 1303      00323                 BANKSEL RCREG
+00A6   081A           00324                 MOVF RCREG, W                           ;Move o byte do buffer de recepção e coloca regi
+                            strador W
+00A7   00A0           00325                 MOVWF COUNT_DISPLAY                     ;Move o valor de W para o contador do display
+00A8   2801           00326                 GOTO COUNT_CHANGE                       ;Vai para a rotina para mudar o valor do display
+                      00327 
+Warning[205]: Found directive in column 1. (END)
+                      00328 END
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADDEN                             00000003
+ADEN                              00000003
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+CONFIG_INTCON                     00000068
+CONFIG_PIE1                       0000007C
+CONFIG_PIR1                       00000081
+CONFIG_PORTB                      00000090
+CONFIG_RCSTA                      00000072
+CONFIG_SPBRG                      00000077
+CONFIG_TRISB_DISPLAY              0000008B
+CONFIG_TRISB_SERIAL               00000086
+CONFIG_TXSTA                      0000006D
+COUNT_CHANGE                      00000001
+COUNT_DISPLAY                     00000020
+CREN                              00000004
+CSRC                              00000007
+DATA_CP_OFF                       00003FFF
+DATA_CP_ON                        00003EFF
+DC                                00000001
+DISPLAY_NUMBER0                   0000003F
+DISPLAY_NUMBER1                   00000043
+DISPLAY_NUMBER2                   00000047
+DISPLAY_NUMBER3                   0000004B
+DISPLAY_NUMBER4                   0000004F
+DISPLAY_NUMBER5                   00000053
+DISPLAY_NUMBER6                   00000057
+DISPLAY_NUMBER7                   0000005B
+DISPLAY_NUMBER8                   0000005F
+DISPLAY_NUMBER9                   00000063
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+F                                 00000001
+FERR                              00000002
+FIM_DISPLAY_NUMBER                00000067
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INICIO                            00000096
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RECEIVE_DATA                      0000009F
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SEND_DATA                         00000036
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEVID1                           00002006
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_FOSC_ECIO                        00003FEF
+_FOSC_EXTRCCLK                    00003FFF
+MPASM  5.50             COMUNICAçãOSERIAL.ASM   11-2-2020  10:06:01         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FEE
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+_FOSC_LP                          00003FEC
+_FOSC_XT                          00003FED
+_HS_OSC                           00003FEE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INTOSC_OSC_CLKOUT                00003FFD
+_INTOSC_OSC_NOCLKOUT              00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC_CLKOUT                    00003FFF
+_RC_OSC_NOCLKOUT                  00003FFE
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F873                          00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXX------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   169
+Program Memory Words Free:  3927
+
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     7 reported,     0 suppressed
+
+
