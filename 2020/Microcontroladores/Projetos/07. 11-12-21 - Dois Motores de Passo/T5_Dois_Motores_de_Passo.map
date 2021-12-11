@@ -1,0 +1,66 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Sat Dec 11 13:09:00 2021
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x00009a
+.config_2007_T5_DOIS_MOTORES_DE_PASSO.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x000050      
+                            0x002007    0x002007      
+            79 out of 2182 program addresses used, program memory utilization is 3%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+        CONFIG_AUXILIARES   0x00003d    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+CONFIG_INICIAL_ANTIHORARIO   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+   CONFIG_INICIAL_HORARIO   0x000022    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+            CONFIG_INTCON   0x00002e    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+         CONFIG_OPTIONREG   0x000029    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+             CONFIG_PORTB   0x000038    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+              CONFIG_TMR0   0x000042    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+             CONFIG_TRISB   0x000033    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+               FIM_CONFIG   0x000049    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+                   FIM_T0   0x000012    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+                   INICIO   0x00004a    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+        MOTOR_ANTIHORARIO   0x000013    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+            MOTOR_HORARIO   0x000017    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+          RESULTADO_PORTB   0x000025    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+ROTACAO_ANTIHORARIA_MOTOR   0x00001b    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+    ROTACAO_HORARIA_MOTOR   0x00001d    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   FIM_T0   0x000012    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+        MOTOR_ANTIHORARIO   0x000013    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+            MOTOR_HORARIO   0x000017    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+ROTACAO_ANTIHORARIA_MOTOR   0x00001b    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+    ROTACAO_HORARIA_MOTOR   0x00001d    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+CONFIG_INICIAL_ANTIHORARIO   0x00001f    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+   CONFIG_INICIAL_HORARIO   0x000022    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+          RESULTADO_PORTB   0x000025    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+         CONFIG_OPTIONREG   0x000029    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+            CONFIG_INTCON   0x00002e    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+             CONFIG_TRISB   0x000033    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+             CONFIG_PORTB   0x000038    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+        CONFIG_AUXILIARES   0x00003d    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+              CONFIG_TMR0   0x000042    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+               FIM_CONFIG   0x000049    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+                   INICIO   0x00004a    program     static D:\Documentos\Faculdade\UNESP - BCC\2021\2° Semestre\Monitoria - Microcontroladores\Projetos\07. 11-12-21 - Dois Motores de Passo\T5_Dois_Motores_de_Passo.asm
+
+

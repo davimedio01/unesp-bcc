@@ -1,0 +1,538 @@
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;*************************************************************
+                      00002 ; Dois Motores de Passo                                            *
+                      00003 ;                                                                                          *
+                      00004 ; Autor: Davi Augusto Neves Leite                                  *                     
+                      00005 ; RA: 191027383                                                            *                            
+                                     
+                      00006 ; Data: 10/12/2021                                                         *                            
+                                     
+                      00007 ;*************************************************************
+                      00008 #include <p16f628a.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F628A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00385         LIST
+                      00009 ;-------------------------------------------------------------
+                      00010 ; Configuração dos Bits
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   3F61           00011 __CONFIG _BODEN_ON & _CP_OFF & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _MCLRE_ON & _XT_OSC
+                      00012 ;-------------------------------------------------------------
+                      00013 ;Configuração dos endereços 0x21 e 0x22 para serem auxiliares de rotação dos motores de passo
+                      00014                         CBLOCK 0x20
+  00000020            00015                                          ROT_ANTIHORARIO        ;0x21 para rotação ANTI-HORÁRIA
+  00000021            00016                                          ROT_HORARIO            ;0x22 para rotação HORÁRIA
+  00000022            00017                                          ROT_FINAL                      ;0x23 para resultado das rotaçõe
+                            s (o que irá para o PORTB)
+                      00018                         ENDC
+                      00019 ;-------------------------------------------------------------
+                      00020 ;Configuração do endereço 0x25 para ser uma auxiliar do Timer
+Warning[207]: Found label after column 1. (NUMBER_OF_TIMER)
+  00000025            00021                         NUMBER_OF_TIMER         EQU 0x25
+                      00022 ;-------------------------------------------------------------
+                      00023 ;-------------------------------------------------------------
+0000                  00024                         ORG 0x0000
+0000   284A           00025                         GOTO INICIO        ;Vai para o bloco INICIO (main)
+                      00026 ;-------------------------------------------------------------
+                      00027 ;-------------------------------------------------------------
+                      00028 ;Bloco da Rotina de Interrupção do TMR0
+0004                  00029                         ORG 0x0004
+                      00030                         
+                      00031                         ;Nesta primeira etapa, reseta a flag do TMR0 e compara o valor do TMR0 com uma a
+                            uxiliar que conta quantas vezes o PIC acionou a interrupção
+0004   1283 1303      00032                         BANKSEL INTCON
+0006   110B           00033                         BCF INTCON, T0IF
+                      00034                         
+0007   1283 1303      00035                         BANKSEL TMR0
+0009   3083           00036                         MOVLW D'131'
+000A   0081           00037                         MOVWF TMR0
+000B   0BA5           00038                         DECFSZ NUMBER_OF_TIMER, 1       ;Subtrai o valor de F (TMR0) da auxiliar que con
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                            ta quantas vezes o PIC acionou a interrupção (esperar até 1s)
+000C   2812           00039                         GOTO FIM_T0                                     ;Retorna para o início
+                      00040                         ;-------------------------------------------------------------
+                      00041                         ;-------------------------------------------------------------
+                      00042                         ;Reinicia a variável auxiliar que conta quantas vezes o PIC acionou a interrupçã
+                            o
+000D   307D           00043                         MOVLW D'125'
+000E   00A5           00044                         MOVWF NUMBER_OF_TIMER
+                      00045                         ;-------------------------------------------------------------
+                      00046                         ;-------------------------------------------------------------
+                      00047                         ;Ao chegar aqui, significa que passou um segundo (1000ms dado pela contagem de q
+                            uantas interrupções de 8ms deu...)
+                      00048                         ;-------------------------------------------------------------
+                      00049                         ;Desta forma, realizar a rotação do primeiro motor de passo (RB7 -> RB4 // Rotaç
+                            ão Anti-Horária)
+000F   2013           00050                         CALL MOTOR_ANTIHORARIO
+                      00051                         ;-------------------------------------------------------------
+                      00052                         ;Desta forma, realizar a rotação do primeiro motor de passo (RB0 -> RB3 // Rotaç
+                            ão Horária))
+0010   2017           00053                         CALL MOTOR_HORARIO
+                      00054                         ;-------------------------------------------------------------
+                      00055                         ;Por fim, realizar as alterações na PORTB (resultado OR entre as variáveis auxil
+                            iares de rotação)
+0011   2025           00056                         CALL RESULTADO_PORTB
+                      00057                         ;-------------------------------------------------------------
+                      00058 
+0012   0009           00059 FIM_T0: RETFIE
+                      00060 ;-------------------------------------------------------------
+                      00061 ;-------------------------------------------------------------
+                      00062 ; Rotina de VERIFICAÇÃO da Rotação ANTI-HORÁRIA do Motor de Passo
+0013                  00063 MOTOR_ANTIHORARIO:
+0013   1A06           00064                         BTFSC PORTB, 4                                          ;Verifica se o pino RB4 
+                            esta ativo
+0014   281F           00065                         GOTO CONFIG_INICIAL_ANTIHORARIO         ;Reiniciar o looping reconfigurando a PO
+                            RTB se o pino RB4 estiver ativo
+0015   281B           00066                         GOTO ROTACAO_ANTIHORARIA_MOTOR  ;Rotina que move o valor da rotacao para a direi
+                            ta (RB7 até RB4)
+0016   0008           00067                         RETURN
+                      00068 ;-------------------------------------------------------------
+                      00069 ;-------------------------------------------------------------
+                      00070 ; Rotina de VERIFICAÇÃO da Rotação ANTI-HORÁRIA do Motor de Passo
+0017                  00071 MOTOR_HORARIO:
+0017   1806           00072                         BTFSC PORTB, 0                                          ;Verifica se o pino RB0 
+                            esta ativo
+0018   2822           00073                         GOTO CONFIG_INICIAL_HORARIO                     ;Reiniciar o looping reconfigura
+                            ndo a PORTB se o pino RB0 estiver ativo
+0019   281D           00074                         GOTO ROTACAO_HORARIA_MOTOR              ;Rotina que move o valor da rotacao para
+                             a esquerda (RB3 até RB0)
+001A   0008           00075                         RETURN
+                      00076 ;-------------------------------------------------------------
+                      00077 ;-------------------------------------------------------------
+                      00078 ; Rotina de Rotação ANTI-HORÁRIA do Motor de Passo (por meio: mover um bit à direita)
+001B                  00079 ROTACAO_ANTIHORARIA_MOTOR:
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+001B   0CA0           00080                         RRF ROT_ANTIHORARIO, 1  ;Move um bit à direita da AUXILIAR para PORTB
+001C   0009           00081                         RETFIE
+                      00082 ;-------------------------------------------------------------
+                      00083 ;-------------------------------------------------------------
+                      00084 ; Rotina de Rotação HORÁRIA do Motor de Passo (por meio: mover um bit à direita)
+001D                  00085 ROTACAO_HORARIA_MOTOR:
+001D   0CA1           00086                         RRF ROT_HORARIO, 1      ;Move um bit à direita da PORTB
+001E   0009           00087                         RETFIE
+                      00088 ;-------------------------------------------------------------
+                      00089 ;-------------------------------------------------------------
+                      00090 ; Rotina para reconfigurar o PORTB para o motor de passo HORÁRIO (ou seja, looping de RB7 -> RB4)
+001F                  00091 CONFIG_INICIAL_ANTIHORARIO:
+001F   3080           00092                         MOVLW B'10000000'
+0020   00A0           00093                         MOVWF ROT_ANTIHORARIO
+0021   0009           00094                         RETFIE
+                      00095 ;-------------------------------------------------------------
+                      00096 ;-------------------------------------------------------------
+                      00097 ; Rotina para reconfigurar o PORTB para o motor de passo ANTI-HORÁRIO (ou seja, looping de RB7 -> RB4)
+0022                  00098 CONFIG_INICIAL_HORARIO:
+0022   3008           00099                         MOVLW B'00001000'
+0023   00A1           00100                         MOVWF ROT_HORARIO
+0024   0009           00101                         RETFIE
+                      00102 ;-------------------------------------------------------------
+                      00103 ;-------------------------------------------------------------
+                      00104 ; Rotina para colocar o resultado final das rotações (operação OR) no PORTB
+0025                  00105 RESULTADO_PORTB:
+0025   0820           00106                         MOVF ROT_ANTIHORARIO, W ;Move o valor da rotação anti-horário para W
+                      00107                         
+0026   0421           00108                         IORWF ROT_HORARIO, W    ;Realiza a operação OR entre os dois valores, colocando 
+                            o resultado em W
+                      00109                         
+0027   0086           00110                         MOVWF PORTB                           ;Move o resultado da operação para a PORTB
+                            ...
+0028   0008           00111                         RETURN
+                      00112 ;-------------------------------------------------------------
+                      00113 ;-------------------------------------------------------------
+                      00114 ; Configuração do registrador OPTION_REG
+0029                  00115 CONFIG_OPTIONREG:
+0029   1683 1303      00116                          BANKSEL OPTION_REG
+002B   3005           00117                          MOVLW B'00000101'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002C   0081           00118                          MOVWF OPTION_REG
+002D   2849           00119                          GOTO FIM_CONFIG
+                      00120 ;-------------------------------------------------------------
+                      00121 ;-------------------------------------------------------------
+                      00122 ; Configuração do registrador INTCON
+002E                  00123 CONFIG_INTCON:
+002E   1283 1303      00124                          BANKSEL INTCON
+0030   30A0           00125                          MOVLW B'10100000'
+0031   008B           00126                          MOVWF INTCON
+0032   2849           00127                          GOTO FIM_CONFIG
+                      00128 ;-------------------------------------------------------------
+                      00129 ;-------------------------------------------------------------
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00130 ; Configuração do registrador TRISB (PORTB) para os LED's (OUTPUT)
+0033                  00131 CONFIG_TRISB:
+0033   1683 1303      00132                          BANKSEL TRISB
+0035   3000           00133                          MOVLW B'00000000' ;Definindo RBx como OUTPUT
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0036   0086           00134                          MOVWF TRISB
+0037   2849           00135                          GOTO FIM_CONFIG
+                      00136 ;-------------------------------------------------------------
+                      00137 ;-------------------------------------------------------------
+                      00138 ; Configuração inicial da PORTB
+0038                  00139 CONFIG_PORTB:
+0038   1283 1303      00140                          BANKSEL PORTB
+003A   3000           00141                          MOVLW B'00000000'              ;Valor inicial da PORTB para os DOIS Motores de 
+                            Passo...
+003B   0086           00142                          MOVWF PORTB
+                      00143                          
+003C   2849           00144                          GOTO FIM_CONFIG
+                      00145 ;-------------------------------------------------------------
+                      00146 ;-------------------------------------------------------------
+                      00147 ; Configuração inicial das auxiliares de rotação
+003D                  00148 CONFIG_AUXILIARES:
+003D   3080           00149                          MOVLW B'10000000'
+003E   00A0           00150                          MOVWF ROT_ANTIHORARIO
+                      00151 
+003F   3008           00152                          MOVLW B'00001000'
+0040   00A1           00153                          MOVWF ROT_HORARIO
+                      00154                          
+0041   2849           00155                          GOTO FIM_CONFIG
+                      00156 ;-------------------------------------------------------------
+                      00157 ;-------------------------------------------------------------
+                      00158 ; Configuração do registrador TMR0 (Timer0) para 1s
+0042                  00159 CONFIG_TMR0:
+0042   1283 1303      00160                          BANKSEL TMR0
+0044   3083           00161                          MOVLW D'131'
+0045   0081           00162                          MOVWF TMR0                               ;Move o valor inicial 131 para o TMR0,
+                             para fins de comparação com a auxiliar
+                      00163                          
+0046   307D           00164                          MOVLW D'125'
+0047   00A5           00165                          MOVWF NUMBER_OF_TIMER  ;Move o valor 125 para a auxiliar que conta quantas veze
+                            s o PIC acionou a interrupção
+                      00166                          
+0048   2849           00167                          GOTO FIM_CONFIG        
+                      00168 ;-------------------------------------------------------------
+                      00169 ;-------------------------------------------------------------
+0049   0008           00170 FIM_CONFIG:     RETURN
+                      00171 ;-------------------------------------------------------------
+                      00172 ;-------------------------------------------------------------
+004A                  00173 INICIO:
+004A   2029           00174                 CALL CONFIG_OPTIONREG    ;Chama a sub-rotina de programar o OPTION_REG
+004B   202E           00175                 CALL CONFIG_INTCON               ;Chama a sub-rotina de programar o INTCON
+                      00176                 
+004C   2033           00177                 CALL CONFIG_TRISB               ;Chama a sub-rotina de programar o TRISB
+004D   2038           00178                 CALL CONFIG_PORTB               ;Chama a sub-rotina de programar o PORTB (Inicial)
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+004E   203D           00179                 CALL CONFIG_AUXILIARES  ;Chama a sub-rotina de programar as auxiliares de rotação (Inici
+                            al)             
+                      00180 
+004F   2042           00181                 CALL CONFIG_TMR0                        ;Chama a sub-rotina de programar o TMR0
+                      00182                 
+0050   2850           00183                 GOTO $ ;O programa executa essa linha indefinidamente ficando “preso” na mesma. Porém a 
+                            cada 8ms ele irá para o endereço 0x04 e retornar assim que encontrar o RETFIE. Ou seja, ele irá 
+Warning[205]: Found directive in column 1. (END)
+                      00184 END
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADDEN                             00000003
+ADEN                              00000003
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+CONFIG_AUXILIARES                 0000003D
+CONFIG_INICIAL_ANTIHORARIO        0000001F
+CONFIG_INICIAL_HORARIO            00000022
+CONFIG_INTCON                     0000002E
+CONFIG_OPTIONREG                  00000029
+CONFIG_PORTB                      00000038
+CONFIG_TMR0                       00000042
+CONFIG_TRISB                      00000033
+CREN                              00000004
+CSRC                              00000007
+DATA_CP_OFF                       00003FFF
+DATA_CP_ON                        00003EFF
+DC                                00000001
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+F                                 00000001
+FERR                              00000002
+FIM_CONFIG                        00000049
+FIM_T0                            00000012
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INICIO                            0000004A
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+MOTOR_ANTIHORARIO                 00000013
+MOTOR_HORARIO                     00000017
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NUMBER_OF_TIMER                   00000025
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RESULTADO_PORTB                   00000025
+ROTACAO_ANTIHORARIA_MOTOR         0000001B
+ROTACAO_HORARIA_MOTOR             0000001D
+ROT_ANTIHORARIO                   00000020
+ROT_FINAL                         00000022
+ROT_HORARIO                       00000021
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEVID1                           00002006
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_FOSC_ECIO                        00003FEF
+_FOSC_EXTRCCLK                    00003FFF
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FEE
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+_FOSC_LP                          00003FEC
+MPASM  5.51      T5_DOIS_MOTORES_DE_PASSO.ASM   12-11-2021  13:08:59         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_XT                          00003FED
+_HS_OSC                           00003FEE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INTOSC_OSC_CLKOUT                00003FFD
+_INTOSC_OSC_NOCLKOUT              00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC_CLKOUT                    00003FFF
+_RC_OSC_NOCLKOUT                  00003FFE
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F628A                         00000001
+__DEBUG                           1
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX X--------------- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    78
+Program Memory Words Free:  1970
+
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+
