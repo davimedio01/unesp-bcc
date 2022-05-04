@@ -1,0 +1,139 @@
+** Banco de Dados Distribuídos **
+Docs:	https://docs.oracle.com/cd/B10501_01/server.920/a96521/ds_txns.htm
+	https://docs.oracle.com/en/database/oracle/oracle-database/21/admin/distributed-transactions-concepts.html
+Slides: 	https://drive.google.com/file/d/1ny1cTk5ukpYvHVyKCK0MCto4g_PSSq-A/view
+----------------------------------------------------------------------------------------------------------------------------------
+Aula 1 - Introdução: https://drive.google.com/file/d/1GVNTnPhJ9SE1Vs1YmzAp3bQa9qkmeMDQ/view
+
+-> Definição: está relacionado à distribuição dos dados em uma rede, ou seja, para diversos computadores que acessam/modificam os dados 
+	- Ou seja, é importante relevar dois conceitos de transações: locais (dados presentes na máquina do usuário) e globais (dados presentes no servidor)
+	- Aumento da complexidade por conta das questões de paralelismo de execução de transações (máquinas do usuário e servidor)
+
+-> Vantagens
+	- compartilhamento, disponibilidade, autonomia, aumento de poder de processamento, facilidade de reconfiguração e extensão, custos baixos com relação aos computadores menores (dados locais), melhor perfomance de comunicação 
+-> Desvantagens
+	- complexidade (instalação, desenvolvimento, expansão, ...), maior possibilidade de bugs, aumento de processamento (maior troca de mensagens), custo de manutenção/instalação e afins
+
+-> Arquiteturas: busca por uma arquitetura mínima
+	- Diretamente conectados: todos os computadores conectados diratemente entre si, tendo a garantia de comunicação direta.
+	- Árvore: todos os nós estão conectados indiretamente, no formato de árvore (raiz e nós filhos), diminuindo custos mas aumentando o particionamento (divisão) de dados (menos vulnerabilidade numa eventual queda de nó folha)
+	- Estrela: todos os nós estão conectados indiretamente, a partir de uma central, diminuindo o custo de instalação e de acesso aos dados. Maior vulnerabilidade numa queda de servidor. Custo de acesso baixo.
+	- Anel: custo barato e nós conectados diretamente uns com os outros, em forma de sequência. Também há menor vulnerabilidade, uma vez que é necessário cair dois nós para que interrompa a conexão totalmente. Contudo, aumenta o custo de acesso aos dados (mais lento)
+	- Parcialmente conectada: necessário um estudo em que os computadores estejam interligados de maneira personalizada pelo usuário, podendo mesclar as arquiteturas anteriores. Variação de custos, mas necessário um conhecimento a priori do ambiente de instalação.
+	
+	-> Critérios de Comparação: Custo de Instalação, Custo de Comunicação e Disponibilidade de Dados.
+	* A melhor, em termos de acesso aos dados, é a diretamente conectadas. Contudo, é a pior em custo (mais cara).
+
+-> Eixos da Arquitetura de SGBD Distribuído
+	- Distribuição: grau de distribuição
+	- Heterogeneidade: grau de diferença dos SGBDs locais
+	- Autonomia: grau de controle dos SGBDs locais sobre as operações LOCAIS
+
+-> Tipos de DBMS (Database Management System)
+	*Federated Database System: meta-DBMS que integra, de forma transparente, vários SGBDS autônomos em apenas um database
+	- Homogêneo: todos os sites tem o mesmo SGBD e cooperam entre si, de tal forma que pareça apenas um sistema.
+	- Heterogêneo: pelo menos um dos sites tem um SGBD diferente. Pode causar problemas de query e processamento de transações.
+
+-> Formas para o Armazenamento Distribuídos dos Dados
+	- Replicação: armazenar uma relação em dois ou mais sites
+	- Fragmentação: tabelas são fragmentadas horizontal ou verticalmente e os fragmentos são armazenados em sites distintos
+	- Replicação e Fragmentação: pode fragmentar as réplicas ou replicar os fragmentos
+
+-> Transparência de Rede: grau de desconhecimento do usuário sobre detalhes relativos à distribuição dos dados na rede
+	- Em outras palavras, deve oferecer mecanismos para que os usuários percebam o BD Distribuído como sendo centralizado.
+	- Para garantir, é necessário a denominação dos itens de dados
+		- Utilização de Servidor de Nomes: servidor especializado em armazenar os nomes das tabelas e garantir que não haja a duplicidade de nomes para itens de dados diferentes. Problema de desempenho e ponto de falha.
+		- Utilização de Prefixos dos Nomes: utilizar prefixos para os bancos de dados (ex: BD1_Alunos e BD2_Alunos). Identificação global, melhor desempenho com a utilização de um catálogo distribuído para todos os sites.
+
+-> Processamento de Consultas Distribuídas
+	- Pode requerer dados de sites distintos, uma vez que considerados os fatores acima (como fragmentação)
+	- Outros fatores: custo de transmissão de dados pela rede e potencial para processamento paralelo
+	- Melhor perfomance é realizar a consulta fragmentada e juntar numa tabela final (operação de união entre consultas de vários sites)
+	-> A principal estratégia utilizada é a de "Semi Junção" (com Inner Join) em que, resumidamente, envolve armazenar e computar temporariamente as consultas nos sites e realizar a junção entre os temporários. ** Ver slide 48 e vídeo (de 1:21:25 à 1:33:05) para detalhes e exemplificação, respectivamente. **
+
+-> Comandos SQL Remotos e Distribuídos no Oracle
+	- "Remote Query" (Consulta Remota): recupera as informações de uma ou mais tabelas que residem nos mesmos nós remotos.
+	- "Distributed Query" (Consulta Distribuída): recupera as informações de um ou mais nós diferentes do banco de dados.
+	- "Distributed Update" (Update Distribuído): modifica dados em um ou mais nós diferentes do banco de dados.
+
+-> Transações Remotas e Distribuídas no Oracle
+	- "Remote Transaction": contém um ou mais comandos remotos, os quais devem referenciar o mesmo nó!
+	- "Distributed Transaction": contém um ou mais comandos que, individualmente ou como um grupo, atualização dados em dois ou mais nós distintos do banco de dados.
+
+----------------------------------------------------------------------------------------------------------------------------------
+Aula 2 - Efetivação de Transações (2PC): https://drive.google.com/file/d/1-W8nSyWZChHrNnzQB5zSEg9eeOyxN94p/view
+
+-> Transações Distribuídas
+	- SGBD deve garantir as propriedades ACID das transações.
+	- Possíveis Falhas: falha em um site, perda de mensagem, falha de comunicação, particionamento da rede
+
+-> Conceitos Importantes e Fundamentais (P/cada Site)
+	- Transaction Manager (TM): gerenciador de execução das transações que acessão apenas dados LOCAIS
+	- Transaction Coordinator (TC); coordenador de execução das transações que iniciaram num site e pode relacionar outros.
+		- Este é responsável por gerenciar os logs de recuperação, início das transações, decomposição de transações; coordenar o término das transações (commit ou abort)
+
+-> Protocolo de Efetivação em Duas Fases (2PC) - baseado em bloqueios (ver depois Deadlock)
+	- incia quando um commit é encontrado.
+	- Fase 1: preparar para commit - coordenador está associado a adição forçada de <prepare T> no log e verificar se cada um dos sites estão preparados para o commit ou não.
+		- Caso não estejam preparados: adiciona <abort T> no log e manda mensagem para o TC.
+		- Caso estejam preparados: adicionam <ready T> no log e mandam mensagem para o TC.
+	- Fase 2: commit ou abort - coordenador está associado a verificar se é possível efetivar a transação; do contrário, ela será abortada
+		- Se uma mensagem de "abort T" é recebida ou por time-out, adiciona <abort T> ao log e manda mensagem para todos os sites
+		- Caso todos os sites enviaram "ready T" de mensagem, então o TC decide se T será efetivado ou abortado
+			- Caso efetivado, adiciona <commit T> ao log e manda mensagem para todos os sites
+			- Caso abortado, adiciona <abort T> ao log e manda mensagem para todos os sites
+		- Com relação ao sites, estes apenas gravaram a decisão do coordenador no log deles. Mandam uma mensagem de confirmação também.
+
+-> Manuseio de Falhas no 2PC
+	- Uma falha no 2PC pode acontecer quando um site falha (fora do ar) antes de mandar a mensagem "ready T"
+		- Caso isso tenha acontecido, então é considerado "abort T" (time-out)
+		- Caso isso não tenha acontecido, então o 2PC continua normalmente
+	- Contudo, as modificações são vistas no log do site quando é recuperado
+		- <commit T> implica no redo(T) (refazer)
+		- <abort T> implica no undo(T) (desfazer)
+		- <ready T> implica numa consulta ao coordenador
+			- Caso o coordenador esteja com problemas (fora do ar), então uma mensagem de "query-status T" é enviada aos outros sites para determinar o destino de T
+			- Caso o log do coordenador não tenha registro de controle de T, então é realizado o undo(T) (desfazer)
+	- Ainda, pode acontecer do coordenador falhar (fora do ar)
+		- Se um site ativo contém um <commit T>, então deve commitar T; do contrário, deve abortar T
+		- Se algum site ativo NÃO contém <ready T>, então o T deve ser abortado
+		- Se nenhum dos dois acima, então todos os sites possuem <ready T> e, dessa forma, não é possível decidir o destino de T -> Transações em Dúvida
+	- Por fim, pode acontecer de um particionamento na rede
+		- Se o coordenador e TODOS os outros sites estão na mesma partição, então pode continuar
+		- Do contrário, 2PC leva em consideração as ações de falha
+
+-> Recuperação de Falhas no 2PC
+	- Utiliza a mesma estratégia de recuperação dos SGDBs centralizados, exceto pelas "Transações em Dúvida"
+	- Transações em Dúvida, como ditos anteriormente, ocorre quando só há <ready T> nos logs dos sites durante uma falha do coordenador. Ou seja: existe o registro <ready T>, mas não o <commit T> ou <abort T>.
+		- Necessário consultar outros sites para determinar o status da transação T, o que acarreta em uma espera muito grande de tempo e, nessa espera, não se pode processar outras transações (estado de WAIT)
+		- Uma solução pode ser utilizar <ready T, L>, em que L é a lista de todos os itens de dados locais bloqueados pela transação T, durante o registro de log.
+
+----------------------------------------------------------------------------------------------------------------------------------
+Aula 3 - Deadlocks: https://drive.google.com/file/d/1fP84WpfGGe2n9vyxRUfSCWzl5_bOR-0u/view
+
+-> Controle de Concorrência
+	- Protocolos Baseados em Bloqueios
+		- Único Gerenciador de Bloqueios (site Si): simplicidade de implementação e facilidade de tratamento de deadlocks; contudo, Si é um gargalo do sistema e há vulnerabilidade em caso de falhas
+		- Múltiplos Gerenciadores de Bloqueios (gerenciadores residem em sites distintos e gerenciam as solicitações de bloqueios sobre um conjunto de dados): complica o tratamento de deadlock; contudo, diminui o engarrafamento do sistema e a vulnerabilidade
+		- Protocolo da Maioria (cada site mantém um gerenciador de bloqueio local para os itens de dados armazenados anquele site): complexo para o tratamento de deadlock; contudo, diminui o engarrafamento do sistema e vulnerabilidade
+		- Protocolo Parcial: similiar ao da Maioria, mas trata diferente os modos compartilhado e exclusivo de bloqueios.
+			- Compartilhado: solicitação encaminhada para apenas um site que possui réplica do item de dados
+			- Exclusivo: solicitação encaminhada a todos os sites que possuem réplicas do item de dados
+		- Cópia Primária: caso existam réplicas de Q, uma delas é considerado como cópia primária, residindo no site primário. Desvatangem é associada a se esse site primário falhar, tornando Q inacessível
+		
+	- Protocolos Baseados em Timestamp: pode ser aplicado diretamente em um BD sem replicações, desde que seja possível a geração de timestamps únicos entre os sites
+
+-> Tratamento de Impasses ou Deadlocks
+	- Ocorre o Deadlock em duas situações, sabendo que cada site local mantém o seu próprio grafo de espera
+		- Se o grafo local tem um ciclo; ou
+		- Se a união dos grafos locais tem um ciclo
+
+	- Abordagem Centralizada: apenas um site constrói e mantém um grafo de espera global
+		- Possui problemas de delay no recebimento de mensagens, bem como as mensagens recebidas podem estar fora de ordem, resultando em um falso ciclo e rollback desnecessário
+	- Abordagem Distribuída: cada site mantém um grafo de espera local com um nó adicional Tex que representa as transações externas para o site
+		- Caso Tex esteja em um ciclo no grafo local, então há a possibilidade de deadlock
+
+-> Para detalhes, ver os slides 71 ao 82.
+
+----------------------------------------------------------------------------------------------------------------------------------
+- Apenas uma Lista de Exercícios, no Moodle: perguntas e respostas estão no ZIP.

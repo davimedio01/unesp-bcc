@@ -1,0 +1,6 @@
+Aula 3.3 - Algoritmos de Ordenação (HeapSort)
+
+-> Heapsort: baseado em comparações
+	- separado em três partes: construção de uma Heap (a partir da entrada e em binário); remover a raiz e inserir na última posição do vetor; e mover último nó para a posição da raiz.
+	- "heapficação": aplicação de MAX/MIN para a verificação e jogar no vetor (decrescente)
+	- Complexidade: espaço O(N) e tempo O(N*logN) e é in-place (não utiliza espaço de memória adicional)

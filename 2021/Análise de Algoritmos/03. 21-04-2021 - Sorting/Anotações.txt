@@ -1,0 +1,19 @@
+Aula 3.1 - Algoritmos de Ordenação (Insertion Sort e Mergesort)
+
+-> Insertion Sort: laço interno (enquanto) possui um O(n); enquanto que o laço externo possui O(n - 1), que está contido em O(n).
+	- Ou seja, a complexidade de Insertion Sort é O(n)
+
+-> Mergesort: algoritmo de "divisão e conquista" (quebra em partes menores e resolve-as)
+	- Fase de Divisão: O(1), é imediata por ser uma operação aritmética
+	- Fase de Conquista: marcada por 3 laço's, sendo os primeiros executados em n/2 vezes e o último por n. Ou seja, será O(n).
+	- Complexidade: O(n*log(n)) - temporal, descoberto por meio do teorema mestre. O(n) - espacial, uso de vetor auxiliar...
+	
+*-> Teorema Mestre: utilizado para analisar complexidade de algoritmos de "divisão e conquista".
+	- https://pt.wikipedia.org/wiki/Teorema_mestre_(an%C3%A1lise_de_algoritmos)
+-----------------------------------------------------------------------------------------------------------------------------------
+Aula 3.2 - Algoritmos de Ordenação (QuickSort)
+
+-> Quicksort: baseado em "divisão e conquista"
+	- Fase de Divisão: a de maior complexidade em O(n). Existência de um pivo que divide o vetor em duas partes, tal que a sua esquerda tenham elementos menores ou iguais e a sua direita elementos maiores ou iguais...
+	- Fase de Conquista: a mais rapida, pois é de O(1)
+	- Complexidade: O(n*log(n)), porém é in-place pois depende do pivo e da entrada, sendo O(n^2) no pior caso...

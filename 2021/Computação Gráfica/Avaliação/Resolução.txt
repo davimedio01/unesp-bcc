@@ -1,0 +1,107 @@
+1) 
+Essa afirmação NÃO está correta.
+As operações na forma matricial estão relacionadas à mudança na matriz de pixels
+e conversões entre bases, como nas operações de rotação ou escala. Dessa forma,
+para cada operação é necessário redesenhar o quadro de pixels, processo denominado
+de reamostragem. Esse processo, desta forma, é custoso e implica na perda de precisão,
+uma vez que as bordas, por exemplo, de uma figura, não conseguem ser corretamente
+representadas na forma matricial (problema de serrilhado).
+
+2)
+A Curva de Hermite se baseia na utilização de polinômios de terceira ordem para
+o ajuste de curvas, necessitando de quatro fatores para sua geração:
+-> Dois pontos P1 e P2, os quais descrevem, respectivamente, os pontos inicial e final da curva;
+-> Dois vetores TgP1 e TgP2, os quais descrevem, respectivamente, as tangentes e pesos na curva em P1 e P2
+
+3)
+O conceito descrito é denominado pelo termo de Rotoscopia.
+
+4)
+Um sistema de referência do dispositivo (SRD) utiliza um sistema de coordenadas
+diretamente no dispositivo de SAÍDA. Mais precisamente, com relação a um vídeo,
+esses valores das coordenadas podem ser o número máximo de pixels que podem
+ser acessados (como a resolução de um monitor). Além disso, com relação aos
+hardwares, o sistema de coordenadas depende da resolução possível e da 
+configuração definida pelo usuário, entre as possíveis.
+
+5)
+As projeções podem ser dividas em: paralelas e perspectivas.
+As projeções paralelas possuem o centro de projeção localizado no infinito e
+todas as linhas de projeção são PARALELAS entre si. Além disso, elas podem
+preservar as verdadeiras dimensões do objeto, ainda que não consigam produzir
+uma imagem realista.
+Já as projeções perspectivas estão pautadas na produção de uma imagem realista,
+não possibilitando a reprodução das verdadeiras medidas. Em outras palavras,
+trata-se de uma transformação dentro do espaço tridimensional (3D) e as projeções
+representam a cena vista de um ponto de observação, a partir de uma distância
+finita. Ou seja, todos os raios de projeção partem do centro de projeção e 
+interceptam o plano de projeção com diferentes ângulos, tendo as classificações
+baseadas no número de pontos de fuga da imagem projetada.
+
+6)
+São necessários 8 bits para representar uma imagem com 256 tons de cinza.
+
+7)
+A área responsável por melhorar a qualidade visual da imagem é denominada
+de Processamento de Imagens. Em outras palavras, a área de Processamento
+de Imagens está relacionada com a aplicação de técnicas para que as chamadas
+imagens digitais tenham suas qualidades melhoradas. Essas "qualidades" estão
+relacionadas com as seguintes técnicas: cor (como contraste e brilho), filtragem, 
+resolução de imagem, histograma, detecção de borda, redução de ruído,
+interpolação, dentre outras.
+
+8)
+O modelo referido pela imagem é denominado Luz Refletora (ou Spotlight).
+Neste modelo, um refletor lança um raio de luz focado levemente, sendo 
+delimitado por uma região cônica. Em outras palavras, essa região cônica é a que
+delimita a emissão de luz, possibilitando a criação de um efeito semelhante 
+a de uma lanterna (quanto mais distante, menor a intensidade de luz).
+
+9)
+Os principais tipos de Transformações Geométricas consistem em: Translação,
+Escala, Rotação, Reflexão e Cisalhamento.
+
+A Translação está relacionada com a movimentação do objeto, afetando todos
+os seus pontos, de tal forma que seja realizada a mudança de posição desse objeto
+em uma cena virtual. Em poucas palavras, esse processo é realizado com a adição
+de quantidades a partir de seus pontos no plano atual.
+
+A Escala está relacionada com a mudança de dimensões do objeto, possibilitando
+que ele mude de tamanho. Ou seja, está associado a multiplicação de valores
+de suas coordenadas por um fator de escala.
+
+A Rotação está relacionada com a movimentação do objeto com base em um 
+ângulo T. Em poucas palavras, essa transformação possibilita com que o objeto
+gire na cena, a partir da rotação do ângulo T em um ponto P em torno da origem
+da cena.
+
+A Reflexão está relacionada ao espelhamento do objeto, ou seja, é possível visualizar
+um novo objeto que é visto como se o objeto anterior fosse reproduzido em um espelho.
+Ou seja, o processo de reflexão posiciona o objeto no eixo em torno do qual se faz o 
+espelhamento.
+
+O Cisalhamento (ou shearing) está relacioando a uma distorção no formato de um objeto,
+de tal forma que seja aplicado um deslocamento aos valores das coordenadas X, Y ou Z
+do objeto proporcional ao valor das outras coordenadas de cada ponto transformado.
+
+10)
+O Envolvimento está associado ao grau de motivação para o engajamento de uma
+pessoa a uma atividade em um ambiente virtual. Em outras palavras, representa
+o conceito de o quanto o ambiente virtual impulsiona o usuário a fazer as atividades
+propostas. Dessa forma, é mais referido a estrutura da aplicação, ou seja, como
+ela foi montada, do que outros fatores.
+
+Já a Telepresença está associado a um conjunto de tecnologias que permite
+com que uma pessoa sinta-se presente a um lugar em que ela não está fisicamente.
+Em outras palavras, esse termo se baseia em três ideias básicas: a imersão, 
+relacionado ao sentimento de se sentir dentro do ambiente sintético; a interação,
+relacionado a capacidade do computador em detectar as entradas do usuário
+e realizar ações a partir disso, modificando o mundo virtual; e o envolvimento,
+relacionado ao grau de motivação que uma pessoa está para a realização de uma
+atividade. 
+
+Em síntese, pode-se dizer que, em termos de realidade virtual, a Telepresença
+está mais relacionada a como uma pessoa se sinta presente em um lugar que
+não está fisicamente, ao passo que o Envolvimento é uma base da Telepresença e
+está relacionado ao grau de motivação para que uma pessoa se sinta engajada
+a realização de uma atividade.

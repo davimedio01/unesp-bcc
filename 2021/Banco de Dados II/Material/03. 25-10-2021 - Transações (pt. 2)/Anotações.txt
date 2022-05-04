@@ -1,0 +1,24 @@
+Como desenhar um grafo de precedência: https://www.youtube.com/watch?v=U3SHusK80q0
+
+-> Existem 4 tipos de operações, considerando T1 e T2
+	I) R1(A) -> W2(A)
+	II) W1(A) -> R2(A)
+	III) W1(A) -> W2(A)
+	IV) R1(A) -> R2(A)
+
+Passos:
+
+1) Colocar em tabela os passos a serem realizados pelas transações. Ex: D=R1(X)R2(X) deve ser colocado em tabela...
+2) Colocar os nós dos grafo, sendo as transações em si. Ex: utilizando o D acima, tem-se duas transações T1 e T2
+3) Operações do tipo IV deve ser ignoradas (leitura->leitura).
+4) Para cada operação na sequência, visualizar e associar as operações seguintes.
+	-> Ex: considere D=R1(X)R2(X)W1(X)R1(Y)W2(X)W1(Y).
+		- Neste caso, deve-se fazer uma ligação entre R1(X) com W2(X) [R1 vem antes do W2, ou seja, W2 é sequência]
+		   e R2(X) com W1(X), tendo o grafo sendo um ciclo entre T1 e T2...
+		- Seguir as operações conforme aparecendo, lembrando que operações na própria transação são excluidas (ligação do nó com ele mesmo)
+5) Caso haja cíclo no grafo, a escala NÃO É SERIALIZÁVEL no CONFLITO.
+    Do contrário, a escala É SERIALIZÁVEL no CONFLITO.
+
+
+
+

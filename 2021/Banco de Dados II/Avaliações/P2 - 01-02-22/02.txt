@@ -1,0 +1,51 @@
+Questão: Explique detalhadamente e com suas próprias palavras como o Oracle 
+efetiva transações distribuídas. Defina o que é uma obstrução 
+e como ela pode ocorrer em bancos de dados distribuídos. 
+Explique detalhadamente a estratégia utilizada pelo Oracle para dificultar 
+a ocorrência de obstruções.
+
+Resposta:
+
+Para enteder como o Oracle efetiva as chamadas transações distribuídas,
+primeiro deve-se entender o que é uma transação distribuída e como ela
+funciona. Dessa forma, uma transação distribuída nada mais simboliza do que comandos
+em SQL que alteram dados em dois ou mais sites em um banco de dados
+distribuído. Em outras palavras, vamos pensar que o banco de dados distribuído
+seja representado em uma forma de grafo. Cada nó (ou vértice) desse grafo 
+correspondem aos sites, tendo as arestas representando os comandos das
+transações.
+
+Diante disso, o Oracle utiliza o chamado protocolo 2PC (Two Phase Commit) que 
+nada mais é do que um protocolo baseado em duas fases, consistindo em:
+fase de preparação e fase de decisão (commit ou abort). Detalhadamente,
+esse protocolo é realizado da seguinte maneira: 
+- Fase 1: inicialmente, um nó do grafo é denominado coordenador global, sendo 
+considerado o nó mais importante e que agloba grandes partes dos dados. A partir disso,
+o coordenador verifica cada um dos sites (nós do grafo) e decide qual transação
+deve ser preparada para execução. A partir disso, ele manda uma mensagem
+para cada um dos sites a fim de verificar se é possível executar essa transação.
+Após isso, cada site marca no seu log se a transação solicitada pode ser executada,
+com o comando ready, ou se não pode, com comnado abort.
+- Fase 2: na segunda fase, em sua essência, o coordenador verifica as respostas
+de cada um dos sites a fim de verificar se é possível efetivar a transação ou não.
+Caso haja pelo menos uma mensagem de abort, a transação não é efetivada (rollback)
+e o coordenador manda uma mensagem de abort para todos os outros nós. Do contrário,
+caso TODOS os sites tenham aceitado a efetização da transação, então o
+coordenador manda uma mensagem de commit para todos os sites e, assim,
+confirmasse a efetização da transação.
+
+Parece um processo simples, mas a chamada alocação de recursos para execução das 
+transações é bastante ocorrido. E isso pode gerar um problema chamado de 
+obstrução que, em outras palavras, se refere a um evento em que os dados são
+bloqueados por uma transação ao passo que tentam ser acessados (modo edição)
+por outra, tendo esta útlima impedida de realizar suas ações.
+Em outras palavras, considerando dois usuários que tentam editar o mesmo dado
+em uma tablea, o SGBD do Oracle realiza um tratamento expansivo para evitar que
+haja probleams relacionados a alteração e consulta dos dados.
+Especificamente, o chamado "controle de concorrência" é implementado através de
+alguns conceitos: uma fila, um bloqueio que protege o recurso a ser acessado e;
+um modo do bloqueio que permite que determinadas operações ocorram de forma 
+concorrente ou não (como duas leituras de uma mesma tabela).
+Por conta disso, o problema de "blocking" é minimizado em Oracle que ainda fornece
+informações completas sobre os bloqueios e modos de bloqueios (solicitados e
+obtidos) e a ordem dos requisitantes do recurso na fila.

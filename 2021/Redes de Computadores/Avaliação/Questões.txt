@@ -1,0 +1,23 @@
+**Prova de Redes de Computadores - 07/02/2022**
+
+1 - Associe os conceitos IPv4, NAT e IPv6, indicando as vantagens do IPv6.
+
+2 - Cite 2 soluções de segurança em redes e comente brevemente seu funcionamento.
+
+3 - Cite quais meios de transmissões as redes que você utiliza nos lugares que frequenta (casa, universidade, trabalho) utilizam, apontando uma vantagem e uma desvantagem do meio? (citar pelo menos 3 diferentes)
+
+4 - Com suas palavras, defina o que é Internet. É possível derrubar a Internet do mundo? Relacione sua resposta com a estrutura mundial de DNS.
+
+5 - Defina com as suas palavras o que é um protocolo de comunicação e descreva como é a aplicação do conceito na área de redes de computadores, citando um exemplo.
+
+6 - "https://142.250.218.206:80", o que essa sequência de caracteres como um todo representa? O que a parte "https" representa? A qual camada da pilha de protocolos TCP/IP está ligada? E a parte "142.250.218.206"? A qual camada da pilha de protocolos está ligada? E a parte "80"? Qual camada?
+
+7 - Defina o que é modelo OSI, citando suas camadas e a utilidade de cada camada brevemente.
+
+8 - Diferencie os métodos de roteamento baseados unicamente em saltos (hops), dos métodos baseados em diversas métricas.
+
+9 - Diferencie TCP e UDP e indique uma aplicação que utilize cada um deles, indicando as vantagens no uso desse protocolo por essa aplicação.
+
+10 - Na sua opinião, qual o impacto das redes de computadores na sociedade atual? Considere questões de privacidade, golpes, redes sociais, etc.
+
+

@@ -1,0 +1,24 @@
+* Transações - Vídeo em: https://www.youtube.com/watch?v=3FgsyHRG4SQ *
+
+- Como tratar algumas implementações de aplicativos para que os dados sejam tratados de maneira consistente
+- Definição: trata-se de um conjunto de várias operações que são executadas sobre os dados do banco de dados e que devem ser vistas pelo usuáro do sistema como uma única unidade de processamento
+	- Deve garantir que todas as operações realizadas até ali não devem trazer efeito no banco em caso de falhas (seja COMPLETA), além de ser possível executar várias transações de forma CONCORRENTE. 
+
+-> Operações necessárias para suportar a implementação:
+	- Begin-transaction: marca o início da transação
+	- End-transaction: marca o fim da transação
+	- Commit-transaction: sinal de término com sucesso, tendo as alterações realizadas podendo ser "permanentemente" gravadas no banco de dados (retirar do buffer)
+	- Abort-transaction (rollback): sinal de falha da transação, tendo as alterações já realizadas pela transação como não tendo efeito sobre o banco de dados (devem ser desfeitas!)
+	- Undo: desfaz uma operação
+	- Redo: refaz uma operação
+	* Existência de um diagrama de estados de uma Transação
+
+-> Operações de Lógica:
+	- read(X): transfere o item de dados "X" do BD para um buffer local (variável)
+	- write(X): transfere o item de dados "X" do buffer local para o BD - a gravação efetiva pode não ser imediata (buffer)
+
+-> Propriedades "ACID":
+	- Atomicidade: todas as operações devem ser executadas para o BD ou nenhuma delas (tudo ou nada)
+	- Consistência: a execução de uma transação deve preservar a consistência do BD, ou seja, início em um estado consistente e terminar em estado consistente
+	- Isolamento: deve garantir que cada transação siga seu curso sem considerar as ações/operações executadas por outra transação (concorrência)
+	- Durabilidade: depois do sucesso da transação, as mudanças devem persistir mesmo com falhas no sistema

@@ -1,0 +1,16 @@
+-> Informações devem ser administradas, já que se trata de um recurso não tangível (físico)
+
+-> Sistema representa um conjunto de componentes e suas relações que enfoquem a necessidade para a realização de um objetivo
+	- Dados de Entrada -> Processamento -> Saída
+	- Existência de inferências extrenas e internas
+	- Componentes do Sistema: objetivos, mecanismo de controle, entrada, processamento, saída
+	- Existência de subsistemas interdependentes dentro de um sistema
+
+-> Sistema Aberto: quando há permanente relação de interdependência com o ambiente externo
+	- Um exemplo é dado por uma empresa
+-> Sistema Fechado: se nenhum dos materiais entra ou sai
+	- Não há mudança nos componentes
+
+
+
+

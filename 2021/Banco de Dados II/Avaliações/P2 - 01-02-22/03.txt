@@ -1,0 +1,77 @@
+Questão: Defina o protocolo 2PC. Explique detalhadamente, com suas próprias palavras, 
+como se dá a recuperação de falha de um site participante ou do coordenador de uma 
+transação distribuída em um banco de dados distribuído cujo SGBD utiliza o protocolo 
+2PC. Explique os conceitos de transação em dúvida e de obstrução.
+
+Resolução:
+
+O protocolo 2PC (Two Phase Commit) é um protocolo baseado em duas fases, 
+as quais consistem em: fase de preparação e fase de decisão (commit ou abort). 
+Detalhadamente, esse protocolo é realizado da seguinte maneira: 
+
+- Fase 1: inicialmente, um nó do grafo é denominado coordenador global, sendo 
+considerado o nó mais importante e que agloba grandes partes dos dados. 
+A partir disso, o coordenador verifica cada um dos sites (nós do grafo) e decide qual 
+transação deve ser preparada para execução. A partir disso, ele manda uma mensagem
+para cada um dos sites a fim de verificar se é possível executar essa transação.
+Após isso, cada site marca no seu log se a transação solicitada pode ser executada,
+com o comando "ready", ou se não pode, com comnado "abort".
+
+- Fase 2: na segunda fase, em sua essência, o coordenador verifica as respostas
+de cada um dos sites a fim de verificar se é possível efetivar a transação ou não.
+Caso haja pelo menos uma mensagem de "abort", a transação não é efetivada (rollback)
+e o coordenador manda uma mensagem de abort para todos os outros nós. Do contrário,
+caso TODOS os sites tenham aceitado a efetização da transação, então o
+coordenador manda uma mensagem de commit para todos os sites e, assim,
+confirma a efetização da transação.
+
+Contudo, vários problemas podem ser ocorridos durante a execução do 2PC. Dessa forma,
+cada problema deve haver um tipo de tratamento específico.
+Os principais problemas e seus tratamentos estão descritos a seguir.
+
+- Falha de Um Site: um site (nó do grafo), durante a ocorrência do 2PC, pode acontecer
+de ter sua conexão interrompida (popularmente denominado de "fora do ar"). Diante
+disso, pode haver a ocorrência das seguintes situações: se o site falhou antes de
+mandar uma mensagem de "ready" para o coordenador, é assumido a mensagem
+de "abort" por uma questão de time-out; do contrário, o 2PC continua sendo executado
+até o site retornar ao ar. Quando o site volta ao ar, é visto o seu log para checar a ação
+a ser tomada: se no log tiver um comando de "commit", então é executado refazer(transação);
+se tiver um comando de "abort", é executado desfazer(transação); se tiver um comando
+de "ready", é necesário consultar o nó coordenador para decidir o destino da transação.
+
+- Falha do Coordenador: ainda, durante a ocorrência do 2PC, pode acontecer do nó
+coordenador ficar fora do ar. Se, na última situação da falha de um site, ou seja, àquela
+relacionada ao comando "ready" após o site ser recuperado, o coordenador estiver
+fora do ar, então é necessário verificar os status de TODOS os outros sites para
+determinar o que fazer com a transação. Se quaisquer um dos sites ativos possui
+ou "commit" ou "abort", deve ser realizado a respectiva ação para a transação 
+(efetivar ou abortar). Ainda, se alguns sites ativos não contém o comando "ready",
+então significa que a transação deve ser abortada. Contudo, se TODOS os sites ativos
+possuem "ready", então a transação é colocada em um estado de "em dúvida" que,
+em outras palavras, é um estado que simboliza uma posição que não sabe-se o que
+fazer com a transação.
+
+- Falha de Partição da Rede: este problema é um problema mais simples de ser encontrado,
+uma vez que está relacionado ao particionamento da rede, ou seja, é necessário
+checar se os nós do grafo, isto é, o coordenador e os sites da transação, estavam na
+mesma partição durante uma quebra da rede. Se estavam, então o 2PC pode ser
+continuado tranquilamente. Do contrário, é realizado certas ações de falha na conta.
+
+Especificamente, como abordado no problema da falha do coordenador, as transações
+em dúvida são transações em que, num banco de dados distribuídos e executando
+o protocolo 2PC, não é possível saber o seu destino (efetização ou aborto).
+Dessa forma, a principal ação a ser tomada é verificar TODOS os outors sites
+para determinar a transação em dúvida. Contudo, isso tem um custo de espera muito alto,
+sendo impraticavel em um cenário real, uma vez que, durante esse processo, não é possível
+processar quaisquer outras transações e comandos (como os relacionados a consulta).
+Diante disso, deve-se realizar uma solução previamente estabelecida para evitar essa
+espera custosa de tempo. Essa solução consiste na adição do comando "ready T, L" nos
+logs relacionados, em que T é a transação a ser analisada e L é uma lista de todos os
+itens de dados LOCAIS bloqueados por essa transação.
+
+Por fim, a denominada obstrução se refere a um evento em que os dados são
+bloqueados por uma transação ao passo que tentam ser acessados (modo edição)
+por outra, tendo esta útlima impedida de realizar suas ações. Em outras palavras, 
+considerando dois usuários que tentam editar o mesmo dado em uma tabela, 
+o SGBD deve realizar um tratamento expansivo para evitar que haja problemas 
+relacionados a alteração e consulta dos dados.

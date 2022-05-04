@@ -1,0 +1,205 @@
+1) Os conceitos de IPv4 e IPv6 estão associados na utilização de combinações
+numéricas para estabelecer conexões entre computadores. Especificamente,
+a sigla "IP" refere-se a Protocolo de Internet (Internet Protocol, do inglês),
+sendo o "v4" ou "v6" a respectiva versão desse protocolo (versão 4 ou versão 6).
+Além disso, é importante mencionar que o protocolo IPv6 teve o seu surgimento
+associado com o limite do uso do IPv4, isto é, as combinações numéricas do
+IPv4 chegaram no limite. Como o IPv4 consiste em uma tecnologia que associa
+um código numérico único, de 32 bits, para cada aparelho conectado a Internet,
+chegou um momento que a disponibilidade de endereços se tornou escassa.
+Diante do contexto, foi necessário se criar outro protocolo, o IPv6, 
+que suportasse e disponibilizasse um número quase ilimitado de endereços IP,
+por meio de um código numérico único associado de 128 bits. Além disso,
+o IPv6 veio para trazer novos benefícios e realizar algumas otimizações
+com relação ao IPv4, tais como: suporte aos protocolos de roteamento;
+serviços de autoconfiguração; largo espaço de endereçamento (128 bits); fluxo
+de dados diretos; etc. Ademais, uma das vantagens está associada com o 
+fim do uso do recurso denominado NAT. O NAT (Network Address Translation)
+consiste em permitir que haja uma conversão de endereços de rede interna em
+endereços da Internet, sendo utilizado pelo IPv4 para suprir a necessidade
+da escassez de endereços disponíveis. Em outras palavras, o NAT realizam
+uma conversão do IP privado da máquina para um endereço público, de tal
+modo que o endereço seja dinâmico durante a conexão da máquina com algum
+servidor, variando a cada sessão de conexão do usuário. Os problemas do uso
+desse recurso estão associados, principalmente, a impossibilidade de se
+rastrear o caminho dos pacotes e o aumento do processamento no dispositivo
+tradutor.
+
+2) Com relação a segurança das redes, pode-se citar o IPSec e o Firewall.
+O IPSec representa um conjunto de protocolos para proteger os pacotes
+por meio da criptografia, isto é, fornece métodos para proteção de dados
+trafegados na rede. Para tanto, está baseado no conceito de Associação de
+Segurança que, em poucas palavras, divide os pacotes da seguinte maneira:
+SPI (número identificador), endereço de IP de destino e identificador AH/ESP
+(protocolos de segurança). Além disso, existem dois modos básicos de
+funcionamento do IPSec: modo transporte, o qual encripta somente a 
+informação (dados) do pacote; e modo túnel, o qual encripta os dados e o 
+cabeçalho (número) de IP de origem.
+Já o Firewall representa uma solução de segurança, em hardware ou software
+(este último mais comum), baseada na utilização de um conjunto de regras
+e instruções para determinar as operações de transmissão ou recepção de dados.
+Em outras palavras, essa técnica consiste em controlar as permissões de 
+entrada e saída dos tráfegos de um computador, isto é, bloquear o tráfego
+de dados indesejado e liberar os acessos desejados. Para tanto, o Firewall
+compara as informações enviadas e recebias com as configurações e regras
+pré-estabelecidas na máquina, a fim de se tomar uma decisão de permissão
+ou bloqueio dos pacotes de dados (filtragem de pacotes).
+
+3) Alguns meios de transmissão de rede podem ser evidenciados: por meio de
+cabos de par trancado; por meio de telefonia móvel; por meio de redes
+sem fio.
+O uso de cabos de par trançado possuem as vantagens relacionadas ao custo
+barato, facilidade de instalação e manuseio e prevenção de ruídos elétricos.
+Contudo, algumas desvantagens como a maior suscetibilidade à interferências
+de radiofrequência e eletromagnéticas, podem ser evidenciadas.
+Já o uso da telefonia móvel tem a principal vantagem a sua portabilidade, uma
+vez que as frequências são de rádio. Contudo, uma desvantagem está associada
+a instabilidade causada pela existência de chuva.
+Por fim, o uso de redes sem fio (Wireless) tem suas vantagens evidenciadas
+pela flexibilidade (sem restrição na área de cobertura) e facilidade de 
+instalação. Por outro lado, as desvantagens associadas incluem a menor
+qualidade de serviço, a menor velocidade de transferência de dados e
+maiores interferências para outros aparelhos.
+
+4) A Internet é o conceito relacionado para se referir a rede de conexões
+globais que permitem o compartilhamento de dados entre os diversos
+dispositivos conectados, como computadores e aparelhos móveis. Ou seja,
+é por conta da Internet que há uma difusão maior das informações, uma vez
+que os dispositivos compartilham os dados entre si por meio da rede.
+Especificamente, é utilizado a chamada DNS que nada mais é do que um registro
+que contém nomes de sites e seus respectivos endereços IP associados.
+A DNS, desta forma, favorece a transferência de dados entre os aparelhos
+conectados na rede, uma vez que para se chegar a um site basta buscar
+pelo seu nome associado. Um exemplo disso pode ser visto na página "google.com",
+em que "google.com" é a DNS e o endereço "2800:3f0:4001:82d::200e" é o 
+IPv6 associado.
+Além disso, é importante ressaltar que, como cada dispositivo conectado à
+Internet é responsável por parte dela, para que a Internet do mundo seja
+"derrubada", é necessário interromper a conexão de cada um dos dispositivos.
+Portanto, é improvável que a Internet, em escala mundial, seja desligada.
+
+5) Os protocolos de comunicação representam um conjunto de normas que
+permitem a comunicação entre diferentes máquinas de uma rede. Em outras
+palavras, os protocolos caracterizam o formato, a sincronização, a sequência
+e a detecção de possíveis erros e falhas na transmissão de dados.
+Por consequência, a aplicabilidade na área de redes de computadores é ampla,
+sendo mais utilizado na padronização e possibilidade de comunicação entre
+os computadores, por meio da utilização de um tipo específico para as chamadas
+camadas da rede. Esse termo se refere a divisão atual de como as redes
+se compõe, sendo dividida nas seguintes camadas: aplicação, transporte, rede e
+física. Desta forma, pode-se citar o protocolo HTTP e DNS para a camada de
+aplicação; TCP e UDP para a camada de transporte; IPv4 e IPv6 para a camada
+de rede; Ethernet e Modem para a camada física.
+
+6) A sequência de caracteres apresentada representa um endereço de acesso
+por meio do protocolo TCP/IP. O TCP/IP, em poucas palavras, é um conjunto de
+protocolos de envio e recebimento de dados na internet e é dividido em quatro 
+principais camadas: aplicação, transporte, rede e interface.
+Detalhadamente, o "https" representa o protocolo denominado Hypertext Transfer 
+Protocol, cuja função está associada no transporte de páginas HTML dos servidores 
+para os navegadores web. Desta forma, o "https" está relacionado a camada de 
+aplicação do TCP/IP, uma vez que a função da camada de aplicação está associada 
+a comunicação entre programas e os protocolos da camada de transporte do TCP/IP.
+Já o "142.250.218.206" representa o identificador de acesso da máquina de destino pela
+rede, ou seja, o IP dela. Esse IP está associado com a camada de rede do TCP/IP,
+uma vez que esta é responsável por adicionar o cabeçalho que contém o IP de origem
+e o IP de destino em um pacote de dados. Por fim, a parte "80" da sequência indica
+a porta da conexão, cuja função está associada, juntamente com o IP, para a 
+identificação de aplicações e processos. Além disso, tem-se que a camada 
+de transporte é a que mais se utiliza do conceito de portas.
+
+7) O modelo OSI, ou Open System Interconnection, representa uma arquitetura
+de comunicação entre computadores, por meio da abstração em sete camadas.
+Em outras palavras, o OSI teve seu surgimento justificado na intenção de criação de
+um modelo padrão para os protocolos de comunicação entre os sistemas, de tal
+modo que garantisse que todos esses sistemas pudessem se comunicar entre si
+sem alterações em sua estrutura.  Especificamente, tem-se a seguinte composição das
+camadas do OSI, da base para o topo:
+
+- Camada Física: responsável pela transmissão de dados no baixo nível (0s e 1s), sendo
+uma abstração para a transmissão dos impulsos elétricos e lidando, de forma direta,
+com o meio físico e outras interfaces mecânicas e elétricas de transmissão.
+
+- Camada de Enlace de Dados: responsável por mascarar, ou seja, esconder os erros
+reais de transmissão, de tal modo que a camada acima dela (rede) não veja. Para tanto,
+os dados são divididos em quadros  (partes) e há a transmissão sequencial destes, 
+necessitando de uma resposta da máquina destino. Em poucas palavras, essa camada
+define o formato dos dados na rede.
+
+- Camada de Rede: responsável por integrar toda a arquitetura. Em outras palavras,
+essa camada garante que o tráfego dos pacotes ocorra de maneira independente até
+o destino, definindo o caminho físico que os dados irão seguir.
+
+- Camada de Transporte: responsável por receber dados da camada acima (sessão) e
+dividi-los em unidades menores, a fim de enviá-las para a camada de rede. Em outras
+palavras, é responsável por transmitir os dados com a utilização de protocolos, como
+TCP e UDP.
+
+- Camada de Sessão: responsável por estabelecer as sessões (conexões) entre os
+computadores, tendo a função principal de controlar as portas e sessões. Em outras
+palavras, essa camada é quem decide quem deve transmitir pacotes a cada momento,
+de tal forma que a transmissão de dados retome do ponto que parou no caso de falhas.
+
+- Camada de Apresentação: responsável pela sintaxe e semântica dos dados transmitidos,
+ou seja, garante que os dados estejam em um formato utilizável e seguros. Para tanto,
+é levado em conta as diferentes estruturas de dados para cada arquitetura de destino,
+uma vez que cada computador tem um tipo de representação interna de dados. Além disso,
+com relação a segurança, é nesta camada que a criptografia dos dados é realizada.
+
+- Camada de Aplicação: por fim, essa camada é responsável por abrigar uma série de 
+protocolos necessários às aplicações do usuário, como o HTTP (realiza a requisição de
+páginas WEB). Em outras palavras, representa uma camada de interação entre os 
+usuários e o computador, na qual as aplicações possam usufruir dos serviços de rede.
+
+8) O roteamento consiste no processo pela qual é decidido o caminho em que os
+dados irão trafegar na rede, como interno ou externo. Além disso, todos os tipos
+de roteamento se baseiam na métrica de saltos (hops), a qual consiste no seguinte
+processo: ao receber um pacote, o roteador verifica o endereço de destino que
+está contido no cabeçalho IP e calcula o próximo endereço que o pacote deve
+ser colocado, de tal forma que o pacote fique cada vez mais próximo de seu destino. 
+Contudo, a existência somente dessa métrica pode vir a surgir erros e problemas
+relacionados a entrega do pacote durante o cálculo do próximo endereço. Para isso,
+alguns tipos de roteamento utilizam-se de diversas métricas além da de salto, mas
+o custo para isso é visto na velocidade de entrega dos pacotes, a qual pode ocorrer
+de menor maneira do que na metodologia de somente salto.
+
+9) O protocolo TCP necessita de uma conexão entre a origem e destino antes do envio
+de dados, de tal forma que se garanta a segurança e confiabilidade. Ou seja, este
+protocolo se baseia no modelo OSI em seu funcionamento.
+Por outro lado, o protocolo UDP pode ser considerado como um protocolo TCP, porém
+sem as etapas de verificação de segurança e processos de confiabilidade. Ou seja,
+trata-se de um protocolo sem conexão entre duas máquinas, o que garante uma alta
+velocidade na transferência de dados.
+Com relação às aplicações, prefere-se o TCP para casos em que o tempo de envio e
+resposta não é uma preocupação, como um e-mail e conexões na Internet por meio de
+um navegador (HTTP e HTTPS). Já o UDP é preferível em aplicações cuja velocidade
+na transferência de dados é o principal conceito a ser levado em conta, 
+como as transmissões ao vivo, serviços de streaming (como Netflix) e jogos online.
+
+10) As redes de computadores, em termos sociais, podem ser resumidas a um termo 
+famoso e extremamente decisivo no pensamento e comportamento humano: a Internet.
+A Internet, que teve sua popularização com a globalização na década de 90, deixou
+de ser somente uma ferramenta de pesquisa de informações e passou a ser um 
+parâmetro completo nas decisões humanas. Não somente isso, se tornou um lugar
+predominantemente marcado pelas interações sociais, por meio das chamadas redes
+sociais, como Facebook e Twitter. Isso é evidenciado, por exemplo, no evento 
+denominado "Primavera Árabe", o qual houve um engajamento social para realização 
+de manifestações contra os governos totalitários de diversos países árabes. Esse 
+engajamento foi realizado inteiramente por vias digitais, demonstrando o poder que 
+a Internet possui nas decisões humanas.
+Contudo, nem tudo são "flores" nesse campo: a presença dominante de informações
+tem sido palco de problemas relacionados tanto a privacidade do usuário quanto
+a questões de hacking (roubo de informações). Em outras palavras, a Internet sofre
+constantemente com o roubo e venda de informações, seja por meios considerados
+lícitos, como autorizações pelo usuário de aplicativos de terceiros no Facebook,
+ou por meios considerados ilícitos, como a existência dos chamados ataques hackers,
+a qual uma ou um grupo de pessoas invadem sistemas e roubam as informações.
+Além disso, tem-se outros problemas quando relacionados ao governo, como a censura 
+e manipulação de informações, causando um impacto direto no controle desse governo
+com a sociedade. Em específico, isso pode ser visto na China, a qual o país tem
+controlado o mercado de jogos digitais de tal modo que a maioria disponível viessem
+de empresas chinesas e suas ramificações. Por fim, tem-se questões relacionadas 
+a pirataria, a qual cresceu exponencialmente e juntamente com a Internet. 
+De qualquer modo, pode-se afirmar que a Internet exerce e exercerá impacto direto
+na sociedade atual, principalmente nas relações humanas e na maior difusão de 
+informações.

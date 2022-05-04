@@ -1,0 +1,11 @@
+https://papajpblog.wordpress.com/lectures/
+
+Aula 1 - Introdução: https://youtu.be/i-j02W460dQ
+Aula 2 - Heurísticas e Busca A*: https://youtu.be/qYwxSfjp5hA
+Aula 3 - Representação do Conhecimento: https://youtu.be/_GYCJvuB84A
+Aula 4 - Lógica Fuzzy e Teorema de Bayes: https://youtu.be/YIqMSYYbTK0
+Aula 5 - Computação Evolutiva: https://youtu.be/BnFZvXOgGl4
+Aula 6 - Agentes Inteligentes: https://youtu.be/MZtKQhE5AQk
+Aula 7 - Aprendizado de Máquina: https://youtu.be/SaHXWgdd2SA
+Aula 8 - Neurônio Artificial (Perceptron): https://youtu.be/p2UCuyi5zBE
+

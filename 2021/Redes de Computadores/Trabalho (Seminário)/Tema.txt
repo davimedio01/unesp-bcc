@@ -1,0 +1,19 @@
+Cada tema é acompanhado por 3 perguntas, que deverão ser respondidas no decorrer do seminário.
+
+10 a 20 minutos de apresentação gravada
+até 5 pessoas por grupo
+Data de entrega: 14/02/2022
+----------------------------------------------------------------------------------------------------------------------
+Tema 3: Internet of Things - IoT
+
+Integrantes: 
+	    Davi Augusto Neves Leite
+	    Giovani Candido
+	    Luis Henrique Morélli
+	    Luiz Fernando Merli de Oliveira Sementille
+
+Perguntas:
+	 O que é IoT?
+	 Como a IoT impacta nas indústrias?
+	 O que são casas inteligentes e qual a relação com IoT?
+

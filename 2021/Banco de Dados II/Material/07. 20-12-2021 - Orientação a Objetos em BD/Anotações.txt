@@ -1,0 +1,37 @@
+** Orientação à Objetos em BD: Objeto-Relacional **
+Docs: https://docs.oracle.com/en/database/oracle/oracle-database/21/adobj/index.html
+----------------------------------------------------------------------------------------------------------------------------------
+Aula 1 - Introdução: https://drive.google.com/file/d/10OvugVK95bgpAbxM8AEkQkwbAxCvVZKw/view
+
+-> Conceitos Básicos
+
+- Objeto: cada entidade do mundo real é modelada como um objeto.
+	- Associado um estado (atributos) e um comportamento (métodos).
+- Em SGBDOO, cada objeto possui um identificador único (OID) imutável, o qual é gerado pelo SGBD.
+- Encapsulamento (proteção - get e set): cada objeto possui sua estrutura e seu comportamento armazenados no próprio banco de dados, tendo o acesso restrito ao SGBD.
+- Métodos: definidos por um assinatura e o corpo. 
+	- Assinatura: nome do método, nome e classes dos argumentos e classe do resultado, caso existam.
+	- Corpo: implementação, consistindo de um conjunto de instruções.
+- Herança: reusabilidade, baseada na herança dos atributos e métodos de uma superclasse para sua subclasse.
+	- Já presente no modelo entidade-relacionamento, por meio da especialização e afins
+- Polimorfismo: baseados em sobrecarga de operador (overloading)
+	- Outros conceitos: late binding (ligação tardia) e overriding (redefinição de operação).
+
+-> Orientação a Objetos no ORACLE 9i: https://slideplayer.com.br/slide/4978612/
+
+- Coleção: atributos multivalorados e relacionamentos 1-n
+	- Nested Table: representada como uma coluna dentro de outra tabela; não há ordenação de elementos; única coluna e tipo pré-definido
+
+----------------------------------------------------------------------------------------------------------------------------------
+Aula 2 - Modelagem: https://drive.google.com/file/d/1aGh5AXU8h8EPotuVEa_1voxpyHVRJ0rx/view
+
+- O Vídeo acima se refere à criação do sistema OR EMPRESA, com o processo todo comentado pelo professor.
+
+----------------------------------------------------------------------------------------------------------------------------------
+Herança: https://www.devmedia.com.br/heranca-no-oracle-a-clausula-under/2055
+Orientação Objetos em Oracle: https://www.devmedia.com.br/artigo-sql-magazine-15-a-implementacao-objeto-relacional-no-oracle/5706
+Exemplos: 
+	- https://drive.google.com/file/d/1H0-xfkJmC2vUN8Eb63euR0fas9Hh58xz/view
+	- https://drive.google.com/file/d/1CR6dET5vfyghg4kRKlmTAxnZM-F4L8uM/view
+	- https://drive.google.com/file/d/1-9sCyQvAnZ3aMKeKQPQ-WxazYSQgBVMF/view
+	- https://drive.google.com/file/d/1tB-08vShwhuvv71abE2-PyO6cE1-5BgE/view

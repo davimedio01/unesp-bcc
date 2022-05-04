@@ -1,0 +1,11 @@
+1 - "Nas representações matriciais, muitas operações não implicam em perda de precisão (amostragem)". Essa afirmação está correta? Explique o porquê? (1.0 ponto)
+2 - Explique quais são as características das Curvas de Hermite: (1.0 ponto)
+3 - "É uma técnica de captura de movimento que consiste na utilização de um filme ou vídeo de um personagem real como base para a animação". Esta afirmação pode definir qual conceito visto em aula? (1.0 pontos)
+4 - Um sistema de referência do dispositivo (SRD) utiliza um sistema de coordenadas diretamente no dispositivo de: entrada, saída ou processamento? Explique o porquê: (1.0 ponto)
+5 - Projeções são processos pelo qual um objeto 3D é convertido em um objeto 2D. Podemos classificá-las em dois grupos. Cite quais são e explique-os: (1.0 ponto)
+6 - Quantos bits por pixel são necessários para representar uma imagem com 256 tons de cinza? (1.0 ponto)
+7 - Métodos que melhoram a qualidade visual da imagem pertencem a qual área da CG? Justifique: (1.0 ponto)
+8 - A imagem abaixo é referente a qual modelo de iluminação? Explique: (1.0 ponto)
+Imagem sem legenda
+9 - Cite e explique quais os principais tipos de Transformações Geométricas: (1.0 ponto)
+10 - Explique qual a diferença entre Envolvimento e Telepresença: (1.0 ponto)

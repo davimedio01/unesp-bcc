@@ -1,0 +1,17 @@
+* Controle de Concorrência *
+
+- Isolamento é uma das propriedades fundamentais de uma transação...
+
+- Utilização de um Protocolo Baseado em Bloqueio (Lock)
+	- uma forma como os bloqueios são utilizados
+
+ -> Tipos de Bloqueios
+	- Compartilhado (S): se uma transação Ti obteve um bloqueio desse tipo (S) sobre um item de dado Q, então Ti pode ler Q mas não pode escrever em Q
+	- Exclusivo (X): se uma transação Ti obteve um bloqueio desse tipo (X) sobre o item de dados Q, então Ti pode tanto ler Q quanto escrever em Q
+	
+	-> Compatibilidade entre Bloqueios (leitura: por linhas e com S/X como cada linha e coluna): V, F, F, F
+
+ -> Protocolo de Bloqueio em Duas Fases: transações baseadas em duas fases
+	-> Fases da Transação: expansão (pode obter bloqueios e não liberar nenhum) e encolhimento (pode liberar bloqueios e não consegue obter nenhum bloqueio novo)
+	-> Este garante serialização, mas não impede o deadlock!
+
