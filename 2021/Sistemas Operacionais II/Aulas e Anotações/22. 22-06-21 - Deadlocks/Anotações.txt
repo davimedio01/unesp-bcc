@@ -1,0 +1,12 @@
+*Deadlocks*
+
+- quando um processo domina determinado recurso do sistema
+	ex de recursos: impressora, UCP, memória
+
+- recurso preemptivo: pode ser retirado do processo sem prejudicar a aplicação que detinha o recurso
+	ex: UCP (só pode retirar); memória principal (paginação)
+
+- recurso não preemptivo: não pode ser retirado do processo 
+	ex: impressora
+
+

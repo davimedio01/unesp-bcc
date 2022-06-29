@@ -1,0 +1,7 @@
+* Vetores não tem posição espacial definida
+
+
+
+
+
+

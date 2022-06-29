@@ -1,0 +1,20 @@
+* Segmentação Pura *
+
+-> Blocos de tamanho diferentes em que é levado em conta a estruturação do programa (ex: dividir código de dados e pilha em blocos separados)
+
+-> Conversão de Endereço Virtual em Endereço Físico
+	- O EV é composto por: N°Segmento e Deslocamento (Ex: 1-4096-> segmento 1 e EV 4096
+	- Para conseguir o EF é necessário: ponto de início do segmento e deslocamento. 
+	- Caso o segmento não esteja na memória, é necessário alocá-lo e, a partir daí, obtém-se o ponto de início do segmento (contido na Tabela de Segmento).
+
+-> Falta de Segmento: quando um segmento é referenciado e não está na memória. Aplica-se, então, um algoritmo de substituição de segmento.
+
+-> Vantagens: facilidade de compilação e ligação de procedimentos separados em segmentos (ex: chamada a uma rotina); mudança do tamanho de um procedimento não afeta o outro (caso estejam em segmentos separados); facilita o compartilhamento de procedimentos (rotinas) e dados entre vários processos (reentrância - ex: navegadores Web); questões relacionadas a proteção e segurança de dados (modo de acesso bem controlado)
+
+-> Desvantagens: fragmentação externa (problemas de alocação na memória pois fica fragmentado por sempre entrar um segmento inteiro -> correção com segmentação com paginação ou compactação (desfragmentação em memória)); 
+
+-> A escolha entre segmentação e paginação é feita por hardware (MMU), cabendo ao SO conseguir suportar
+
+
+
+

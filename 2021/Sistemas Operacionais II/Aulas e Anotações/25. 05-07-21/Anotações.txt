@@ -1,0 +1,40 @@
+* Sistemas de Arquivos *
+
+- Fundamental para armazenar os dados a longo prazo (presente em memória não volátil)
+- Soluciona o problema de blocos livres para utilizar
+
+-> São abstrações da Memória Secundária: unidades lógicas de informação utilizados para modelar a memória secundária
+-> Devem possuir:
+	- Identificação: nome do arquivo (cada SO tem sua própria regra) + caminho (dentro da estrutura hierarquica do SO)
+	- Atributos: informações complementares (meta-dados), como data de criação, modificação, versão, nome do autor, senha, dentre outros...
+	- Capacidades: associada a cada processo, ou seja, uma lista de objetos que podem ser acessados junto com as operações
+	- Lista de Controles de Acesso (ACL): conceder direitos por usuário, não por processo (ex: usuário 1 pode deletar o arquivo, enquanto que o usuário 2 não pode).
+	- Organização ou Tipo: regulares, diretórios e especiais
+
+-> Estrutura:
+	- Bytes: conjunto de bytes (ex: DOS, Windows e Unix). O processo é quem formata a informação a ser gravado no arquivo.
+	- Registro: antigo, decorrente dos cartões perfurados
+	- Árvore: utilizado em computadores de grande porte (ex: servidores)
+
+-> Tipos:
+	- Regulares: criados e utilizados diretamente pelo usuário
+	- Diretórios: do sistema que mantém a estrutura do sistema de arquivos
+	- Especiais de Caracteres e Blocos: modelar dispositivos de E/S
+
+	* Arquivos comuns:
+		- Texto: apenas caracteres compreensíveis (ASCII, UTF8, etc)
+		- Binários: precisa de uma aplicação para ser visualizado (ex: DLL)
+		- Executáveis: execução realizada diretamente pelo SO (depende do SO; ex: EXE no Windows)
+
+-> Controle de Acesso: é implementado através de uma Lista de Controle de Acesso (ACL)
+	*alguns SO's possuem grupos de usuários
+	- Os direitos são concedidos por usuário, não por processo!
+
+-> Capacidades: associa a cada processo uma lista de objetos que podem ser acessados, junto com uma indicação das operações permitidas (esta chamada de Lista de Capacidades)
+	- Cada capacidade concete ao proprietário certos direitos sobre um certo objeto (como leitura e escrita)
+	- Operações que um processo pode oferecer aos arquivos
+
+-> Diretório: método mais comum, consistindo em um arquivo (mantido pelo sistema de arquivos) que contém uma lista de arquivos e outros diretórios
+	- Com isso, é possível criar estruturas hierárquicas de arquivos (bastante utilizado hoje em dia por questões de permissão e organização).
+	- Por ser um arquivo, possui as propriedades de controle como escrita e/ou leitura, as quais são aplicadas para os arquivos nele contidos
+	- Tem um campo em que é indicado o número na chamda Tabela FAT, a qual possui os blocos (dados) que compõem o arquivo

@@ -1,0 +1,25 @@
+Gerenciamento de Memória Virtual
+
+*PAGINAÇÃO E MEMÓRIA VIRTUAL*
+
+-> Antigamente: espaço de endereçamento e posições de memória representavam a mesma coisa, pois era realizado de maneira física (espaços produzidos para terem memória, ou seja, não expansível)
+-> Atualmente: existência da expansão, ou seja, espaços não alocados fisicamente não podem ser utilizados pelo SO
+	- Por isso, esses endereçamentos de expansão funcionavam como um "espelho", em que era refletido para os endereços da memória existente
+	- Para corrigir esse problema de endereçamento potencial (não existente fisicamente), surgiu o conceito de memória virtual e paginação
+	- Posição de Memória: espaço real de memória existente; Endereçamento de Memória: espaço total suportado pelo sistema
+
+-> Espaço de endereçamento virtual: aglomera toda a capacidade disponível de memória do sistema
+	- Disco Rígido/Memória Secundária
+-> Espaço de endereçamento físico: aglomera toda a capacidade real disponível de memória física do sistema
+	- Memória Física
+
+-> Paginação
+	- O programa armazenado no disco e este utiliza os endereços virtuais.
+	- O mecanismo da paginação corresponde ao seguinte: programa é subdivido pelo S.O. em blocos de mesmo tamanho de memória (denominado páginas).
+	- Além disso, a memória física também é dividida em páginas de mesmo tamanho das páginas virtuais
+	- Dessa forma, é realizado uma transformação de endereços virtuais para físicos e as páginas são sobrepostas nas páginas físicas, salvando o conteúdo existente de volta na página virtual que foi sobreposta
+		- Endereço Virtual/Tamanho da Página = Número da Página
+		- Endereço Virutal % Tamanho da Página = Distância/Deslocamento do Início da Página (ou Endereçamento Real)
+		- ex: 4098/4096 = 1 -> resto 2
+	- Falta de Página: um endereço virtual é referenciado no programa mas a sua respectiva página não está na memória física, acarretando no carregamento da respectiva página
+

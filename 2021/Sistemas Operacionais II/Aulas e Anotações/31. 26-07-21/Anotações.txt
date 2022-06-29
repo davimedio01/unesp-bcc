@@ -1,0 +1,7 @@
+Exercício 1: TICTAC.C
+
+Descreva o programa, em linguagem C, que contenha três corotinas: main, tic, tac. 
+A corotina tic é composta por um laço eterno dentro do qual imprimirá na tela a string "tic" e depois transferirá o controle para a corotina tac. 
+A corotina tac é similar a tic, porém imprimirá na tela a string "tac" e transferirá o controle para a corotina tic.
+
+

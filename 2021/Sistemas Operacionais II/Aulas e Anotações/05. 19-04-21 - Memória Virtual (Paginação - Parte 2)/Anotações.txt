@@ -1,0 +1,7 @@
+Tabela de Páginas
+
+-> TLB = "cache" da Tabela de Páginas que está presente na MMU
+
+
+
+

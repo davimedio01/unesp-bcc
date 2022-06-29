@@ -1,0 +1,17 @@
+Criar abaixo na mesma pasta do código e associar
+
+nome_codigo.prj <-> nome_codigo.c (system.h system.obj)
+	               system.obj
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Exercício 1: TICTAC2.C
+
+Modificar o "TICTAC.C" de forma que seja escrito apenas 100 vezes o "tictac" na tela e o programa volte ao SO.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+IOTRANSFER: utilização da interrupção "8" (associada ao timer) no "num_vetor" (restrito ao projeto)
+iotransfer -> entrada: origem e destino (ponteiros para descritor P_DESC) e número do vetor (timer = 8)
+
+Exercício 2: ESCALA.C
+
+Construa um programa C que contenha quatro corotinas: main, escalador, corotina_A, corotina_B.
+As corotinas A e B serão compostas por: um laço eterno, dentro do qual exibirão na tela as strings "COROTINA A" e "COROTINA B", respectivamente.
+A corotina escalador deverá revezar a execução das corotinas A e B, por meio de tempo (timer = registrador 8)

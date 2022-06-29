@@ -1,0 +1,16 @@
+* Realidade Virtual *
+	- termo criado por Jaron Lanier no fim da década de 80
+	- definição: interface avançada para aplicações computacionais, em que o usuário pode navegar e interagir, em TEMPO REAL, em um ambiente 3D gerado por computador, utilizando dispositivos multisensoriais.
+		- não são: filmes (sejam interativos ou não), desenhos animados e efeitos especiais
+		- podem ser: jogos 3D
+	- Ivan Sutterland: primeiros estudos com capacete e início da Computação Gráfica (com Sketch em monitores vetoriais)
+	- Três ideias base para existência de RV: imersão, interação e envolvimento
+		- Imersão: sentimento de estar dentro do ambiente gerado por computador
+			- Depende do dispositivo externo empregado
+		- Interação: capacidade do computador em detectar as entradas do usuário e processar instantaneamente o mundo virtual e ações resultantes
+		- Envolvimento: grau de motivação para o engajamento da pessoa na aplicação
+* Realidade Aumentada *
+	- definição: combinação de objetos reais e virtuais em um ambiente REAL, sendo executada de maneira interativa e em tempo real, por meio do registro e rastreamento dos objetos e ações
+
+
+

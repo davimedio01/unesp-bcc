@@ -1,0 +1,23 @@
+*Registradores de controle: servem para programar os controladores (programas chamados de drivers, carregados na inicialização do SO)
+
+*O DMA pode ser independente (chip avulso) ou, na maioria dos casos, fazer parte do próprio controlador
+	- Prós: aumento de velocidade pois foca em apenas uma peça
+	- Contras: fica restrito a uma peça
+	*Um DMA pode ter vários canais (conj. de registradores) e, dessa forma, é possibilitado a passagem de muitos dados
+
+*Tipos de E/S (Periférico com Controlador)*
+
+-> Tipos de Conexão: projetadas para operações em Serial (única linha - mais lenta) ou Paralela (mais de uma linha - maior velocidade mas precisa de sincronização)
+	- PATA x SATA (disco): o Serial nesse caso é mais adequado por uma questão física do Paralelo (formação de campo magnético e capacitância - aumento de erros!)
+	
+-> Tipo de Transferência: dispositivos do tipo Bloco ou Caractere (classificação genérica)
+	- Bloco: trabalha com blocos de bytes independentes, como os discos. Guardam a informação em blocos de tamanhos iguais (possibilita numeração -> busca e acesso aleatório)!
+	- Caractere: trabalha com fluxos de caracteres, como teclado, mouse e placa de rede. 
+	*Existem dispositivos que não são nenhum dos dois (ex: Timer e Sistema de Arquivos).
+
+-> Quanto ao Compartilhamento de Conexões:
+	- Ponto a Ponto: cada controlador tem linhas dedicadas (serial ou paralelo) para cada periférico conectado. Tem vantagem em conseguir transferir em paralelo (sem sincronização); mas aumenta a complexidade do controlador e não é muito escalável (limite de conexões de periféricos).
+	- Multiponto: cada controlador possui apenas uma linha de saída, e essa linha ramifica para N periféricos (não há limite de conexões de periféricos). Contudo, pode ficar mais complexa do que a estrutura anterior (protocolos mais avançados de troca de dados).
+
+
+

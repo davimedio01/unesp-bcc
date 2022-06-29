@@ -1,0 +1,9 @@
+- O Paginador Externo é notificado quando um processo é iniciado a fim de ajustar a tabela de páginas e determinar a área de troca (SWAP) do disco...
+	- Encapsula grande parte da política do mecanismo de paginação
+	- Há um problema em colocar um alg. de subs. de pág. neste componente: informações estão armazenadas na TLB e na tabela de páginas, necessitando o acesso ao modo núcleo
+
+*Memória Cache*
+
+
+
+

@@ -1,0 +1,15 @@
+C) Tamanho da Página
+
+-> Pequeno: 
+	- Vantagens: pequeno espaço de fragmntação interna e alocação melhor para várias estrutura de dados e seções
+	- Desvantagens: programas precisarão de mais páginas
+
+-> Grande:
+	- Vantagens: numero menor de páginas, tamanho de páginas menores e uso melhor da TLB
+	- Desvantagens: alocação não tão boa para as partes do programa e mais partes não usadas na memória
+	*Espaço perdido na fragmentação interna da última página não pode ser quebrado por outro programa...
+
+D)
+
+
+

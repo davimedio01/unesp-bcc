@@ -1,0 +1,9 @@
+* Sistema de Arquivos *
+
+-> Bitmap: uso de matriz para mapear os blocos utilizados e não utilizados do disco
+	- sua eficácia depende da ocupação
+
+
+-> I-Node (Unix e Derivados): cada arquivo tem um I-Node associado
+
+

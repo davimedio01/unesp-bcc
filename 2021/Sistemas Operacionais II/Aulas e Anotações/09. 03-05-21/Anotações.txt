@@ -1,0 +1,22 @@
+*Paginação*
+
+-> Algoritmo do Conjunto de Trabalho: encontrar uma página que não esteja no conj. do trabalho e remover ela da memória
+	- Bit R sempre zerado em um tempo menor que o "Tal"
+
+- Trashing ou ultrapaginação: processo gera, frequentemente, falta de páginas.
+	- Acontece quando a qtd. de molduras é inferior ao conj. de trabalho
+
+-> WSClock: Algoritmo de Substituição de Página melhorado do Conjunto de Trabalho, baseado no relógio
+	- Caso a página a ser retirada tenha o bit M = 1: A escrita da pág é escalonada, o alg. avança em busca de uma pág com R=0, idade>tal e M=0
+
+-> Mais eficientes: Envelhecimento (Aging) e WSClock
+
+Tipo de Alocação de Moldura
+
+-> Alocação Global X Alocação Local
+	- Os algoritmos globais, geralmente, funcionam melhores, especialmente quando o conjunto de trabalho varia durante o tempo de vida de um processo
+	- Local: menor tempo na verificação de páginas; mas pode causar o problema de trashing
+	- Global: demora na verificação de páginas; mas dificilmente ocorrerá o problema de trashing, ainda que uma página de um processo pode substituir uma página de outro processo...
+
+
+

@@ -1,0 +1,24 @@
+P1 - 31/05/21
+P2 e Trabalho - 13/07/21
+Exame: 19/07/21
+-------------------------------------------------------
+Gerenciamento Básico de Memória
+
+*REVISÃO*
+-> SO Monoprogramado: programa do usuário ocupada todo o espaço restante da memória (haja visto a existência do SO)
+-> SO Multiprogramado:
+	- Lote (batch): divisão da memória em blocos (tamanhos pré-calculados) e filas de processos
+	- Interativos: trás para a memória o processo inteiro conforme seja possível (caber na memória). Uso do bitmap e lista encadeada para saber a ocupação da memória.
+-------------------------------------------------------
+Gerenciamento de Memória Virtual
+
+-> No início: realizar a sobreposição (overlay), ou seja, a divisão do programa em módulos carregáveis, sendo partes para alocar na memória separadamente
+	- Módulos de um Programa (Exemplo)
+		- Controle + Dados/Pilha
+		- Processamento "Normal" (não faz tratamento de erros) 
+		- Rotina de Tratamento de Erros
+		- Rotinas de Término do Programa
+	- Problemas para o programador em dividir o programa em módulos por questão de tamanho de memória
+
+-> Automatizar o mecanismo de overlay: uso da memória virtual
+

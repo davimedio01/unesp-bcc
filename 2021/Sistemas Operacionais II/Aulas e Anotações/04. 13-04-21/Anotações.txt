@@ -1,0 +1,16 @@
+Paginação:
+	- SO pode carregar qualquer página virtual em qualquer página física, cabendo a UCP converter o endereço virtual para o endereço físico das páginas respectivas
+		- ex: PV1 (4096 até 8191) para PF2 (8192...) => EV[4098] -> EF[8194] (Distância de 2)
+	- Conversão de EV para EF
+		-> EV: número da página virtual e deslocamento dentro da página virtual (a partir do início)
+		-> EF: número da página física (a ser alocada a PV) e deslocamento dentro da página física (a partir do início)
+		Importante: o deslocamento de EV e EF é o mesmo!
+	- Bit mais significativo do Barramento de Endereço é colocado com 0 pela UCP na MP
+	- EV (16 bits -> 2^16) para EF (15 bits -> 2^15) e páginas virtuais de 4k (12 bits -> 2^12): deslocamento indicado pelos 12 bits menos significativos e os outros 4 bits indica o número da página virtual
+		-> Passos: pegar tamanho da página e verificar quantos bits compõem o deslocamento (bits menos significativos)
+	- Uso de uma Estrutura de Dados para indicar o mapeamento das páginas virtuais: Tabela de Páginas
+		-> O SO marca na tabela de páginas (bit de presença e moldura específica): tempo gasto na "falta de página" (conversão)
+		-> Existência do "bit de modificada" na Tabela de Páginas, a fim de indicar (pela UCP) se o SO deve copiar a página virtual novamente para o disco...
+		-> Existência do "bit de referenciada" na Tabela de Páginas, a fim de indicar ao SO se a página foi referenciada (escrita/leitura) (esse bit é zerado periodicamente): utilizada para indicar que a página foi usada "recentemente" (evita tirar ela da MP, fazendo o SO escolher a menos usada recentemente)
+	
+	

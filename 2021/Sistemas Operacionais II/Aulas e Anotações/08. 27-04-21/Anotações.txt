@@ -1,0 +1,12 @@
+-* Algoritmo do Envelhecimento
+-* MRU em Software
+	- Problemas: Supondo uma página em uso frequente e com contador de poucos bits ***
+
+-> Conjunto de Trabalho de Processo
+	- Falta de Página: referência a um endereço de uma página que não está na MP; ocasiando o SO a realizar processos para colocar a página na memória (Paginação por DEMANDA)
+	- Tabela de Páginas indica que as páginas estão na memória secundária (bit de presença)
+	- Paginação por Demanda pode ser problema em sistemas multiprogramados: comutação constante de processos
+	- Existência de uma "Pré-paginação", ou seja, serão marcados as páginas mais utilizadas (conjunto de trabalho) e aquelas que ficaram na MP, independente
+	
+	
+	

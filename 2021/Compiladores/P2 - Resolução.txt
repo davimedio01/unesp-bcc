@@ -1,0 +1,38 @@
+1)
+A quantidade de identificadores existentes na tabela de símbolos, no ponto 1, é igual a 14 (incluindo o identificador não acessível "prova").
+
+2)
+
+1 - DSVS L1
+2 - AMEM 1
+3 - CRVI 1, -4
+4 - CRVL 1, -3
+5 - L3 NADA
+6 - CRVI 1, -4
+7 - ARMZ 1,0
+8 - CRVL 1, -3
+9 - CRCT 1
+10 - CRVL 1, 0
+11 - ARMI 1, -4
+12 - CRVL 1, -4
+13 - CRVL 1, -3
+14 - SUBT
+15 - CHPR L2
+16 - L4 NADA
+17 - CRVL 1, -3
+18 - CRVI 1, -4
+19 - IMPR
+20 - DMEM 1
+
+3)
+Com relação à Tabela de Símbolos, isto é, em que cada identificador possui atributos associados, existem categorias que dependem dos atributos associados com cada identificador.
+
+Dessa forma, pode-se separar em três principais categorias, cada qual com sua especificidade de atributo (os quais diferem uma das outras). As categorias são: variáveis simples, parâmetros formais e procedimentos.
+
+Inicialmente, as variáveis simples são divididas em: categoria, nível léxico, tipo e endereço textual (deslocamento). Já os parâmetros formais são divididos em: categoria, nível léxico, tipo, endereço textual (deslocamento) e mecanismo de passagem (por valor ou por referência). Por fim, os procedimentos são divididos em: categoria, nível em que foi declarado, rótulo interno (equivalente ao L1 no programa-objeto), número de parâmetros formais, tipo e mecanismo de passagem de cada parâmetro.
+
+4)
+Um diagrama de execução tem como objetivo simular a execução de um programa Pascal. Esses diagramas são compostos por retângulos encaixados, sendo que cada retângulo corresponde a ativação de um procedimento.
+
+5) 
+X = 24

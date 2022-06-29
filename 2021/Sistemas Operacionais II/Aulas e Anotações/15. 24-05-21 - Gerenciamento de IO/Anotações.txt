@@ -1,0 +1,16 @@
+*Paginação "pura": dificil o compartilhamento de rotinas (não se sabe o que fica em cada página...)
+
+
+*Segmentação com Paginação*
+
+- Técnica criada para suprir um problema com a segmentação: tamanho de segmento depende do processo, mas os blocos de memória depende do sistema!
+- Basicamente: separa em segmentos e cada segmento é separado páginas de tamanho igual
+- Uso da Tabela de Páginas e de Segmentação: duas tabelas para cada programa...
+	- Informação do Segmento: N° de Páginas; Comprimento do Seg. (em n° de páginas); Bits de Proteção (leitura/escrita/execução - modos de acesso);
+	
+	-> Conversão de EV em EF: basta aplicar a fórmula EF = (TAMANHO_PV * MOLDURA) + DESLOCAMENTO
+	
+	- Informação da Página do Segmento: bit de presença; n° da moldura; modo de acesso
+- Fragmentação Interna continua sendo o problema, já que a Externa não existe por uso da paginação...
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+

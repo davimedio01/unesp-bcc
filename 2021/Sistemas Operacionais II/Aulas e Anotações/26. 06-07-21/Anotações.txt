@@ -1,0 +1,16 @@
+* Sistema de Arquivos *
+
+-> "." e ".." são arquivos especiais de um diretório para indicar "diretório atual" e "diretório anterior", respectivamente
+-> Serviços do Sistema de Arquivos: manipular Arquivos; Conteúdo dos Arquivos e; Diretórios
+
+--> Implementação Física <--
+
+-> Partições são tratadas como um disco lógico separado
+-> Cada disco lógico possui vários atributos (ver slide 27), mas o principal fator é a divisão sequencial de cilindros (end. inicial e final)
+	- Isso facilita na escrita/leitura de arquivos posterior
+
+-> Problemas relacionados ao tamanho do bloco do disco
+
+
+
+

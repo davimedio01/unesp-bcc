@@ -1,0 +1,23 @@
+*Tabela de Páginas (Invertidas)
+
+- realizar a tabela de páginas com relação as molduras
+- na tabela, cada moldura indicara o processo e a página virtual
+- problemas ao saber a localização da página, necessitando varrer todas as molduras até encontrar
+	- uso de hashing para espalhamento dos índices
+----------------------------------------------------------------------------------------------------
+*Gerência de Memória Virutal - Parte 2*
+
+Substituição de Páginas Virtuais
+
+-> Randômica: solução insatisfatória por conta de escolher uma página virtual que está usando ou que irá usar em sequência
+
+-> Utilização de Algoritmos para solucionar o problema
+	-> Algoritmo de Substituição Ótima
+		- impossível de implementar
+		- usado só como referência
+	-> Algoritmo NUR (Não Utilizada Recentemente)
+		- existência dos bits R (referenciada recentemente) e M (modificada)
+		- o bit R é zerado a partir de um timer
+
+
+

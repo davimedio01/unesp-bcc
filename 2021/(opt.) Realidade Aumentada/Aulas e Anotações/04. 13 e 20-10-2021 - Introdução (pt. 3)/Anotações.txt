@@ -1,0 +1,8 @@
+*Topologia: como os vértices estão dispostos
+Geometria: relacionado a distância (tamanho) das arestas (conexões entre vértices)
+Ou seja: se tivermos um cubo 1 e um dos vértices forem esticados, haverá a mesma topologia porém geometria diferente, 
+sendo objetos diferentes!
+
+
+
+

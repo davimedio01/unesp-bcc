@@ -1,0 +1,15 @@
+* Implementação de Núcleo Multiprogramado *
+
+-> Suporte de Co-Rotinas
+-> Núcleo de SO
+	- BCP
+	- Fila de BCP's
+	- Serviços de Gerenciamento de Processos (criar, terminar, bloquear processo)
+	- Construção do Escalonador de Processos (Algoritmo de Escalonamento)
+	- Comunicação e Sincronização entre Processos: semáforos!
+-> Processos de Usuário
+	- Exclusão Mútua
+	- Acesso aos Device Drivers (DOS Monoprogramado...)
+
+
+

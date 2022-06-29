@@ -1,0 +1,34 @@
+Duas formas de interpretar endereços de E/S quando há memória compartilhada:
+ 
+	- Por Memória: parte dos endereços físicos de memória são ocupados para cada controlador de E/S.
+ 
+	- Por Isolamento: os registradores são independentes da memória, ou seja, cada controlador de E/S vai ter um espaço reservado que não esteja contido na memória.
+ 
+	- Híbrido: parte da memória fica com dados de E/S e o próprio registrador de E/S fica com a parte de código (mistura dos dois acima)
+
+OBS: os endereços com relação a cada controlador não precisam ser sequenciais! (entre um controlador e outro).
+
+*Operação dos Módulos de E/S*
+
+-> E/S programada: os dados são trocados entre a UCP e o Módulo de E/S
+	- não utiliza interrupções!
+	- troca direta: periférico manda info pra registrador do controlador que manda pra memória que manda pra UCP; UCP devolve pra memória que devolve pro registrador do controlador
+	- uso de flag (indicada pelo próprio controlador) em um registrador para marcar a chegada de dados do periférico. 
+	- em resumo: a UCP fica presa à leitura da flag para a leitura dos dados, ambos contidos no controlador (ociosidade)
+	- bom para periféricos da alta velocidade
+	
+-> E/S via Interrupção: utiliza interrupção para superar a ociosidade da E/S programada, pois permite que o controlador ganhe atenção imediata quando necessário!
+	- existência de um controlador de interrupções
+	- quando ocorre a interrupção, é verificado o tipo de ocorrência a ser tratada (verifica o registrador de status)
+	- a interrupção pode significar a ocorrência de um conjunto de eventos para a UCP!
+	- de modo geral, a interrupção pode sinalizar: se chegou dado novo; ja transferiu um dado para o controlador; erros (importância do registrador de status, para saber o tipo a ser tratado)
+	- fim do looping que causava ociosidade à UCP
+	- existência de interrupções mascaráveis e não mascaráveis (esta chamada de NMI), que define se a UCP deve parar obrigatoriamente (urgência!)
+	
+-> E/S via Acesso Direto à Memória: surgiu para suprir os problemas dos dois anteriores, como limitar a capacidade de transferência da UCP (entre controlador e MP) e ocupação da UCP no gerencimento (poderia estar processando outra coisa!)
+	- uso de uma única interrupção para fazer transferência de um bloco de dados entre o dispositivo de E/S e a MP!
+	- UCP tem envolvimento mínimo, se preocupando somente com os dados já em Memória Principal
+	- existência de um controlador de DMA: tem a função de controlar a transferência entre um controlador de grande volume de dados (ex: disco) para a memória! A UCP só manda o DMA fazer a transferência, facilitando o processo!
+		- o controlador de DMA necessita saber a quantidade de bytes (a serem transferido), endereços associados (tanto na memória quanto no periférico).
+	- Em resumo, a UCP programa o controlador de DMA para fazer a transferência de dados entre um periférico (buffer - como no disco) e a memória principal, tendo o controlador de DMA indicando no barramento de controle quando houve a transferência (por interrupção). 
+

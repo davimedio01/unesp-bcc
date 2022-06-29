@@ -1,0 +1,47 @@
+-> Organização dos Discos
+	- Formatação Física = criação das trilhas e setores (cilindros) dos discos. Realizado pelo fabricante (já formatado fisicamente atualmente).
+		- cada setor é criado um cabeçalho (preâmbulo), ficando somente a área de dados útil para armazenamento. Esse cabeçalho tem campos como: n° setor, n° cilindro, zona do setor, dentre outras informações para agilizar o acesso pelo controlador de disco.
+		- após a área de dados existe uma área de "correção de erros", utilizada pelo controlador. É guardado um código de recuperação de erros ou um checksum (soma dos bytes de dados - verificação).
+		- setores podem ser númerados: sequência (não entrelaçados - só é possível se controlador manipular leitura/escrita em parelelo e ter buffer grande); 
+			- é necessário quando precisa armazenar informação no disco mas a informação ainda está passando da MP para o buffer do controlador. Dessa forma, essa técnica possibilita gravar as informações "pulando setores" e gravando nas posições "certas" (ex: setores na ordem de 0, 3, 6, 1).
+			*dar mais tempo para o buffer receber do disco ou transferir para o disco
+
+	- Formatação Lógica = adequação do disco ao sistema de arquivos de um sistema operacional
+		- criar, no disco, estrutura de dados para dar suporte a um sistema de arquivos específico (ex: NTFS, FAT32, EXT4)
+	
+
+	- Divisão dos Discos em Partições: conjunto de cilindros consecutivos, cujo tamanho é determinado pelo usuário (disco lógico)
+		- ex: conjunto de todas as trilhas 1 forma o cilindro 1 -> existe milhares de clindro em discos
+		- melhoras na organização dos dados e instalação de programas
+		- cada partição tratada como um novo disco...
+
+-> Tempo de Acesso
+	- Quando solicitado uma operação de leitura/escrita, necessário mover a cabeça de leitura/escrita até o setor desejado para o início da operação
+	- Acesso mais demorado do que a uma memória principal ou disco de estado sólido (SSD)
+	- Três fatores para cálculo do tempo de acesso: 
+		- Seek Time: tempo para mover ao cilindro correto; 
+		- Rotational Delay: tempo para cabeça ser posicionada no início do setor; 
+		- Transfer Time: tempo de transferência de dados.
+
+-> Algoritmos de Escalonamento de Braço do Disco
+	- importante para aumentar o desempenho de busca no disco
+	- importante para os SO's multiprogramados, já que há o bloqueio de processos que esperam chegada de dados
+
+	- FCFS: uma fila de pedidos é executada na ordem em que aparecem, sem qualquer reordenação ou otimzação da movimentação
+		- uso nos disquetes.
+		- não há otimização.
+	
+	- SSF: a fila de pedidos é executada de forma que sejam atendidos primeiro os pedidos que exigem a menor movimentação possível entre cilindros
+		- neste algoritmo, são verificado as diferenças de posições e escolhido a menor para mover a cabeça do disco.
+		- problemático se chegarem muitos pedidos de posições próximas...
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Dúvidas antes da P1!!
+
+- MMU melhor para converter EV em EF
+	- Busca das instruções do programa sempre na memória principal! Constantemente, a UCP referencia a memória (busca e execução em ENDEREÇOS FÍSICOS)
+	- Ou seja, é mais rápido para a UCP converter os endereços físicos do que pedir para o SO fazer isso: questão de desempenho!
+- SO é responsável por transpor as páginas para as molduras
+- bit de cache desabilitado (TLB): é importante quando relacionado a E/S mapeada em memória, já que nesse caso o acesso a E/S está em uma página!
+	- importante para buscar a informação dos controladores!
+	- cache pequeno joga fora parte da informação da página
+- importante que a TLB esteja na MP, pois a MMU quem busca a informação sobre página

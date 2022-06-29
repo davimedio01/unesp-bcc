@@ -1,0 +1,27 @@
+-> Algoritmo de Substituição de Páginas: prever qual a melhor página para a substituição corrente (pág menos útil)
+
+- Algoritmo NUR (Não Usada Recentemente)
+	- Utilização de dois bits: R (utilizada - prioridade) e M (modificada)
+	- Separa as páginas por classes, cada qual indicando a utilização recente da página
+	
+- Algoritmo FIFO (First In - First Out)
+	- Baixo custo, mantém uma lista de todas as páginas atuais na memória, com a página "mais antiga" (tempo de carregamento) na cabeça da lista
+	- Na falta de página, a página da cabeça da lista é removida e a nova é adicionada ao final da fila
+	- Contudo, a página a ser retirada pode estar sendo utilizada (suposição de que a pág. carregada a muito tempo seja menos útil)...
+	*- Tempo virtual: referência de tempo de carregamento total das páginas (relógio/contador virtual/referencia de tempo)
+
+- Algoritmo da 2° Chance (FIFO Modificado)
+	- Mesmo do anterior, mas verifica se o primeiro da fila está em uso recente! (observando o bit R)
+	- Recoloca os processos utilizados recentemente (R=1) no fim da fila, com R=0 e tempo virtual atualizado!
+	- O primeiro processo da fila que tiver R=0 será removido da fila, como no algoritmo anterior
+
+- Algoritmo do Relógio (2° Chance Melhorado)
+	- No lugar de fila, irá usar uma lista circular
+	- Semelhante a um relógio: um ponteiro que aponta para a página de menos tempo, mas esse conjunto de páginas estão contidos em uma lista circular
+
+- Algoritmo MRU (Menos Recentemente Usada)
+	- Descartar a página que a mais tempo não é usada
+	- Ao contrário do NUR, este leva em consideração o tempo virtual de uso da página
+	- Na prática, o algoritmo é ineficiente: a cada referência a um endereço, a lista deve ser atualizada
+	- Aproximação em Hardware Especial: moldura referenciada tem a linha colocada em 1 e depois a coluna colocada em 0
+

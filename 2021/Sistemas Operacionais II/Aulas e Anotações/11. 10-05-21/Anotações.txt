@@ -1,0 +1,30 @@
+- Separa-se o programa em duas partes de end. virtual
+	- Uma contendo o código e outra contendo dados/pilha
+	- A fim de se manter uma estabilidade, haja visto que o código é ESTÁVEL e o dados/pilha é DINÂMICO
+	- Permite a expansão (ou seja, programa não é limitado ao tamanho máx. de, por exemplo, 64k)
+	- Atualmente é utilizado para mapear memória cache...
+	- Também utilizado em PÁGINAS COMPARTILHADAS!
+
+*Páginas Compartilhadas
+
+- Dois processos compartilhando o mesmo código de programa (ex: abas de navegadores Web)
+- Fácil compartilhamento de código, pois a página virtual do código geralmente é de leitura e execução
+	- Ao contrário da área de dados, composta por leitura/escrita
+
+*Política de Limpeza
+
+- Necessidade de um daemon (gerente) de paginação, o qual inspeciona o estado da memória periodiacamente
+	- Quando não há muitas molduras disponíveis, ele seleciona as páginas a serem removidas da memória (uso de alg. substituição)
+	- O alg. de substituição, nesse caso, é acionado mesmo quando não há falta de página...
+	- Pode pedir o escalonamento das páginas sujas no Disco, agilizando o processo do alg. de substituição
+
+
+*MMU (Hardware) é quem detecta a falta de página e gera uma interrupção (trap), acionando o SO
+-> SO: Bloqueia ou Suspende o processo vigente a fim de procurar a página virtual
+-> Se o processo não foi suspenso até o SWAP IN, ele será suspenso no SWAP IN pela leitura da disco (I/O)
+
+-> Fixação (Pinning) de Páginas: relacionado a alocação global e uso de I/O, portanto, não serão usadas para a troca de páginas (são travadas!)
+-> O buffer do primeiro processo pode ser escolhido pra ser retirado se a alocação global de páginas for adotada
+
+
+

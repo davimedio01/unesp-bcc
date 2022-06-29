@@ -1,0 +1,28 @@
+*Gerência de E/S*
+
+-> Software de E/S
+	- Deve garantir a independência de dispositivo!
+	- Nomeação Uniforme: nomes são colocados para identificar o dispositivo sem precisar abrir o funcionamento do dispositivo, a fim de facilitar o interfaceamento
+	- Uso de Spoolings e Buffers
+	- Camadas (baixo pra cima)
+		- Manipuladores de Interrupção: controlar a rotina no momento da interrupção (código de máquina - Assembly)
+		- Device Drivers: programar o controlador (o que e como ele deve fazer - Assembly também)
+		- Software E/S Independente de Dispositivo: trata a respeito dos problemas de E/S que independem do disp. (como "dar nome ao disp.")
+		- Software E/S Nível do Usuário: interação com os processos, ou seja, as funções de E/S que pertencem ao compilador (serviços)
+
+**Camadas do Software de E/S**
+De baixo para cima:
+
+- Manipuladores de Interrupção
+	- uso de semáforos
+
+- Device Drivers
+	- pode existir várias instâncias, a fim de controlar cada processo (reentrante)
+	- ele quem trata com os vários controladores que podem existir (driver de impressora, driver de disco rígido, driver de placa de vídeo, ...)
+
+- Software E/S Independente de Dispositivo
+	- salva no buffer e comunica (acordar) ao device driver
+
+- Software E/S Nível do Usuário
+	- realiza um pedido abstrato de E/S para a camada abaixo (Independente de Disp.)
+

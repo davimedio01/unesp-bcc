@@ -1,0 +1,24 @@
+Exercício 1: ESCALA.C
+
+Construa um programa C que contenha quatro corotinas: main, escalador, corotina_A, corotina_B.
+As corotinas A e B serão compostas por: um laço eterno, dentro do qual exibirão na tela as strings "COROTINA A" e "COROTINA B", respectivamente.
+A corotina escalador deverá revezar a execução das corotinas A e B, por meio de tempo (timer = registrador 8)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* Projeto de Núcleo de SO *
+
+- Criar um "nucleo.c" e um "nucleo.h".
+
+-> Processos: ação do Escalonador
+	- criaProcesso(): alocar o BCP e iniciá-lo, tornando o processo indefinido como pronto. Insere o BCP numa fila circular de BCP.
+ 		* Utilização de um Fila de BCP para intercalar os processos
+	- terminaProcesso(): chamado após o processo em execução chegar ao fim.
+	- escalonador(): responsável por Despachar e Preempção dos processos.
+
+-> Ação de Bloquear e Desbloquear: feito posteriormente com SEMÁFOROS
+-> Sem comunicação DIRETA entre processos
+-> Criação de um Sistema Multiprogramado ESTÁTICO (número fixo de processos)
+
+
+
+
+

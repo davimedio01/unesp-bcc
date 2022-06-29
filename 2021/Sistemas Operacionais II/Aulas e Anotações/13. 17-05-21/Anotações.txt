@@ -1,0 +1,36 @@
+*Gerência de Memória Virtual*
+
+- Transferência entre MP e Cache é feita por Hardware!
+	- Cabe ao SO gerenciar a transferência entre MP e Disco (SSD ou HDD)
+
+- Existência de uma "paginação" (baixo nível) entre MP e Cache: "Falta de Cache"
+- Cache possui três níveis (tamanho): L1 (menor), L2 (médio) e L3 (maior)
+
+- CPU então: busca L1, se não busca L2, se não busca L3, se não busca MP...
+	- Atualmente: Cache L3 "compartilhado" entre núcleos, e cada núcleo possui L1 e L2 (separado por instruções e dados)
+
+*Segmentação*
+
+- Espaço de End. Virtual é dividido em vários espaços de end. virtuais INDEPENDENTES
+- Cada processo é formado por segmentos, sendo essa divisão feita por importância do programa
+	- Ao contrário da paginação pura: divisão igualitária e fixa em páginas e único espaço end. virtual associado (tamanho máx).
+
+- Segmentos compõe um trecho do programa com tamanho variado e são independentes um dos outros!
+	- Também é armazenado no disco, como a paginação pura
+
+- Divisão em blocos de tamanho variados!
+	- Intuito de encapsular determinada estrutura do programa (como main, array, ...)
+	- Tamanho pode variar durante a execução (ao contrário da paginação pura)
+
+- Problemas: extrapolação entre segmentos
+	- Para isso, esse tipo de estrutura permite que cada segmento cresça ou reduza, independentemente
+	- Dessa forma, as molduras necessitam aderir a essa alocação "dinâmica"
+
+- Tabela de Segmentos: uma entrada para cada segmento
+	- Campo "presença": se está em uma moldura (MP)
+	- Campo "tamanho_segmento": marca o tamanho do segmento
+	- Campo "endereço_inicio": marca o endereço de início do segmento
+	- Campo "modo_acesso": marca tipo de modo de acesso do segmento
+
+- Falta de Segmentos: semelhante a paginação pura
+

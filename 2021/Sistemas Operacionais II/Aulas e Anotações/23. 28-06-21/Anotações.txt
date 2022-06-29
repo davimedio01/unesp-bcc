@@ -1,0 +1,19 @@
+* Deadlocks *
+
+- Quatro condições simultâneas para ocorrência de Deadlock:
+	- Exclusão Mútua: processo exige controle exclusivo de algum recurso
+	- Retenção e Espera: processos mantém recursos alocados enquanto podem pedir outros
+	- Ausência de Preemptividade: recursos não preemptíveis, ou seja, não pode ser retirado do processo que o utiliza
+	- Espera Circular: formação de cadeia circular de processos, cada um solicitando o recurso alocado ao próximo da cadeia
+
+- Tratar o Deadlock quando for um problema nocivo e frequente...
+
+- Formas de Tratamento:
+	- Algoritmo do Avestruz: ignorar o problema (mais comum - Windows/Linux)
+	- Detectar e Recuperar: deixar o deadlock acontecer, identificar e recuperar o impasse
+		- Uso de Grafos de Processos/Recursos para Detectar
+		- Recuperação Mediante Preempção: retirar a força um recurso e atribui ao outro processo (depende da natureza do recurso)
+		- Recuperação Mediante Retrocesso: salva em disco e retira recurso
+		- Recuperação Mediante Elminação de Processos: elimina o processo que causa impasse
+	- Prevenção Dinâmica: uso de procedimentos cuidadosos de alocação (não é viável)
+	- Prevenção Estrutural: negação de uma ou mais das quatro condições de ocorrência - tentar negar por projeto de SO uma das quatro condições (não é viável)

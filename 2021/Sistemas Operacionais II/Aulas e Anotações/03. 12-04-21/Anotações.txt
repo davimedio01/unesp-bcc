@@ -1,0 +1,28 @@
+Overlay: Programa quebrado em pedaços para caber na memória
+	- Problemas ao programador em se preocupar em dividir o programa
+
+Mecanismos de Memória Virtual: envolve participação/colaboração do hardware (UCP) e software (SO)
+	- O compilador que decide endereços físicos nas instruções do programa
+	- Somente endereços físicos podem trafegar no barramento de endereços
+	- MMU na UCP é responsável pela conversão do endereço virtual em endereço físico
+	- O SO não é responsável pela conversão por conta do atraso (delay)
+
+Paginação: não é realizado apenas pelo SO
+	- necessita de cooperação e participação entre hardware (UCP) e software (SO)
+	- Exemplo: tradução de um end. virtual pra físico é feito pela UCP; mas as páginas são divididas pelo SO.
+	- UCP processa dados a partir de MP (RAM), mas o programa fica no Disco (MS), sendo dividido em páginas (virtuais) de tamanho igual a da MP
+	- Cabe ao SO alocar as páginas virtuais na MP
+	- Falta de Página: endereço virtual é referenciado mas a página virtual não está na "moldura" da MP
+
+	-> Alocação de Páginas:
+		- colocar na primeira página física disponível;
+			- pode acontecer de molduras disp. não existirem... 
+			- o mecanismo vai precisar saber se houve modificações nas páginas que estão em molduras; pois no caso de alteração salva no disco e coloca a página virtual nova...
+	
+		- vantagens (multiprogramados): páginas necessárias de programas diferentes podem ser alocadas na memória
+	
+	-> Mecanismo de Substituição de Páginas: algoritmos ativados pelo SO para escolher uma moldura para ser liberada
+	
+	- fim do problema da "fragmentação externa" com o uso da paginação
+	- aparecimento da "fragmentação interna", causada pelo excesso de end. na última página
+

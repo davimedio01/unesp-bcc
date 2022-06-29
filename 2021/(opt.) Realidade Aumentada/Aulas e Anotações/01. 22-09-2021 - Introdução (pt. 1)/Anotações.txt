@@ -1,0 +1,10 @@
+1° Geração de Computadores (1945-1955)
+	- Interatividade era realizada direto pelas chaves liga/desliga (ling. de máquina), já que não haviam SO's
+	- Ainda, com relação a I/O, havia o uso dos cartões perfurados
+	- Não era muito interativo, grande quantidade de chaves e coisas a serem levadas em consideração...
+
+
+
+
+
+
