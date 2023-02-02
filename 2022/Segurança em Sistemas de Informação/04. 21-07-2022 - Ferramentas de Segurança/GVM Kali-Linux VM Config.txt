@@ -1,0 +1,11 @@
+# GVM CONFIGURATION #
+
+# DEFAULT SCANNER INFO
+08b69003-5fc2-4037-a479-93b440211c73  OpenVAS  /run/ospd/ospd.sock  0  OpenVAS Default
+
+# USER
+admin
+
+# PASSWORD
+dbfc222c-832a-49a6-8d1e-506f5064812e
+
